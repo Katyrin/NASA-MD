@@ -1,13 +1,14 @@
 package com.katyrin.nasa_md.ui.main.picture
 
-import androidx.lifecycle.ViewModelProvider
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.lifecycle.Observer
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import coil.load
 import com.katyrin.nasa_md.R
 import com.katyrin.nasa_md.databinding.MainFragmentBinding
@@ -29,6 +30,18 @@ class PictureOfTheDayFragment : Fragment() {
                               savedInstanceState: Bundle?): View {
         binding = MainFragmentBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.inputLayout.setEndIconOnClickListener {
+            startActivity(Intent(Intent.ACTION_VIEW).apply {
+                data = Uri.parse(
+                    "https://en.wikipedia.org/wiki/${binding.inputEditText.text.toString()}"
+                )
+            })
+        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
