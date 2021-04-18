@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -10,7 +11,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/input_layout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/search_wiki"
         app:counterEnabled="true"
@@ -32,7 +33,7 @@
 
     <com.katyrin.nasa_md.ui.main.view.EquilateralImageView
         android:id="@+id/image_view"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:contentDescription="@string/photo_of_the_day_stub"
@@ -42,4 +43,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_no_photo_vector" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <include
+        android:id="@+id/include_layout"
+        layout="@layout/bottom_sheet_layout"/>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
