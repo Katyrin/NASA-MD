@@ -12,9 +12,12 @@ import androidx.lifecycle.ViewModelProvider
 import coil.load
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.chip.Chip
 import com.katyrin.nasa_md.MainActivity
 import com.katyrin.nasa_md.R
 import com.katyrin.nasa_md.databinding.MainFragmentBinding
+import java.text.SimpleDateFormat
+import java.util.*
 
 class PictureOfTheDayFragment : Fragment() {
 
@@ -24,14 +27,17 @@ class PictureOfTheDayFragment : Fragment() {
         private var isMain = true
     }
 
+    private val formatter = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
     private lateinit var binding: MainFragmentBinding
     private val viewModel: PictureOfTheDayViewModel by lazy {
         ViewModelProvider(this).get(PictureOfTheDayViewModel::class.java)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         binding = MainFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -49,11 +55,13 @@ class PictureOfTheDayFragment : Fragment() {
         }
 
         setBottomBar()
+        setSelectionChips()
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel.getData().observe(this, { renderData(it) })
+        if (savedInstanceState == null)
+            viewModel.getData(null).observe(this, { renderData(it) })
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -75,9 +83,36 @@ class PictureOfTheDayFragment : Fragment() {
         return super.onOptionsItemSelected(item)
     }
 
+    private fun setSelectionChips() {
+        binding.chipGroup.setOnCheckedChangeListener { group, checkedId ->
+            group.findViewById<Chip>(checkedId)?.let { chip ->
+                when(chip) {
+                    binding.today -> {
+                        viewModel.getData(null).observe(this, { renderData(it) })
+                    }
+                    binding.yesterday -> {
+                        viewModel.getData(formatter.format(previousDay(1)))
+                            .observe(this, { renderData(it) })
+                    }
+                    binding.dayBeforeYesterday -> {
+                        viewModel.getData(formatter.format(previousDay(2)))
+                            .observe(this, { renderData(it) })
+                    }
+                }
+            }
+        }
+    }
+
+    private fun previousDay(daysAgo: Int): Date {
+        val cal = Calendar.getInstance()
+        cal.add(Calendar.DATE, -daysAgo)
+        return cal.time
+    }
+
     private fun renderData(data: PictureOfTheDayData) {
         when(data) {
             is PictureOfTheDayData.Success -> {
+                binding.progressBar.visibility = View.GONE
                 val serverResponseData = data.serverResponseData
                 val url = serverResponseData.url
                 val title = serverResponseData.title
@@ -107,10 +142,11 @@ class PictureOfTheDayFragment : Fragment() {
             }
 
             is PictureOfTheDayData.Loading -> {
-
+                binding.progressBar.visibility = View.VISIBLE
             }
 
             is PictureOfTheDayData.Error -> {
+                binding.progressBar.visibility = View.GONE
                 toast(data.error.message)
             }
         }
@@ -126,9 +162,10 @@ class PictureOfTheDayFragment : Fragment() {
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
 
-        bottomSheetBehavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+        bottomSheetBehavior.addBottomSheetCallback(object :
+            BottomSheetBehavior.BottomSheetCallback() {
             override fun onStateChanged(bottomSheet: View, newState: Int) {
-                when(newState) {
+                when (newState) {
                     BottomSheetBehavior.STATE_DRAGGING -> toast("STATE_DRAGGING")
                     BottomSheetBehavior.STATE_COLLAPSED -> toast("STATE_COLLAPSED")
                     BottomSheetBehavior.STATE_EXPANDED -> toast("STATE_EXPANDED")
@@ -155,14 +192,24 @@ class PictureOfTheDayFragment : Fragment() {
                 isMain = false
                 binding.bottomAppBar.navigationIcon = null
                 binding.bottomAppBar.fabAlignmentMode = BottomAppBar.FAB_ALIGNMENT_MODE_END
-                binding.fab.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_back_fab))
+                binding.fab.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        context,
+                        R.drawable.ic_back_fab
+                    )
+                )
                 binding.bottomAppBar.replaceMenu(R.menu.menu_bottom_bar_other_screen)
             } else {
                 isMain = true
                 binding.bottomAppBar.navigationIcon =
                     ContextCompat.getDrawable(context, R.drawable.ic_hamburger_menu_bottom_bar)
                 binding.bottomAppBar.fabAlignmentMode = BottomAppBar.FAB_ALIGNMENT_MODE_CENTER
-                binding.fab.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_plus_fab))
+                binding.fab.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        context,
+                        R.drawable.ic_plus_fab
+                    )
+                )
                 binding.bottomAppBar.replaceMenu(R.menu.menu_bottom_bar)
             }
         }

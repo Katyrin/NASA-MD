@@ -13,12 +13,12 @@ class PictureOfTheDayViewModel(
     private val retrofitImpl: PODRetrofitImpl = PODRetrofitImpl()
 ) : ViewModel() {
 
-    fun getData() : LiveData<PictureOfTheDayData> {
-        sendServerRequest()
+    fun getData(date: String?) : LiveData<PictureOfTheDayData> {
+        sendServerRequest(date)
         return liveDataForViewToObserve
     }
 
-    private fun sendServerRequest() {
+    private fun sendServerRequest(date: String?) {
         liveDataForViewToObserve.value = PictureOfTheDayData.Loading(null)
 
         val apiKey: String = BuildConfig.NASA_API_KEY
@@ -26,32 +26,62 @@ class PictureOfTheDayViewModel(
         if (apiKey.isBlank()) {
             liveDataForViewToObserve.value = PictureOfTheDayData.Error(Throwable("Нужен ключь API"))
         } else {
-            retrofitImpl.getRetrofitImpl().getPictureOfTheDay(apiKey)
-                .enqueue(object : Callback<PODServerResponseData> {
-                    override fun onResponse(
-                        call: Call<PODServerResponseData>,
-                        response: Response<PODServerResponseData>
-                    ) {
-                        if (response.isSuccessful && response.body() != null) {
-                            liveDataForViewToObserve.value =
-                                PictureOfTheDayData.Success(response.body()!!)
-                        } else {
-                            val message = response.message()
-
-                            if (message.isNullOrEmpty()) {
+            if (date.isNullOrEmpty()) {
+                retrofitImpl.getRetrofitImpl().getPictureOfTheDay(apiKey)
+                    .enqueue(object : Callback<PODServerResponseData> {
+                        override fun onResponse(
+                            call: Call<PODServerResponseData>,
+                            response: Response<PODServerResponseData>
+                        ) {
+                            if (response.isSuccessful && response.body() != null) {
                                 liveDataForViewToObserve.value =
-                                    PictureOfTheDayData.Error(Throwable("Неизвестная ошибка"))
+                                    PictureOfTheDayData.Success(response.body()!!)
                             } else {
-                                liveDataForViewToObserve.value =
-                                    PictureOfTheDayData.Error(Throwable(message))
+                                val message = response.message()
+
+                                if (message.isNullOrEmpty()) {
+                                    liveDataForViewToObserve.value =
+                                        PictureOfTheDayData.Error(Throwable("Неизвестная ошибка"))
+                                } else {
+                                    liveDataForViewToObserve.value =
+                                        PictureOfTheDayData.Error(Throwable(message))
+                                }
                             }
                         }
-                    }
 
-                    override fun onFailure(call: Call<PODServerResponseData>, t: Throwable) {
-                        liveDataForViewToObserve.value = PictureOfTheDayData.Error(t)
-                    }
-                })
+                        override fun onFailure(call: Call<PODServerResponseData>, t: Throwable) {
+                            liveDataForViewToObserve.value = PictureOfTheDayData.Error(t)
+                        }
+                    })
+            } else {
+                retrofitImpl.getRetrofitImpl().getPictureOfTheDay(date, apiKey)
+                    .enqueue(object : Callback<PODServerResponseData> {
+                        override fun onResponse(
+                            call: Call<PODServerResponseData>,
+                            response: Response<PODServerResponseData>
+                        ) {
+                            if (response.isSuccessful && response.body() != null) {
+                                liveDataForViewToObserve.value =
+                                    PictureOfTheDayData.Success(response.body()!!)
+                            } else {
+                                val message = response.message()
+
+                                if (message.isNullOrEmpty()) {
+                                    liveDataForViewToObserve.value =
+                                        PictureOfTheDayData.Error(Throwable("Неизвестная ошибка"))
+                                } else {
+                                    liveDataForViewToObserve.value =
+                                        PictureOfTheDayData.Error(Throwable(message))
+                                }
+                            }
+                        }
+
+                        override fun onFailure(call: Call<PODServerResponseData>, t: Throwable) {
+                            liveDataForViewToObserve.value = PictureOfTheDayData.Error(t)
+                        }
+                    })
+            }
+
         }
     }
 }
