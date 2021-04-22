@@ -10,4 +10,18 @@
     <color name="color_gray">#66000000</color>
     <color name="stroke_color">#663b4351</color>
     <color name="bottom_sheet_background">#f6f6fa</color>
+
+    <color name="colorPrimaryMars">#ef6c00</color>
+    <color name="colorPrimaryVariantMars">#b53d00</color>
+    <color name="colorOnPrimaryMars">#ff9d3f</color>
+    <color name="colorSecondaryMars">#f9a825</color>
+    <color name="colorSecondaryVariantMars">#c17900</color>
+    <color name="colorOnSecondaryMars">#ffd95a</color>
+
+    <color name="colorPrimaryMoon">#78909c</color>
+    <color name="colorPrimaryVariantMoon">#4b636e</color>
+    <color name="colorOnPrimaryMoon">#a7c0cd</color>
+    <color name="colorSecondaryMoon">#bdbdbd</color>
+    <color name="colorSecondaryVariantMoon">#8d8d8d</color>
+    <color name="colorOnSecondaryMoon">#efefef</color>
 </resources>

@@ -57,7 +57,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    app:singleSelection="true">
+                    app:singleSelection="true"
+                    app:selectionRequired="true">
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/day_before_yesterday"
@@ -121,7 +122,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="visible"
-        android:backgroundTint="@color/purple_200"
         app:layout_anchor="@id/bottom_app_bar"
         app:srcCompat="@drawable/ic_plus_fab"
         app:tint="@color/white"/>

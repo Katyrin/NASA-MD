@@ -1,5 +1,6 @@
 package com.katyrin.nasa_md
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.katyrin.nasa_md.ui.main.picture.PictureOfTheDayFragment
@@ -14,5 +15,9 @@ class MainActivity : AppCompatActivity() {
                     .replace(R.id.container, PictureOfTheDayFragment.newInstance())
                     .commitNow()
         }
+
+        val resIdTheme = getSharedPreferences(SETTINGS_SHARED_PREFERENCE, Context.MODE_PRIVATE)
+            .getInt(THEME_RES_ID, R.style.Theme_NASAMD)
+        setTheme(resIdTheme)
     }
 }
