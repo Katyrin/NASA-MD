@@ -120,7 +120,8 @@
         android:visibility="visible"
         app:layout_anchor="@id/bottom_app_bar"
         app:srcCompat="@drawable/ic_plus_fab"
-        app:tint="@color/white"/>
+        app:tint="@color/white"
+        android:contentDescription="@string/change_bottom_app_bar" />
 
     <ProgressBar
         android:id="@+id/progressBar"

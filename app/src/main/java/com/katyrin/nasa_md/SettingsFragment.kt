@@ -23,10 +23,6 @@ class SettingsFragment : Fragment() {
     private lateinit var binding: FragmentSettingsBinding
     private lateinit var themeName: String
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
