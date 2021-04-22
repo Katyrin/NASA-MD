@@ -110,7 +110,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        app:backgroundTint="@color/purple_500"
         app:fabAlignmentMode="center"
         app:hideOnScroll="true"
         android:visibility="visible"

@@ -12,11 +12,11 @@ import androidx.fragment.app.Fragment
 import com.katyrin.nasa_md.databinding.FragmentSettingsBinding
 
 const val SETTINGS_SHARED_PREFERENCE = "SETTINGS_SHARED_PREFERENCE"
-private const val THEME_NAME_SHARED_PREFERENCE = "THEME_NAME_SHARED_PREFERENCE"
+const val THEME_NAME_SHARED_PREFERENCE = "THEME_NAME_SHARED_PREFERENCE"
 const val THEME_RES_ID = "THEME_RES_ID"
-private const val SPACE = "SPACE"
-private const val MARS = "MARS"
-private const val MOON = "MOON"
+const val SPACE = "SPACE"
+const val MARS = "MARS"
+const val MOON = "MOON"
 
 class SettingsFragment : Fragment() {
 
