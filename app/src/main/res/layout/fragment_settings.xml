@@ -11,15 +11,10 @@
 
     <TextView
         android:id="@+id/settings_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/padding_to_screen_edge"
+        style="@style/HeaderText"
         android:paddingStart="@dimen/padding_to_screen_edge"
         android:paddingEnd="@dimen/padding_to_screen_edge"
         android:paddingBottom="@dimen/distance_between_widgets"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        android:textAllCaps="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -57,23 +52,17 @@
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/space_theme"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/MyChipStyle"
                 android:text="@string/space" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/moon_theme"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/MyChipStyle"
                 android:text="@string/moon" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/mars_theme"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/MyChipStyle"
                 android:text="@string/mars" />
 
         </com.google.android.material.chip.ChipGroup>

@@ -21,6 +21,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/input_layout"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:shapeAppearance="@style/AppShapeAppearance"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/search_wiki"
@@ -33,6 +34,7 @@
                 app:layout_constraintBottom_toTopOf="@+id/horizontal_scroll"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                android:paddingTop="@dimen/padding_to_screen_edge"
                 android:paddingBottom="@dimen/distance_between_widgets">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -62,23 +64,17 @@
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/day_before_yesterday"
-                        style="@style/Widget.MaterialComponents.Chip.Choice"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/MyChipStyle"
                         android:text="@string/day_before_yesterday" />
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/yesterday"
-                        style="@style/Widget.MaterialComponents.Chip.Choice"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/MyChipStyle"
                         android:text="@string/yesterday" />
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/today"
-                        style="@style/Widget.MaterialComponents.Chip.Choice"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/MyChipStyle"
                         android:checked="true"
                         android:text="@string/today" />
 
@@ -107,6 +103,7 @@
 
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottom_app_bar"
+        app:backgroundTint="?attr/colorSecondaryVariant"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"

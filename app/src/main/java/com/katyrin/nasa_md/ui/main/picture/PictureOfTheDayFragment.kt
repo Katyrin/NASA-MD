@@ -1,14 +1,10 @@
 package com.katyrin.nasa_md.ui.main.picture
 
 import android.content.Intent
-import android.content.res.TypedArray
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
-import android.util.TypedValue
 import android.view.*
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -48,7 +44,6 @@ class PictureOfTheDayFragment : Fragment() {
         return binding.root
     }
 
-    @RequiresApi(Build.VERSION_CODES.M)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setBottomSheetBehavior(binding.includeLayout.bottomSheetContainer)
@@ -60,20 +55,8 @@ class PictureOfTheDayFragment : Fragment() {
                 )
             })
         }
-
-        setBottomAppBarColor()
         setBottomBar()
         setSelectionChips()
-    }
-
-    private fun setBottomAppBarColor() {
-        val typedValue = TypedValue()
-        val a: TypedArray = requireContext().obtainStyledAttributes(
-            typedValue.data,
-            intArrayOf(R.attr.colorSecondaryVariant)
-        )
-        binding.bottomAppBar.backgroundTint = a.getColorStateList(0)
-        a.recycle()
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
