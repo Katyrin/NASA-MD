@@ -24,7 +24,7 @@ class PictureOfTheDayViewModel(
         val apiKey: String = BuildConfig.NASA_API_KEY
 
         if (apiKey.isBlank()) {
-            liveDataForViewToObserve.value = PictureOfTheDayData.Error(Throwable("Нужен ключь API"))
+            liveDataForViewToObserve.value = PictureOfTheDayData.Error(Throwable("Нужен ключ API"))
         } else {
             if (date.isNullOrEmpty()) {
                 retrofitImpl.getRetrofitImpl().getPictureOfTheDay(apiKey)
