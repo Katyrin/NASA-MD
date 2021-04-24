@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.NASAMD.Moon">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/colorPrimaryMoon</item>
+        <item name="colorPrimaryVariant">@color/colorPrimaryVariantMoon</item>
+        <item name="colorOnPrimary">@color/colorOnPrimaryMoon</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/colorSecondaryMoon</item>
+        <item name="colorSecondaryVariant">@color/colorSecondaryVariantMoon</item>
+        <item name="colorOnSecondary">@color/colorOnSecondaryMoon</item>
+
+        <item name="android:statusBarColor">@color/colorPrimaryVariantMoon</item>
+    </style>
+</resources>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/design_default_color_on_primary"
+    android:focusable="true"
+    android:clickable="true"
+    tools:context=".SettingsFragment">
+
+    <TextView
+        android:id="@+id/settings_text_view"
+        style="@style/HeaderText"
+        android:paddingStart="@dimen/padding_to_screen_edge"
+        android:paddingEnd="@dimen/padding_to_screen_edge"
+        android:paddingBottom="@dimen/distance_between_widgets"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="@string/settings" />
+
+    <TextView
+        android:id="@+id/theme_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/distance_between_widgets"
+        android:paddingStart="@dimen/padding_to_screen_edge"
+        android:paddingEnd="@dimen/padding_to_screen_edge"
+        android:paddingBottom="@dimen/distance_between_widgets"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/settings_text_view"
+        android:text="@string/select_application_theme" />
+
+    <HorizontalScrollView
+        android:id="@+id/horizontal_scroll_theme"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/distance_between_widgets"
+        android:layout_marginBottom="@dimen/distance_between_widgets"
+        app:layout_constraintTop_toBottomOf="@id/theme_text_view"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chip_group_theme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/padding_to_screen_edge"
+            android:paddingEnd="@dimen/padding_to_screen_edge"
+            app:selectionRequired="true"
+            app:singleSelection="true">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/space_theme"
+                style="@style/MyChipStyle"
+                android:text="@string/space" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/moon_theme"
+                style="@style/MyChipStyle"
+                android:text="@string/moon" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/mars_theme"
+                style="@style/MyChipStyle"
+                android:text="@string/mars" />
+
+        </com.google.android.material.chip.ChipGroup>
+
+    </HorizontalScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

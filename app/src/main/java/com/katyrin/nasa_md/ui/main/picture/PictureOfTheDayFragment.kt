@@ -13,11 +13,13 @@ import coil.load
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.chip.Chip
-import com.katyrin.nasa_md.MainActivity
-import com.katyrin.nasa_md.R
+import com.katyrin.nasa_md.*
 import com.katyrin.nasa_md.databinding.MainFragmentBinding
 import java.text.SimpleDateFormat
 import java.util.*
+
+
+private const val SETTINGS_FRAGMENT = "SETTINGS_FRAGMENT"
 
 class PictureOfTheDayFragment : Fragment() {
 
@@ -53,7 +55,6 @@ class PictureOfTheDayFragment : Fragment() {
                 )
             })
         }
-
         setBottomBar()
         setSelectionChips()
     }
@@ -72,7 +73,15 @@ class PictureOfTheDayFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
             R.id.app_bar_fav -> toast("Favorite")
-            R.id.app_bar_settings -> toast("Settings")
+            R.id.app_bar_settings -> {
+                activity?.supportFragmentManager?.apply {
+                    beginTransaction()
+                        .add(R.id.container, SettingsFragment.newInstance())
+                        .addToBackStack(SETTINGS_FRAGMENT)
+                        .commitAllowingStateLoss()
+                }
+            }
+            R.id.app_bar_search -> toast("Search")
             android.R.id.home -> {
                 activity?.let {
                     BottomNavigationDrawerFragment()

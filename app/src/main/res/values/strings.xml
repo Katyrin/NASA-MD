@@ -10,4 +10,9 @@
     <string name="day_before_yesterday">Day before yesterday</string>
     <string name="yesterday">Yesterday</string>
     <string name="today">Today</string>
+    <string name="select_application_theme">Select application theme</string>
+    <string name="space">Space</string>
+    <string name="moon">Moon</string>
+    <string name="mars">Mars</string>
+    <string name="change_bottom_app_bar">Change bottom app bar</string>
 </resources>
