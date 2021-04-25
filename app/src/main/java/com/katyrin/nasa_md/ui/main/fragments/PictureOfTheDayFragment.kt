@@ -89,33 +89,7 @@ class PictureOfTheDayFragment : Fragment() {
     private fun renderData(data: PictureOfTheDayData) {
         when(data) {
             is PictureOfTheDayData.Success -> {
-                binding.progressBar.visibility = View.GONE
-                val serverResponseData = data.serverResponseData
-                val url = serverResponseData.url
-                val title = serverResponseData.title
-                val explanation = serverResponseData.explanation
-
-                if (url.isNullOrEmpty()) {
-                    toast("Сссылка пустая")
-                } else {
-                    binding.imageView.load(url) {
-                        lifecycle(this@PictureOfTheDayFragment)
-                        error(R.drawable.ic_load_error_vector)
-                        placeholder(R.drawable.ic_no_photo_vector)
-                    }
-                }
-
-                if (title.isNullOrEmpty()) {
-                    binding.includeLayout.bottomSheetDescriptionHeader.text = ""
-                } else {
-                    binding.includeLayout.bottomSheetDescriptionHeader.text = title
-                }
-
-                if (explanation.isNullOrEmpty()) {
-                    binding.includeLayout.bottomSheetDescription.text = "Статья отсутствует"
-                } else {
-                    binding.includeLayout.bottomSheetDescription.text = explanation
-                }
+                handlingSuccessRequest(data)
             }
 
             is PictureOfTheDayData.Loading -> {
@@ -126,6 +100,36 @@ class PictureOfTheDayFragment : Fragment() {
                 binding.progressBar.visibility = View.GONE
                 toast(data.error.message)
             }
+        }
+    }
+
+    private fun handlingSuccessRequest(data: PictureOfTheDayData.Success) {
+        binding.progressBar.visibility = View.GONE
+        val serverResponseData = data.serverResponseData
+        val url = serverResponseData.url
+        val title = serverResponseData.title
+        val explanation = serverResponseData.explanation
+
+        if (url.isNullOrEmpty()) {
+            toast("Сссылка пустая")
+        } else {
+            binding.imageView.load(url) {
+                lifecycle(this@PictureOfTheDayFragment)
+                error(R.drawable.ic_load_error_vector)
+                placeholder(R.drawable.ic_no_photo_vector)
+            }
+        }
+
+        if (title.isNullOrEmpty()) {
+            binding.includeLayout.bottomSheetDescriptionHeader.text = ""
+        } else {
+            binding.includeLayout.bottomSheetDescriptionHeader.text = title
+        }
+
+        if (explanation.isNullOrEmpty()) {
+            binding.includeLayout.bottomSheetDescription.text = "Статья отсутствует"
+        } else {
+            binding.includeLayout.bottomSheetDescription.text = explanation
         }
     }
 

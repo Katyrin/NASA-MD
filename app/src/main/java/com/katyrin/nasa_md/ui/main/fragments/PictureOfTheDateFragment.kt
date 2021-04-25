@@ -49,33 +49,7 @@ class PictureOfTheDateFragment : Fragment() {
     private fun renderData(data: PictureOfTheDayData) {
         when(data) {
             is PictureOfTheDayData.Success -> {
-                binding.progressBar.visibility = View.GONE
-                val serverResponseData = data.serverResponseData
-                val url = serverResponseData.url
-
-                if (url.isNullOrEmpty()) {
-                    toast("Сссылка пустая")
-                } else {
-                    val separateUrl = url.split('.')
-                    if (separateUrl[1] != "youtube") {
-                        binding.imageView.visibility = View.VISIBLE
-                        binding.videoLayout.visibility = View.GONE
-                        binding.imageView.load(url) {
-                            lifecycle(this@PictureOfTheDateFragment)
-                            error(R.drawable.ic_load_error_vector)
-                            placeholder(R.drawable.ic_no_photo_vector)
-                        }
-                    } else {
-                        binding.imageView.visibility = View.GONE
-                        binding.videoLayout.visibility = View.VISIBLE
-                        binding.materialVideoButton.setOnClickListener {
-                            val intent = Intent(Intent.ACTION_VIEW)
-                            intent.data = Uri.parse(url)
-                            startActivity(intent)
-                        }
-                    }
-
-                }
+                handlingSuccessRequest(data)
             }
 
             is PictureOfTheDayData.Loading -> {
@@ -86,6 +60,36 @@ class PictureOfTheDateFragment : Fragment() {
                 binding.progressBar.visibility = View.GONE
                 toast(data.error.message)
             }
+        }
+    }
+
+    private fun handlingSuccessRequest(data: PictureOfTheDayData.Success) {
+        binding.progressBar.visibility = View.GONE
+        val serverResponseData = data.serverResponseData
+        val url = serverResponseData.url
+
+        if (url.isNullOrEmpty()) {
+            toast("Сссылка пустая")
+        } else {
+            val separateUrl = url.split('.')
+            if (separateUrl[1] != "youtube") {
+                binding.imageView.visibility = View.VISIBLE
+                binding.videoLayout.visibility = View.GONE
+                binding.imageView.load(url) {
+                    lifecycle(this@PictureOfTheDateFragment)
+                    error(R.drawable.ic_load_error_vector)
+                    placeholder(R.drawable.ic_no_photo_vector)
+                }
+            } else {
+                binding.imageView.visibility = View.GONE
+                binding.videoLayout.visibility = View.VISIBLE
+                binding.materialVideoButton.setOnClickListener {
+                    val intent = Intent(Intent.ACTION_VIEW)
+                    intent.data = Uri.parse(url)
+                    startActivity(intent)
+                }
+            }
+
         }
     }
 

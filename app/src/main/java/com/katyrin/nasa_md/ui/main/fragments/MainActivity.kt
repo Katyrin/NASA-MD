@@ -44,11 +44,7 @@ class MainActivity : AppCompatActivity(), OnPositionListener {
 
         binding = MainActivityBinding.inflate(layoutInflater)
 
-        adapter.dotPosition = savePosition
-        layoutManager.orientation = LinearLayoutManager.HORIZONTAL
-        binding.dotsRecyclerView.layoutManager = layoutManager
-        binding.dotsRecyclerView.adapter = adapter
-
+        initRecyclerView()
         setContentView(binding.root)
         setBottomBar()
 
@@ -57,6 +53,13 @@ class MainActivity : AppCompatActivity(), OnPositionListener {
                     .replace(R.id.container, PictureOfTheDayFragment.newInstance())
                     .commitNow()
         }
+    }
+
+    private fun initRecyclerView() {
+        adapter.dotPosition = savePosition
+        layoutManager.orientation = LinearLayoutManager.HORIZONTAL
+        binding.dotsRecyclerView.layoutManager = layoutManager
+        binding.dotsRecyclerView.adapter = adapter
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
