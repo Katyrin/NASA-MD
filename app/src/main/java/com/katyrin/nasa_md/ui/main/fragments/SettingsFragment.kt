@@ -1,4 +1,4 @@
-package com.katyrin.nasa_md
+package com.katyrin.nasa_md.ui.main.fragments
 
 import android.content.Context
 import android.os.Bundle
@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.katyrin.nasa_md.R
 import com.katyrin.nasa_md.databinding.FragmentSettingsBinding
 
 const val SETTINGS_SHARED_PREFERENCE = "SETTINGS_SHARED_PREFERENCE"

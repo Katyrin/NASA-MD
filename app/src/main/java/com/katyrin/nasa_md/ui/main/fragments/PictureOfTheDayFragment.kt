@@ -1,4 +1,4 @@
-package com.katyrin.nasa_md.ui.main.picture
+package com.katyrin.nasa_md.ui.main.fragments
 
 import android.content.Intent
 import android.net.Uri
@@ -13,6 +13,8 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.chip.Chip
 import com.katyrin.nasa_md.*
 import com.katyrin.nasa_md.databinding.MainFragmentBinding
+import com.katyrin.nasa_md.ui.main.picture.PictureOfTheDayData
+import com.katyrin.nasa_md.ui.main.picture.PictureOfTheDayViewModel
 import java.text.SimpleDateFormat
 import java.util.*
 

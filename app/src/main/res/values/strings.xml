@@ -15,4 +15,9 @@
     <string name="moon">Moon</string>
     <string name="mars">Mars</string>
     <string name="change_bottom_app_bar">Change bottom app bar</string>
+    <string name="main_screen">Main screen</string>
+    <string name="date">Date</string>
+    <string name="dot">Dot</string>
+    <string name="no_photo_text">There is no photo on this day, but you can watch the \'Video of the Day\'</string>
+    <string name="watch_youtube_video">Watch youtube video</string>
 </resources>

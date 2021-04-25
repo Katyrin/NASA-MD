@@ -11,5 +11,6 @@
         <item name="colorOnSecondary">@color/colorOnSecondaryMoon</item>
 
         <item name="android:statusBarColor">@color/colorPrimaryVariantMoon</item>
+        <item name="colorSecondaryAlpha40">@color/colorSecondaryMoonAlpha40</item>
     </style>
 </resources>
