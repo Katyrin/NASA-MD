@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.viewpager.widget.ViewPager
 import com.katyrin.nasa_md.databinding.FragmentViewPagerBinding
-import com.katyrin.nasa_md.ui.main.ViewPagerAdapter
+import com.katyrin.nasa_md.ui.main.fragments.adapters.ViewPagerAdapter
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -40,7 +40,6 @@ class ViewPagerFragment : Fragment(), OnBackStackInterface {
 
         binding.viewPager.adapter = viewPagerAdapter
         binding.viewPager.currentItem = position
-        onPositionListener?.setDotsColor(position)
 
         binding.viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener{
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
@@ -50,6 +49,11 @@ class ViewPagerFragment : Fragment(), OnBackStackInterface {
             override fun onPageScrollStateChanged(state: Int) {}
 
         })
+    }
+
+    override fun onStart() {
+        super.onStart()
+        onPositionListener?.setDotsColor(position)
     }
 
     override fun onAttach(context: Context) {

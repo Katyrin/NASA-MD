@@ -6,35 +6,48 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.katyrin.nasa_md.R
 import com.katyrin.nasa_md.databinding.MainActivityBinding
-import com.katyrin.nasa_md.ui.main.fragments.*
+import com.katyrin.nasa_md.ui.main.fragments.adapters.DotsRecyclerViewAdapter
 import com.katyrin.nasa_md.ui.main.picture.BottomNavigationDrawerFragment
 
 
 private const val SETTINGS_FRAGMENT = "SETTINGS_FRAGMENT"
 private const val VIEW_PAGER_FRAGMENT = "VIEW_PAGER_FRAGMENT"
+private const val SIZE_PAGES = 10
 
 class MainActivity : AppCompatActivity(), OnPositionListener {
 
     companion object{
         private var isMain = true
+        private var savePosition = 0
     }
 
+    private val adapter: DotsRecyclerViewAdapter by lazy { DotsRecyclerViewAdapter(SIZE_PAGES, this) }
     private lateinit var binding: MainActivityBinding
     private var viewPagerFragment: ViewPagerFragment? = null
+    private val layoutManager: LinearLayoutManager by lazy { LinearLayoutManager(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = MainActivityBinding.inflate(layoutInflater)
 
         val resIdTheme = getSharedPreferences(SETTINGS_SHARED_PREFERENCE, Context.MODE_PRIVATE)
             .getInt(THEME_RES_ID, R.style.Theme_NASAMD)
         setTheme(resIdTheme)
+
+        super.onCreate(savedInstanceState)
+
+        binding = MainActivityBinding.inflate(layoutInflater)
+
+        adapter.dotPosition = savePosition
+        layoutManager.orientation = LinearLayoutManager.HORIZONTAL
+        binding.dotsRecyclerView.layoutManager = layoutManager
+        binding.dotsRecyclerView.adapter = adapter
 
         setContentView(binding.root)
         setBottomBar()
@@ -129,9 +142,9 @@ class MainActivity : AppCompatActivity(), OnPositionListener {
                                menu: Int) {
         isMain = isMainScreen
         if (isMain) {
-            binding.dotsImageViews.visibility = View.GONE
+            binding.dotsRecyclerView.visibility = View.GONE
         } else {
-            binding.dotsImageViews.visibility = View.VISIBLE
+            binding.dotsRecyclerView.visibility = View.VISIBLE
         }
         binding.bottomAppBar.apply {
             navigationIcon = navIcon
@@ -142,15 +155,18 @@ class MainActivity : AppCompatActivity(), OnPositionListener {
     }
 
     override fun setDotsColor(position: Int) {
+        savePosition = position
         val drawablePassive: Drawable? =
             ContextCompat.getDrawable(this, R.drawable.swipe_indicator_passive)
         val drawableActive: Drawable? =
             ContextCompat.getDrawable(this, R.drawable.swipe_indicator_active)
-        val dots = listOf(binding.dot1, binding.dot2, binding.dot3, binding.dot4, binding.dot5,
-            binding.dot6, binding.dot7, binding.dot8, binding.dot9, binding.dot10)
-        dots.map {
-            it.setImageDrawable(drawablePassive)
+        for (i in 0 until SIZE_PAGES) {
+            val item = layoutManager.findViewByPosition(i) as? ImageView
+            if (position == i) {
+                item?.setImageDrawable(drawableActive)
+            } else {
+                item?.setImageDrawable(drawablePassive)
+            }
         }
-        dots[position].setImageDrawable(drawableActive)
     }
 }

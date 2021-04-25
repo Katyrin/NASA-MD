@@ -29,7 +29,7 @@
                 android:layout_gravity="center"
                 android:orientation="vertical"
                 android:visibility="gone"
-                android:layout_marginTop="@dimen/distance_between_widgets"
+                android:paddingTop="@dimen/double_padding_to_screen_edge"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -40,7 +40,8 @@
                     android:layout_height="wrap_content"
                     android:padding="@dimen/padding_to_screen_edge"
                     android:text="@string/no_photo_text"
-                    android:gravity="center"/>
+                    android:gravity="center"
+                    android:layout_gravity="center"/>
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/material_video_button"
@@ -59,7 +60,7 @@
                 android:visibility="gone"
                 android:layout_gravity="center"
                 android:contentDescription="@string/photo_of_the_day_stub"
-                android:layout_marginTop="@dimen/distance_between_widgets"
+                android:paddingTop="@dimen/double_padding_to_screen_edge"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"

@@ -1,4 +1,4 @@
-package com.katyrin.nasa_md.ui.main
+package com.katyrin.nasa_md.ui.main.fragments.adapters
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
