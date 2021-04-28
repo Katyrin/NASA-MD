@@ -1,4 +1,4 @@
-package com.katyrin.nasa_md
+package com.katyrin.nasa_md.ui.main.fragments
 
 import android.content.Context
 import android.os.Bundle
@@ -7,8 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.app.ActivityCompat.recreate
 import androidx.fragment.app.Fragment
+import com.katyrin.nasa_md.R
 import com.katyrin.nasa_md.databinding.FragmentSettingsBinding
 
 const val SETTINGS_SHARED_PREFERENCE = "SETTINGS_SHARED_PREFERENCE"
@@ -30,12 +30,10 @@ class SettingsFragment : Fragment() {
         binding.marsTheme.apply {
             setOnClickListener {
                 if (themeName != MARS) {
-                    requireContext().apply {
-                        //requireActivity().theme.applyStyle(R.style.Theme_NASAMD_Mars, true)
-                        setTheme(R.style.Theme_NASAMD_Mars)
-                        recreate(requireActivity())
-                        Toast.makeText(this, "Mars", Toast.LENGTH_SHORT).show()
-                        saveThemeSettings(MARS, R.style.Theme_NASAMD_Mars)
+                    saveThemeSettings(MARS, R.style.Theme_NASAMD_Mars)
+                    activity?.let {
+                        Toast.makeText(it, "Mars", Toast.LENGTH_SHORT).show()
+                        it.recreate()
                     }
                 }
             }
@@ -43,11 +41,10 @@ class SettingsFragment : Fragment() {
         binding.spaceTheme.apply {
             setOnClickListener {
                 if (themeName != SPACE) {
-                    requireActivity().apply {
-                        setTheme(R.style.Theme_NASAMD)
-                        recreate()
-                        Toast.makeText(this, "Space", Toast.LENGTH_SHORT).show()
-                        saveThemeSettings(SPACE, R.style.Theme_NASAMD)
+                    saveThemeSettings(SPACE, R.style.Theme_NASAMD)
+                    activity?.let {
+                        Toast.makeText(it, "Space", Toast.LENGTH_SHORT).show()
+                        it.recreate()
                     }
                 }
             }
@@ -55,11 +52,10 @@ class SettingsFragment : Fragment() {
         binding.moonTheme.apply {
             setOnClickListener {
                 if (themeName != MOON) {
-                    requireActivity().apply {
-                        setTheme(R.style.Theme_NASAMD_Moon)
-                        recreate()
-                        Toast.makeText(this, "Moon", Toast.LENGTH_SHORT).show()
-                        saveThemeSettings(MOON, R.style.Theme_NASAMD_Moon)
+                    saveThemeSettings(MOON, R.style.Theme_NASAMD_Moon)
+                    activity?.let {
+                        Toast.makeText(it, "Moon", Toast.LENGTH_SHORT).show()
+                        it.recreate()
                     }
                 }
             }

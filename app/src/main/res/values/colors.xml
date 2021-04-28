@@ -4,6 +4,7 @@
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_200Alpha40">#6603DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
@@ -15,6 +16,7 @@
     <color name="colorPrimaryVariantMars">#b53d00</color>
     <color name="colorOnPrimaryMars">#ff9d3f</color>
     <color name="colorSecondaryMars">#f9a825</color>
+    <color name="colorSecondaryMarsAlpha40">#66f9a825</color>
     <color name="colorSecondaryVariantMars">#c17900</color>
     <color name="colorOnSecondaryMars">#ffd95a</color>
 
@@ -22,6 +24,7 @@
     <color name="colorPrimaryVariantMoon">#4b636e</color>
     <color name="colorOnPrimaryMoon">#a7c0cd</color>
     <color name="colorSecondaryMoon">#bdbdbd</color>
+    <color name="colorSecondaryMoonAlpha40">#66bdbdbd</color>
     <color name="colorSecondaryVariantMoon">#8d8d8d</color>
     <color name="colorOnSecondaryMoon">#efefef</color>
 </resources>
