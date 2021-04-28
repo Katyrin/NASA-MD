@@ -11,7 +11,7 @@
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scroll_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,42 +22,22 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <LinearLayout
-                android:id="@+id/video_layout"
+            <WebView
+                android:id="@+id/web_view"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="400dp"
                 android:layout_gravity="center"
-                android:orientation="vertical"
-                android:visibility="gone"
                 android:paddingTop="@dimen/double_padding_to_screen_edge"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toTopOf="@+id/date_text_view">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="@dimen/padding_to_screen_edge"
-                    android:text="@string/no_photo_text"
-                    android:gravity="center"
-                    android:layout_gravity="center"/>
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/material_video_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/watch_youtube_video"
-                    android:layout_gravity="center"
-                    app:backgroundTint="@color/design_default_color_error"/>
-
-            </LinearLayout>
+                app:layout_constraintBottom_toTopOf="@+id/date_text_view"
+                app:srcCompat="@drawable/ic_no_photo_vector" />
 
             <com.katyrin.nasa_md.ui.main.view.EquilateralImageView
                 android:id="@+id/image_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
                 android:layout_gravity="center"
                 android:contentDescription="@string/photo_of_the_day_stub"
                 android:paddingTop="@dimen/double_padding_to_screen_edge"

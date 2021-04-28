@@ -1,5 +1,6 @@
 package com.katyrin.nasa_md.ui.main.fragments
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -7,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import coil.load
@@ -63,32 +65,51 @@ class PictureOfTheDateFragment : Fragment() {
         }
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     private fun handlingSuccessRequest(data: PictureOfTheDayData.Success) {
         binding.progressBar.visibility = View.GONE
         val serverResponseData = data.serverResponseData
-        val url = serverResponseData.url
-
+        val url =
+            //if (serverResponseData.mediaType == "image")
+                serverResponseData.url
+           // else serverResponseData.thumbnailUrl
         if (url.isNullOrEmpty()) {
-            toast("Сссылка пустая")
+            toast("Link is empty")
         } else {
             val separateUrl = url.split('.')
             if (separateUrl[1] != "youtube") {
-                binding.imageView.visibility = View.VISIBLE
-                binding.videoLayout.visibility = View.GONE
-                binding.imageView.load(url) {
+                binding.webView.isVisible = false
+                binding.imageView.isVisible = true
+                binding.imageView.load(serverResponseData.url) {
                     lifecycle(this@PictureOfTheDateFragment)
                     error(R.drawable.ic_load_error_vector)
                     placeholder(R.drawable.ic_no_photo_vector)
                 }
+
             } else {
-                binding.imageView.visibility = View.GONE
-                binding.videoLayout.visibility = View.VISIBLE
-                binding.materialVideoButton.setOnClickListener {
-                    val intent = Intent(Intent.ACTION_VIEW)
-                    intent.data = Uri.parse(url)
-                    startActivity(intent)
-                }
+                binding.webView.isVisible = true
+                binding.imageView.isVisible = false
+                binding.webView.settings.javaScriptEnabled = true
+                binding.webView.loadUrl(serverResponseData.url!!)
             }
+//            val separateUrl = url.split('.')
+//            if (separateUrl[1] != "youtube") {
+//                binding.imageView.visibility = View.VISIBLE
+//                binding.videoLayout.visibility = View.GONE
+//                binding.imageView.load(url) {
+//                    lifecycle(this@PictureOfTheDateFragment)
+//                    error(R.drawable.ic_load_error_vector)
+//                    placeholder(R.drawable.ic_no_photo_vector)
+//                }
+//            } else {
+//                binding.imageView.visibility = View.GONE
+//                binding.videoLayout.visibility = View.VISIBLE
+//                binding.materialVideoButton.setOnClickListener {
+//                    val intent = Intent(Intent.ACTION_VIEW)
+//                    intent.data = Uri.parse(url)
+//                    startActivity(intent)
+//                }
+//            }
 
         }
     }
