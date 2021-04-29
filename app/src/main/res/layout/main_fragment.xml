@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <androidx.constraintlayout.motion.widget.MotionLayout
+            <com.katyrin.nasa_md.ui.main.view.SavingMotionLayout
                 android:id="@+id/main"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -63,7 +63,7 @@
                         android:inputType="text" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-            </androidx.constraintlayout.motion.widget.MotionLayout>
+            </com.katyrin.nasa_md.ui.main.view.SavingMotionLayout>
 
             <HorizontalScrollView
                 android:id="@+id/horizontal_scroll"
