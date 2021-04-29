@@ -6,8 +6,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.main.fragments.PictureOfTheDateFragment">
 
-
-
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scroll_view"
         android:layout_width="match_parent"
@@ -20,20 +18,21 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:paddingTop="@dimen/double_padding_to_screen_edge"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_gravity="center">
 
             <WebView
                 android:id="@+id/web_view"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                app:layout_constraintHeight_percent="0.9"
+                app:layout_constraintHeight_percent="0.85"
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/double_padding_to_screen_edge"
                 android:paddingTop="@dimen/double_padding_to_screen_edge"
-                app:layout_constraintBottom_toTopOf="@+id/date_text_view"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/date_text_view"
                 app:srcCompat="@drawable/ic_no_photo_vector" />
 
             <com.katyrin.nasa_md.ui.main.view.EquilateralImageView
@@ -58,7 +57,6 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-
                 tools:text="@string/date" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
