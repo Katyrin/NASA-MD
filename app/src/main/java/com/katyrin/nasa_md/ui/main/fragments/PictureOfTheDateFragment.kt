@@ -1,8 +1,6 @@
 package com.katyrin.nasa_md.ui.main.fragments
 
 import android.annotation.SuppressLint
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -69,10 +67,7 @@ class PictureOfTheDateFragment : Fragment() {
     private fun handlingSuccessRequest(data: PictureOfTheDayData.Success) {
         binding.progressBar.visibility = View.GONE
         val serverResponseData = data.serverResponseData
-        val url =
-            //if (serverResponseData.mediaType == "image")
-                serverResponseData.url
-           // else serverResponseData.thumbnailUrl
+        val url = serverResponseData.url
         if (url.isNullOrEmpty()) {
             toast("Link is empty")
         } else {
@@ -80,7 +75,7 @@ class PictureOfTheDateFragment : Fragment() {
             if (separateUrl[1] != "youtube") {
                 binding.webView.isVisible = false
                 binding.imageView.isVisible = true
-                binding.imageView.load(serverResponseData.url) {
+                binding.imageView.load(url) {
                     lifecycle(this@PictureOfTheDateFragment)
                     error(R.drawable.ic_load_error_vector)
                     placeholder(R.drawable.ic_no_photo_vector)
@@ -90,27 +85,8 @@ class PictureOfTheDateFragment : Fragment() {
                 binding.webView.isVisible = true
                 binding.imageView.isVisible = false
                 binding.webView.settings.javaScriptEnabled = true
-                binding.webView.loadUrl(serverResponseData.url!!)
+                binding.webView.loadUrl(url)
             }
-//            val separateUrl = url.split('.')
-//            if (separateUrl[1] != "youtube") {
-//                binding.imageView.visibility = View.VISIBLE
-//                binding.videoLayout.visibility = View.GONE
-//                binding.imageView.load(url) {
-//                    lifecycle(this@PictureOfTheDateFragment)
-//                    error(R.drawable.ic_load_error_vector)
-//                    placeholder(R.drawable.ic_no_photo_vector)
-//                }
-//            } else {
-//                binding.imageView.visibility = View.GONE
-//                binding.videoLayout.visibility = View.VISIBLE
-//                binding.materialVideoButton.setOnClickListener {
-//                    val intent = Intent(Intent.ACTION_VIEW)
-//                    intent.data = Uri.parse(url)
-//                    startActivity(intent)
-//                }
-//            }
-
         }
     }
 
