@@ -11,6 +11,7 @@ interface PictureOfTheDayAPI {
     @GET("planetary/apod")
     fun getPictureOfTheDay(
         @Query("date") date: String,
-        @Query("api_key") apiKey: String
+        @Query("api_key") apiKey: String,
+        @Query("thumbs") thumbs: String = "true"
     ): Call<PODServerResponseData>
 }

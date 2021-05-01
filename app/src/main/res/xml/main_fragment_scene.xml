@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:motion="http://schemas.android.com/apk/res-auto">
+
+    <ConstraintSet android:id="@+id/start">
+        <Constraint android:id="@+id/input_layout"
+            app:layout_constraintBottom_toTopOf="@+id/horizontal_scroll"
+            app:layout_constraintStart_toEndOf="parent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/end">
+        <Constraint android:id="@id/input_layout"
+            app:layout_constraintBottom_toTopOf="@+id/horizontal_scroll"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+    </ConstraintSet>
+
+    <Transition
+        app:constraintSetEnd="@id/end"
+        app:constraintSetStart="@+id/start"
+        motion:duration="1000">
+
+        <OnClick app:targetId="@+id/wiki_button"/>
+    </Transition>
+
+
+    <Transition
+        app:constraintSetEnd="@id/start"
+        app:constraintSetStart="@+id/end"
+        motion:duration="1000">
+
+        <OnSwipe
+            motion:touchAnchorId="@id/input_layout"
+            motion:touchAnchorSide="start"
+            motion:dragDirection="dragEnd" />
+    </Transition>
+
+</MotionScene>
