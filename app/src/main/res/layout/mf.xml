@@ -15,11 +15,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <com.katyrin.nasa_md.ui.main.view.SavingMotionLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/main"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layoutDescription="@xml/main_fragment_scene"
                 app:layout_constraintBottom_toTopOf="@+id/image_view"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -27,13 +26,13 @@
 
                 <HorizontalScrollView
                     android:id="@+id/horizontal_scroll"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/distance_between_widgets"
-                    app:layout_constraintBottom_toBottomOf="@+id/input_layout"
+                    android:layout_marginBottom="@dimen/distance_between_widgets"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/input_layout"
-                    app:layout_constraintEnd_toStartOf="@+id/wiki_button">
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/input_layout"
+                    app:layout_constraintBottom_toBottomOf="parent">
 
                     <com.google.android.material.chip.ChipGroup
                         android:id="@+id/chip_group"
@@ -79,7 +78,7 @@
                     android:id="@+id/input_layout"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     app:shapeAppearance="@style/AppShapeAppearance"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/search_wiki"
                     app:counterEnabled="true"
@@ -88,8 +87,10 @@
                     app:endIconDrawable="@drawable/ic_wikipedia"
                     app:endIconMode="custom"
                     app:helperText="@string/wiki_helper_text"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="parent"
+                    app:layout_constraintBottom_toTopOf="@+id/horizontal_scroll"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
                     android:paddingTop="@dimen/padding_to_screen_edge"
                     android:paddingBottom="@dimen/distance_between_widgets">
 
@@ -100,7 +101,7 @@
                         android:inputType="text" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-            </com.katyrin.nasa_md.ui.main.view.SavingMotionLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <com.katyrin.nasa_md.ui.main.view.EquilateralImageView
                 android:id="@+id/image_view"
