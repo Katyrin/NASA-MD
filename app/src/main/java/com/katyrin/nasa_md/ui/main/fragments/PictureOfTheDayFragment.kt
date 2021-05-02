@@ -183,7 +183,7 @@ class PictureOfTheDayFragment : Fragment() {
 
         val transition = ChangeBounds()
         transition.interpolator = AnticipateOvershootInterpolator(1.0f)
-        transition.duration = 2200
+        transition.duration = 1200
 
         TransitionManager.beginDelayedTransition(binding.constraintContainer, transition)
         constraintSet.applyTo(binding.constraintContainer)
