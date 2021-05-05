@@ -156,25 +156,6 @@ class PictureOfTheDayFragment : Fragment() {
     private fun setBottomSheetBehavior(bottomSheet: ConstraintLayout) {
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
-
-        bottomSheetBehavior.addBottomSheetCallback(object :
-            BottomSheetBehavior.BottomSheetCallback() {
-            override fun onStateChanged(bottomSheet: View, newState: Int) {
-                when (newState) {
-                    BottomSheetBehavior.STATE_DRAGGING -> toast("STATE_DRAGGING")
-                    BottomSheetBehavior.STATE_COLLAPSED -> toast("STATE_COLLAPSED")
-                    BottomSheetBehavior.STATE_EXPANDED -> toast("STATE_EXPANDED")
-                    BottomSheetBehavior.STATE_HALF_EXPANDED -> toast("STATE_HALF_EXPANDED")
-                    BottomSheetBehavior.STATE_HIDDEN -> toast("STATE_HIDDEN")
-                    BottomSheetBehavior.STATE_SETTLING -> toast("STATE_SETTLING")
-                }
-            }
-
-            override fun onSlide(bottomSheet: View, slideOffset: Float) {
-                toast("onSlide")
-            }
-
-        })
     }
 
     private fun startAnimation() {

@@ -8,6 +8,7 @@
     <dimen name="youtube_web_view_height">300dp</dimen>
     <dimen name="hidden_scroll_width">400dp</dimen>
     <dimen name="description_behavior_peekHeight">140dp</dimen>
+    <dimen name="note_bottom_margin">58dp</dimen>
 
     <dimen name="icon_size">40dp</dimen>
     <dimen name="big_icon_size">80dp</dimen>
