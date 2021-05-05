@@ -8,4 +8,29 @@
     <dimen name="youtube_web_view_height">300dp</dimen>
     <dimen name="hidden_scroll_width">400dp</dimen>
     <dimen name="description_behavior_peekHeight">140dp</dimen>
+
+    <dimen name="icon_size">40dp</dimen>
+    <dimen name="big_icon_size">80dp</dimen>
+    <dimen name="margin_normal">16dp</dimen>
+    <dimen name="margin_min">8dp</dimen>
+    <dimen name="margin_bottom_button">11dp</dimen>
+    <dimen name="zero_corner_radius">0dp</dimen>
+    <dimen name="open_portfolio_width">8dp</dimen>
+    <dimen name="open_portfolio_height">12dp</dimen>
+    <dimen name="open_portfolio_margin_end">24dp</dimen>
+    <dimen name="guid_line_end">40dp</dimen>
+
+    <dimen name="status_bar_padding">7dp</dimen>
+    <dimen name="margin_sb_min">6dp</dimen>
+    <dimen name="margin_sb_max">8dp</dimen>
+    <dimen name="margin_add_button">11dp</dimen>
+
+    <dimen name="name_text_size">16sp</dimen>
+    <dimen name="message_text_size">14sp</dimen>
+    <dimen name="header_card_view_size">24sp</dimen>
+    <dimen name="app_name_size">20sp</dimen>
+
+    <dimen name="app_name_spacing">0.01</dimen>
+    <dimen name="button_spacing">0.05</dimen>
+    <dimen name="text_message_spacing">0.02</dimen>
 </resources>

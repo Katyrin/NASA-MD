@@ -19,6 +19,7 @@ import com.katyrin.nasa_md.ui.main.picture.BottomNavigationDrawerFragment
 
 
 private const val SETTINGS_FRAGMENT = "SETTINGS_FRAGMENT"
+private const val NOTES_FRAGMENT = "NOTES_FRAGMENT"
 private const val VIEW_PAGER_FRAGMENT = "VIEW_PAGER_FRAGMENT"
 private const val SIZE_PAGES = 10
 
@@ -72,7 +73,12 @@ class MainActivity : AppCompatActivity(), OnPositionListener {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
-            R.id.app_bar_fav -> Toast.makeText(this, "Favorite", Toast.LENGTH_SHORT).show()
+            R.id.app_bar_notes -> {
+                supportFragmentManager.beginTransaction()
+                    .add(R.id.container, NotesFragment.newInstance())
+                    .addToBackStack(NOTES_FRAGMENT)
+                    .commitAllowingStateLoss()
+            }
             R.id.app_bar_settings -> {
                 supportFragmentManager.apply {
                     beginTransaction()
