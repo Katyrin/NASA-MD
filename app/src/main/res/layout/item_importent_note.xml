@@ -43,6 +43,7 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/positive_button"
             style="@style/ButtonStyle"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/already_not_important"
@@ -50,6 +51,7 @@
             android:layout_marginTop="@dimen/margin_min"
             android:layout_marginBottom="@dimen/margin_bottom_button"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/negative_button"
             app:layout_constraintTop_toBottomOf="@id/message_text_view"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
@@ -63,6 +65,7 @@
             android:layout_marginTop="@dimen/margin_min"
             android:layout_marginBottom="@dimen/margin_bottom_button"
             app:layout_constraintStart_toEndOf="@id/positive_button"
+            app:layout_constraintEnd_toStartOf="@id/drag_handle_image_view"
             app:layout_constraintTop_toBottomOf="@id/message_text_view"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
@@ -75,6 +78,17 @@
             app:srcCompat="@drawable/banner_icon"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/drag_handle_image_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/padding_to_screen_edge"
+            app:srcCompat="@drawable/ic_hamburger_menu_bottom_bar"
+            app:layout_constraintTop_toBottomOf="@+id/square_icon"
+            app:layout_constraintStart_toEndOf="@id/negative_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

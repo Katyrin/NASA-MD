@@ -20,8 +20,8 @@
     <string name="dot">Dot</string>
     <string name="no_photo_text">There is no photo on this day, but you can watch the \'Video of the Day\'</string>
     <string name="watch_youtube_video">Watch youtube video</string>
-    <string name="already_not_important">Уже не важное</string>
-    <string name="show_details">Показать подробности</string>
+    <string name="already_not_important">Не важное</string>
+    <string name="show_details">Подробности</string>
     <string name="new_note_text">Новая заметка</string>
     <string name="enter_header">Введите заголовок заметки</string>
     <string name="note_header_helper_text">Введите ключевую фразу которая поможет вспомнить о чем данная заметка</string>

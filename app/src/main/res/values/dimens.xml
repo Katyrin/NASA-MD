@@ -16,8 +16,6 @@
     <dimen name="margin_min">8dp</dimen>
     <dimen name="margin_bottom_button">11dp</dimen>
     <dimen name="zero_corner_radius">0dp</dimen>
-    <dimen name="open_portfolio_width">8dp</dimen>
-    <dimen name="open_portfolio_height">12dp</dimen>
     <dimen name="open_portfolio_margin_end">24dp</dimen>
     <dimen name="guid_line_end">40dp</dimen>
 

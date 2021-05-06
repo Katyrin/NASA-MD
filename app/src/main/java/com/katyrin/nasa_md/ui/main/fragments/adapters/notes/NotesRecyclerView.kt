@@ -7,18 +7,22 @@ import com.katyrin.nasa_md.databinding.ItemImportentNoteBinding
 import com.katyrin.nasa_md.databinding.ItemNoteBinding
 import com.katyrin.nasa_md.ui.main.model.data.Note
 
-class NotesRecyclerView(private val data: List<Note>,
-                        private val onClick: (String) -> Unit
-):  RecyclerView.Adapter<BaseViewHolder>(){
+class NotesRecyclerView(private val data: MutableList<Note>,
+                        private val onClick: (String) -> Unit,
+                        private val onDeleteNote: (Note) -> Unit,
+                        private val onStartDrag: (RecyclerView.ViewHolder) -> Unit
+):  RecyclerView.Adapter<BaseViewHolder>(), ItemTouchHelperAdapter{
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         return when (viewType) {
             TYPE_NOTE -> NoteViewHolder(
-                ItemNoteBinding.inflate(layoutInflater, parent, false)
+                ItemNoteBinding.inflate(layoutInflater, parent, false),
+                onStartDrag
             )
             TYPE_IMPORTANT -> ImportantNoteViewHolder(
                 ItemImportentNoteBinding.inflate(layoutInflater, parent, false),
-                onClick
+                onClick,
+                onStartDrag
             )
             else -> throw IllegalArgumentException("Unknown item type")
         }
@@ -38,6 +42,23 @@ class NotesRecyclerView(private val data: List<Note>,
         }
     }
 
+    fun appendItem(note: Note) {
+        data.add(note)
+        notifyItemInserted(itemCount - 1)
+    }
+
+    override fun onItemMove(fromPosition: Int, toPosition: Int) {
+        data.removeAt(fromPosition).apply {
+            data.add(if (toPosition > fromPosition) toPosition - 1 else toPosition, this)
+        }
+        notifyItemMoved(fromPosition, toPosition)
+    }
+
+    override fun onItemDismiss(position: Int) {
+        onDeleteNote(data[position])
+        data.removeAt(position)
+        notifyItemRemoved(position)
+    }
 
     companion object {
         private const val TYPE_NOTE = 0

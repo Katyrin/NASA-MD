@@ -35,6 +35,8 @@ class MainActivity : AppCompatActivity(), OnPositionListener {
     private lateinit var binding: MainActivityBinding
     private var viewPagerFragment: ViewPagerFragment? = null
     private val layoutManager: LinearLayoutManager by lazy { LinearLayoutManager(this) }
+    private val noteFragment: NotesFragment by lazy { NotesFragment.newInstance() }
+    private val newNoteFragment: NewNoteFragment by lazy { NewNoteFragment.newInstance() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -76,7 +78,7 @@ class MainActivity : AppCompatActivity(), OnPositionListener {
         when(item.itemId) {
             R.id.app_bar_notes -> {
                 supportFragmentManager.beginTransaction()
-                    .add(R.id.container, NotesFragment.newInstance())
+                    .add(R.id.container, noteFragment)
                     .addToBackStack(NOTES_FRAGMENT)
                     .commitAllowingStateLoss()
             }
@@ -117,16 +119,9 @@ class MainActivity : AppCompatActivity(), OnPositionListener {
                 BottomAppBar.FAB_ALIGNMENT_MODE_CENTER, R.drawable.ic_plus_fab,
                 R.menu.menu_bottom_bar)
         } else {
-            val fragment = supportFragmentManager.findFragmentById(R.id.container)
-            if (fragment is ViewPagerFragment) {
-                setFABPosition(false, null,
-                    BottomAppBar.FAB_ALIGNMENT_MODE_END, R.drawable.ic_back_fab,
-                    R.menu.menu_bottom_bar_other_screen)
-            } else {
-                setFABPosition(false, null,
-                    BottomAppBar.FAB_ALIGNMENT_MODE_END, R.drawable.ic_save,
-                    R.menu.menu_bottom_bar_other_screen)
-            }
+            setFABPosition(false, null,
+                BottomAppBar.FAB_ALIGNMENT_MODE_END, R.drawable.ic_back_fab,
+                R.menu.menu_bottom_bar_other_screen)
         }
 
         binding.fab.setOnClickListener {
@@ -137,9 +132,9 @@ class MainActivity : AppCompatActivity(), OnPositionListener {
                     R.menu.menu_bottom_bar_other_screen)
                 if (fragment is NotesFragment) {
                     supportFragmentManager.beginTransaction()
-                        .add(R.id.container, NewNoteFragment.newInstance())
+                        .replace(R.id.container, newNoteFragment)
                         .addToBackStack(NEW_NOTE_FRAGMENT)
-                        .commitAllowingStateLoss()
+                        .commit()
                 } else {
                     viewPagerFragment = ViewPagerFragment.newInstance()
                     supportFragmentManager.beginTransaction()

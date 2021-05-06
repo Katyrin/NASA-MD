@@ -1,22 +1,21 @@
 package com.katyrin.nasa_md.ui.main.fragments
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.katyrin.nasa_md.databinding.FragmentNewNoteBinding
-import com.katyrin.nasa_md.ui.main.model.data.Note
-import com.katyrin.nasa_md.ui.main.picture.NotesViewModel
 
+const val NEW_NOTE_SHARED_PREFERENCES = "NEW_NOTE_SHARED_PREFERENCES"
+const val NEW_NOTE_HEADER = "NEW_NOTE_HEADER"
+const val NEW_NOTE_DESCRIPTION = "NEW_NOTE_DESCRIPTION"
+const val NEW_NOTE_IS_IMPORTANT = "NEW_NOTE_IS_IMPORTANT"
 
 class NewNoteFragment : Fragment(), OnBackStackInterface {
 
     private lateinit var binding: FragmentNewNoteBinding
-    private val viewModel: NotesViewModel by lazy {
-        ViewModelProvider(this).get(NotesViewModel::class.java)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,11 +38,11 @@ class NewNoteFragment : Fragment(), OnBackStackInterface {
     }
 
     private fun onSaveData() {
-        val newNote = Note(
-            header = binding.headerInputEditText.text.toString(),
-            description = binding.noteInputEditText.text.toString(),
-            isImportant = binding.isImportantChip.isChecked
-        )
-        viewModel.saveNoteToDB(newNote)
+        requireActivity()
+            .getSharedPreferences(NEW_NOTE_SHARED_PREFERENCES, Context.MODE_PRIVATE).edit().apply {
+                putString(NEW_NOTE_HEADER, binding.headerInputEditText.text.toString())
+                putString(NEW_NOTE_DESCRIPTION, binding.noteInputEditText.text.toString())
+                putBoolean(NEW_NOTE_IS_IMPORTANT, binding.isImportantChip.isChecked)
+        }.apply()
     }
 }

@@ -25,27 +25,10 @@
         android:layout_marginEnd="@dimen/margin_normal"
         style="@style/BaseStyle.HeaderTextStyle"
         android:textSize="@dimen/name_text_size"
-        app:layout_constraintEnd_toEndOf="@id/guid_line"
+        app:layout_constraintEnd_toStartOf="@+id/drag_handle_image_view"
         app:layout_constraintStart_toEndOf="@id/round_icon"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Заголовок заметки" />
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/has_info_icon"
-        android:layout_width="@dimen/open_portfolio_width"
-        android:layout_height="@dimen/open_portfolio_height"
-        android:layout_marginEnd="@dimen/open_portfolio_margin_end"
-        app:srcCompat="@drawable/has_info_icon"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/header_text_view"
-        app:layout_constraintBottom_toBottomOf="@id/header_text_view"/>
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guid_line"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        app:layout_constraintGuide_end="@dimen/guid_line_end"/>
 
     <TextView
         android:id="@+id/message_text_view"
@@ -57,9 +40,19 @@
         android:layout_marginBottom="@dimen/margin_min"
         app:layout_constraintStart_toEndOf="@id/round_icon"
         app:layout_constraintTop_toBottomOf="@id/header_text_view"
-        app:layout_constraintEnd_toEndOf="@id/guid_line"
+        app:layout_constraintEnd_toStartOf="@+id/drag_handle_image_view"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:text="Здесь будет текст заметки, длинной не более двух строк" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/drag_handle_image_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/double_padding_to_screen_edge"
+        app:srcCompat="@drawable/ic_hamburger_menu_bottom_bar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
     <View
         android:id="@+id/stroke_view"
