@@ -132,20 +132,15 @@ class MainActivity : AppCompatActivity(), OnPositionListener {
         binding.fab.setOnClickListener {
             val fragment = supportFragmentManager.findFragmentById(R.id.container)
             if (isMain) {
+                setFABPosition(false, null,
+                    BottomAppBar.FAB_ALIGNMENT_MODE_END, R.drawable.ic_back_fab,
+                    R.menu.menu_bottom_bar_other_screen)
                 if (fragment is NotesFragment) {
-                    setFABPosition(false, null,
-                        BottomAppBar.FAB_ALIGNMENT_MODE_END, R.drawable.ic_save,
-                        R.menu.menu_bottom_bar_other_screen)
-
                     supportFragmentManager.beginTransaction()
                         .add(R.id.container, NewNoteFragment.newInstance())
                         .addToBackStack(NEW_NOTE_FRAGMENT)
                         .commitAllowingStateLoss()
                 } else {
-                    setFABPosition(false, null,
-                        BottomAppBar.FAB_ALIGNMENT_MODE_END, R.drawable.ic_back_fab,
-                        R.menu.menu_bottom_bar_other_screen)
-
                     viewPagerFragment = ViewPagerFragment.newInstance()
                     supportFragmentManager.beginTransaction()
                         .add(R.id.container, viewPagerFragment!!)

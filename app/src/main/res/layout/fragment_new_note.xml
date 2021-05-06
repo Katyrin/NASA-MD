@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/notes_background"
+    android:background="@color/white"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.main.fragments.NewNoteFragment">
 
@@ -25,6 +25,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
 
+        <com.google.android.material.chip.Chip
+            android:id="@+id/is_important_chip"
+            style="@style/Widget.MaterialComponents.Chip.Filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/choice_important_text"
+            android:layout_marginStart="@dimen/padding_to_screen_edge"
+            android:layout_marginEnd="@dimen/padding_to_screen_edge"
+            android:layout_marginTop="@dimen/double_padding_to_screen_edge"
+            app:layout_constraintTop_toBottomOf="@id/new_note_text_view"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/header_input_layout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -38,7 +51,7 @@
             app:counterEnabled="true"
             app:counterMaxLength="15"
             app:helperText="@string/note_header_helper_text"
-            app:layout_constraintTop_toBottomOf="@id/new_note_text_view"
+            app:layout_constraintTop_toBottomOf="@id/is_important_chip"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
 
@@ -57,10 +70,8 @@
             android:layout_marginStart="@dimen/padding_to_screen_edge"
             android:layout_marginTop="@dimen/double_padding_to_screen_edge"
             android:layout_marginEnd="@dimen/padding_to_screen_edge"
-            android:layout_marginBottom="@dimen/note_bottom_margin"
             android:hint="@string/enter_text"
             app:helperText="@string/note_helper_text"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/header_input_layout"
@@ -72,6 +83,20 @@
                 android:layout_height="wrap_content"
                 android:inputType="textMultiLine"/>
         </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/save_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/save_text"
+            android:layout_marginStart="@dimen/padding_to_screen_edge"
+            android:layout_marginTop="@dimen/double_padding_to_screen_edge"
+            android:layout_marginEnd="@dimen/padding_to_screen_edge"
+            android:layout_marginBottom="@dimen/note_bottom_margin"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/note_input_layout"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

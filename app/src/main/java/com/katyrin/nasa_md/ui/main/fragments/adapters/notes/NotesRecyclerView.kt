@@ -5,9 +5,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.katyrin.nasa_md.databinding.ItemImportentNoteBinding
 import com.katyrin.nasa_md.databinding.ItemNoteBinding
-import com.katyrin.nasa_md.ui.main.data.ListItem
+import com.katyrin.nasa_md.ui.main.model.data.Note
 
-class NotesRecyclerView(private val data: List<ListItem>,
+class NotesRecyclerView(private val data: List<Note>,
                         private val onClick: (String) -> Unit
 ):  RecyclerView.Adapter<BaseViewHolder>(){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
@@ -32,8 +32,8 @@ class NotesRecyclerView(private val data: List<ListItem>,
 
     override fun getItemViewType(position: Int): Int {
         return when {
-            data[position] is ListItem.NoteItem -> TYPE_NOTE
-            data[position] is ListItem.ImportantItem -> TYPE_IMPORTANT
+            !data[position].isImportant -> TYPE_NOTE
+            data[position].isImportant -> TYPE_IMPORTANT
             else -> throw IllegalArgumentException("Unknown item type")
         }
     }
