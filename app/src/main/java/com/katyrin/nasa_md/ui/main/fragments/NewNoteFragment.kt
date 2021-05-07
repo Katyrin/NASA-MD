@@ -29,12 +29,17 @@ class NewNoteFragment : Fragment(), OnBackStackInterface {
         super.onViewCreated(view, savedInstanceState)
         binding.saveButton.setOnClickListener {
             onSaveData()
+            clearData()
             requireActivity().onBackPressed()
         }
     }
 
-    companion object {
-        fun newInstance() = NewNoteFragment()
+    private fun clearData() {
+        binding.apply {
+            headerInputEditText.setText("")
+            noteInputEditText.setText("")
+            isImportantChip.isChecked = false
+        }
     }
 
     private fun onSaveData() {
@@ -44,5 +49,9 @@ class NewNoteFragment : Fragment(), OnBackStackInterface {
                 putString(NEW_NOTE_DESCRIPTION, binding.noteInputEditText.text.toString())
                 putBoolean(NEW_NOTE_IS_IMPORTANT, binding.isImportantChip.isChecked)
         }.apply()
+    }
+
+    companion object {
+        fun newInstance() = NewNoteFragment()
     }
 }

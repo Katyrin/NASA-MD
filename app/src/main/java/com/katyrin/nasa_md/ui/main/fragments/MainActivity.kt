@@ -102,10 +102,7 @@ class MainActivity : AppCompatActivity(), OnPositionListener {
     override fun onBackPressed() {
         val fragment = supportFragmentManager.findFragmentById(R.id.container)
         if (fragment is OnBackStackInterface) {
-            setFABPosition(true,
-                ContextCompat.getDrawable(this, R.drawable.ic_hamburger_menu_bottom_bar),
-                BottomAppBar.FAB_ALIGNMENT_MODE_CENTER, R.drawable.ic_plus_fab,
-                R.menu.menu_bottom_bar)
+            setMainFabPosition()
         }
         super.onBackPressed()
     }
@@ -114,22 +111,15 @@ class MainActivity : AppCompatActivity(), OnPositionListener {
         setSupportActionBar(binding.bottomAppBar)
 
         if (isMain) {
-            setFABPosition(true,
-                ContextCompat.getDrawable(this, R.drawable.ic_hamburger_menu_bottom_bar),
-                BottomAppBar.FAB_ALIGNMENT_MODE_CENTER, R.drawable.ic_plus_fab,
-                R.menu.menu_bottom_bar)
+            setMainFabPosition()
         } else {
-            setFABPosition(false, null,
-                BottomAppBar.FAB_ALIGNMENT_MODE_END, R.drawable.ic_back_fab,
-                R.menu.menu_bottom_bar_other_screen)
+            setNotMainFabPosition()
         }
 
         binding.fab.setOnClickListener {
             val fragment = supportFragmentManager.findFragmentById(R.id.container)
             if (isMain) {
-                setFABPosition(false, null,
-                    BottomAppBar.FAB_ALIGNMENT_MODE_END, R.drawable.ic_back_fab,
-                    R.menu.menu_bottom_bar_other_screen)
+                setNotMainFabPosition()
                 if (fragment is NotesFragment) {
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.container, newNoteFragment)
@@ -143,15 +133,24 @@ class MainActivity : AppCompatActivity(), OnPositionListener {
                         .commitAllowingStateLoss()
                 }
             } else {
-                setFABPosition(true,
-                    ContextCompat.getDrawable(this, R.drawable.ic_hamburger_menu_bottom_bar),
-                    BottomAppBar.FAB_ALIGNMENT_MODE_CENTER, R.drawable.ic_plus_fab,
-                    R.menu.menu_bottom_bar)
-
+                setMainFabPosition()
                 supportFragmentManager.popBackStack()
                 viewPagerFragment = null
             }
         }
+    }
+
+    private fun setMainFabPosition() {
+        setFABPosition(true,
+            ContextCompat.getDrawable(this, R.drawable.ic_hamburger_menu_bottom_bar),
+            BottomAppBar.FAB_ALIGNMENT_MODE_CENTER, R.drawable.ic_plus_fab,
+            R.menu.menu_bottom_bar)
+    }
+
+    private fun setNotMainFabPosition() {
+        setFABPosition(false, null,
+            BottomAppBar.FAB_ALIGNMENT_MODE_END, R.drawable.ic_back_fab,
+            R.menu.menu_bottom_bar_other_screen)
     }
 
     private fun setFABPosition(isMainScreen: Boolean,

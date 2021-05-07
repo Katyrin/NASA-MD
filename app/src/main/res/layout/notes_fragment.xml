@@ -7,12 +7,56 @@
     android:background="@color/notes_background"
     tools:context=".ui.main.fragments.NotesFragment">
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/search_input_layout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:shapeAppearance="@style/AppShapeAppearance"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/enter_text"
+        app:helperText="@string/enter_key_word"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:padding="@dimen/padding_to_screen_edge">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/input_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/important_chip"
+        style="@style/Widget.MaterialComponents.Chip.Filter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/only_important"
+        android:layout_marginStart="@dimen/padding_to_screen_edge"
+        android:layout_marginEnd="@dimen/padding_to_screen_edge"
+        app:layout_constraintTop_toBottomOf="@id/search_input_layout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/search_button" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/search_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/search_note"
+        android:layout_marginStart="@dimen/padding_to_screen_edge"
+        android:layout_marginEnd="@dimen/padding_to_screen_edge"
+        app:layout_constraintTop_toBottomOf="@id/search_input_layout"
+        app:layout_constraintStart_toEndOf="@+id/important_chip"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/notes_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:paddingBottom="@dimen/note_bottom_margin"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>

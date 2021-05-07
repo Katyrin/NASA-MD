@@ -7,11 +7,18 @@ import com.katyrin.nasa_md.databinding.ItemImportentNoteBinding
 import com.katyrin.nasa_md.databinding.ItemNoteBinding
 import com.katyrin.nasa_md.ui.main.model.data.Note
 
-class NotesRecyclerView(private val data: MutableList<Note>,
-                        private val onClick: (String) -> Unit,
+class NotesRecyclerView(private val onClick: (String) -> Unit,
                         private val onDeleteNote: (Note) -> Unit,
                         private val onStartDrag: (RecyclerView.ViewHolder) -> Unit
 ):  RecyclerView.Adapter<BaseViewHolder>(), ItemTouchHelperAdapter{
+
+    private var data: MutableList<Note> = mutableListOf()
+
+    fun setData(newData: MutableList<Note>) {
+        data = newData
+        notifyDataSetChanged()
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         return when (viewType) {

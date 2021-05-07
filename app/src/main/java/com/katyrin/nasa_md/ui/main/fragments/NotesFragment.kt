@@ -26,10 +26,17 @@ class NotesFragment : Fragment() {
 
     private lateinit var itemTouchHelper: ItemTouchHelper
     private var newNote: Note? = null
-    private lateinit var adapter: NotesRecyclerView
+    private lateinit var allNotes: MutableList<Note>
     private lateinit var binding: NotesFragmentBinding
     private val viewModel: NotesViewModel by lazy {
         ViewModelProvider(this).get(NotesViewModel::class.java)
+    }
+    private val adapter: NotesRecyclerView by lazy {
+        NotesRecyclerView(
+            { Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show() },
+            { viewModel.deleteNoteToDB(it) },
+            { itemTouchHelper.startDrag(it) }
+        )
     }
 
     override fun onCreateView(
@@ -57,11 +64,38 @@ class NotesFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel.liveData.observe(viewLifecycleOwner) { renderData(it) }
         viewModel.getAllNotes()
+
+        searchNotes()
+    }
+
+    private fun searchNotes() {
+        binding.apply {
+            searchButton.setOnClickListener {
+                val text = inputEditText.text.toString()
+                val isImportant = importantChip.isChecked
+                val currentList: MutableList<Note> = mutableListOf()
+
+                allNotes.map {
+                    if (it.header.contains(text, true)) {
+                        if (isImportant) {
+                            if (it.isImportant)
+                                currentList.add(it)
+                        } else {
+                            currentList.add(it)
+                        }
+                    }
+                }
+
+                initRecyclerView(currentList)
+            }
+        }
     }
 
     private fun renderData(appState: AppState) {
         when (appState) {
             is AppState.SuccessLocalQuery -> {
+                allNotes = mutableListOf()
+                allNotes = appState.notes.toMutableList()
                 binding.progressBar.visibility = View.GONE
                 binding.notesRecyclerView.visibility = View.VISIBLE
                 if (appState.notes.isEmpty()) {
@@ -90,16 +124,11 @@ class NotesFragment : Fragment() {
     }
 
     private fun initRecyclerView(notes: List<Note>) {
+        adapter.setData(notes.toMutableList())
 
         val layoutManager = LinearLayoutManager(requireContext())
         layoutManager.orientation = LinearLayoutManager.VERTICAL
         binding.notesRecyclerView.layoutManager = layoutManager
-        adapter = NotesRecyclerView(
-            notes.toMutableList(),
-            { Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show() },
-            { viewModel.deleteNoteToDB(it) },
-            { itemTouchHelper.startDrag(it) }
-        )
         binding.notesRecyclerView.adapter = adapter
 
         itemTouchHelper = ItemTouchHelper(ItemTouchHelperCallback(adapter))
@@ -113,6 +142,7 @@ class NotesFragment : Fragment() {
         if (note.header.isNotEmpty()) {
             adapter.appendItem(newNote!!)
             viewModel.saveNoteToDB(note)
+            allNotes.add(note)
             newNote = null
         }
     }

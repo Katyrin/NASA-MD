@@ -32,4 +32,7 @@
     <string name="success_local_db">Успешная загрузка локальных данных из БД</string>
     <string name="choice_important_text">Пометить как важное</string>
     <string name="save_text">Сохранить</string>
+    <string name="enter_key_word">Введите ключевое слово по поиску</string>
+    <string name="only_important">Только важные</string>
+    <string name="search_note">Поиск</string>
 </resources>
