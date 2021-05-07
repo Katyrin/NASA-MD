@@ -2,23 +2,31 @@ package com.katyrin.nasa_md.ui.main.fragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.os.Handler
+import android.os.Looper
+import android.view.*
+import android.webkit.WebView
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.transition.ChangeBounds
+import androidx.transition.ChangeImageTransform
+import androidx.transition.TransitionManager
+import androidx.transition.TransitionSet
 import coil.load
 import com.katyrin.nasa_md.R
 import com.katyrin.nasa_md.databinding.FragmentPictureOfTheDateBinding
 import com.katyrin.nasa_md.ui.main.picture.PictureOfTheDayData
 import com.katyrin.nasa_md.ui.main.picture.PictureOfTheDayViewModel
 
+
 private const val REQUIRE_DATE = "REQUIRE_DATE"
 
 class PictureOfTheDateFragment : Fragment() {
 
+    private var isExpanded = false
     private var date: String? = null
     private lateinit var binding: FragmentPictureOfTheDateBinding
     private val viewModel: PictureOfTheDayViewModel by lazy {
@@ -38,6 +46,7 @@ class PictureOfTheDateFragment : Fragment() {
     ): View {
         binding = FragmentPictureOfTheDateBinding.inflate(inflater, container, false)
         binding.dateTextView.text = date
+        initDoubleClickOnImage()
         return binding.root
     }
 
@@ -82,12 +91,59 @@ class PictureOfTheDateFragment : Fragment() {
                 }
 
             } else {
-                binding.webView.isVisible = true
-                binding.imageView.isVisible = false
-                binding.webView.settings.javaScriptEnabled = true
-                binding.webView.loadUrl(url)
+                binding.apply {
+                    imageView.isVisible = false
+                    (webView as WebView).apply {
+                        isVisible = true
+                        settings.javaScriptEnabled = true
+                        loadUrl(url)
+                    }
+                }
             }
         }
+    }
+
+    private fun initDoubleClickOnImage() {
+        var doubleClick = false
+        val handler = Handler(Looper.getMainLooper())
+        val r = Runnable { doubleClick = false }
+        binding.imageView.setOnClickListener {
+            if (doubleClick) {
+                zoomPicture()
+                doubleClick = false
+            } else {
+                doubleClick = true
+                handler.postDelayed(r, 500)
+            }
+        }
+    }
+
+    private fun zoomPicture() {
+        isExpanded = !isExpanded
+        TransitionManager.beginDelayedTransition(
+            binding.root, TransitionSet()
+                .addTransition(ChangeBounds())
+                .addTransition(ChangeImageTransform())
+        )
+
+        val params: ViewGroup.LayoutParams = binding.imageView.layoutParams
+        params.height = if (isExpanded)
+            ViewGroup.LayoutParams.MATCH_PARENT
+        else
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        binding.imageView.layoutParams = params
+
+        val frameParams: ViewGroup.LayoutParams = binding.frameLayoutContainer!!.layoutParams
+        frameParams.height = if (isExpanded)
+            ViewGroup.LayoutParams.MATCH_PARENT
+        else
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        binding.frameLayoutContainer!!.layoutParams = frameParams
+
+        binding.imageView.scaleType = if (isExpanded)
+            ImageView.ScaleType.CENTER_CROP
+        else
+            ImageView.ScaleType.FIT_CENTER
     }
 
     private fun Fragment.toast(string: String?) {

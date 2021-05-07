@@ -13,6 +13,16 @@ class PictureOfTheDayViewModel(
     private val retrofitImpl: PODRetrofitImpl = PODRetrofitImpl()
 ) : ViewModel() {
 
+    private var isFirstLoad = true
+
+    fun getIsFirstLoad() : Boolean {
+        return isFirstLoad
+    }
+
+    fun setIsFirstLoad(isFirstLoad: Boolean) {
+        this.isFirstLoad = isFirstLoad
+    }
+
     fun getData(date: String?) : LiveData<PictureOfTheDayData> {
         sendServerRequest(date)
         return liveDataForViewToObserve

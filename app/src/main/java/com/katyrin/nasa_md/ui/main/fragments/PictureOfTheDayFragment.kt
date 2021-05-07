@@ -3,16 +3,20 @@ package com.katyrin.nasa_md.ui.main.fragments
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.transition.ChangeBounds
+import android.transition.TransitionManager
 import android.view.*
+import android.view.animation.AnticipateOvershootInterpolator
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import coil.load
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.chip.Chip
 import com.katyrin.nasa_md.*
-import com.katyrin.nasa_md.databinding.MainFragmentBinding
+import com.katyrin.nasa_md.databinding.StartMainFragmentBinding
 import com.katyrin.nasa_md.ui.main.picture.PictureOfTheDayData
 import com.katyrin.nasa_md.ui.main.picture.PictureOfTheDayViewModel
 import java.text.SimpleDateFormat
@@ -26,7 +30,7 @@ class PictureOfTheDayFragment : Fragment() {
 
     private val formatter = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
-    private lateinit var binding: MainFragmentBinding
+    private lateinit var binding: StartMainFragmentBinding
     private val viewModel: PictureOfTheDayViewModel by lazy {
         ViewModelProvider(this).get(PictureOfTheDayViewModel::class.java)
     }
@@ -35,7 +39,10 @@ class PictureOfTheDayFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = MainFragmentBinding.inflate(inflater, container, false)
+        binding = StartMainFragmentBinding.inflate(inflater, container, false)
+        if (!viewModel.getIsFirstLoad()) {
+            startAnimation()
+        }
         return binding.root
     }
 
@@ -89,15 +96,21 @@ class PictureOfTheDayFragment : Fragment() {
     private fun renderData(data: PictureOfTheDayData) {
         when(data) {
             is PictureOfTheDayData.Success -> {
+                if (viewModel.getIsFirstLoad()) {
+                    startAnimation()
+                    viewModel.setIsFirstLoad(false)
+                }
                 handlingSuccessRequest(data)
             }
 
             is PictureOfTheDayData.Loading -> {
                 binding.progressBar.visibility = View.VISIBLE
+                binding.imageView.visibility = View.GONE
             }
 
             is PictureOfTheDayData.Error -> {
                 binding.progressBar.visibility = View.GONE
+                binding.imageView.visibility = View.VISIBLE
                 toast(data.error.message)
             }
         }
@@ -105,6 +118,7 @@ class PictureOfTheDayFragment : Fragment() {
 
     private fun handlingSuccessRequest(data: PictureOfTheDayData.Success) {
         binding.progressBar.visibility = View.GONE
+        binding.imageView.visibility = View.VISIBLE
         val serverResponseData = data.serverResponseData
         val url = serverResponseData.url
         val title = serverResponseData.title
@@ -161,5 +175,17 @@ class PictureOfTheDayFragment : Fragment() {
             }
 
         })
+    }
+
+    private fun startAnimation() {
+        val constraintSet = ConstraintSet()
+        constraintSet.clone(requireContext(), R.layout.main_fragment)
+
+        val transition = ChangeBounds()
+        transition.interpolator = AnticipateOvershootInterpolator(1.0f)
+        transition.duration = 1200
+
+        TransitionManager.beginDelayedTransition(binding.constraintContainer, transition)
+        constraintSet.applyTo(binding.constraintContainer)
     }
 }

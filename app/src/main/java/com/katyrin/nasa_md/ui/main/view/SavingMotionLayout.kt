@@ -4,7 +4,7 @@ import android.content.Context
 import android.os.Parcelable
 import android.util.AttributeSet
 import androidx.constraintlayout.motion.widget.MotionLayout
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 open class SavingMotionLayout @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0

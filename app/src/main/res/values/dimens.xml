@@ -5,5 +5,7 @@
     <dimen name="distance_between_widgets">4dp</dimen>
     <dimen name="stroke_width">32dp</dimen>
     <dimen name="stroke_height">1dp</dimen>
-    <dimen name="description_behavior_peekHeight">100dp</dimen>
+    <dimen name="youtube_web_view_height">300dp</dimen>
+    <dimen name="hidden_scroll_width">400dp</dimen>
+    <dimen name="description_behavior_peekHeight">140dp</dimen>
 </resources>
