@@ -20,4 +20,19 @@
     <string name="dot">Dot</string>
     <string name="no_photo_text">There is no photo on this day, but you can watch the \'Video of the Day\'</string>
     <string name="watch_youtube_video">Watch youtube video</string>
+    <string name="already_not_important">Не важное</string>
+    <string name="show_details">Подробности</string>
+    <string name="new_note_text">Новая заметка</string>
+    <string name="enter_header">Введите заголовок заметки</string>
+    <string name="note_header_helper_text">Введите ключевую фразу которая поможет вспомнить о чем данная заметка</string>
+    <string name="note_helper_text">Распишите заметку по подробнее, длинна текста не ограничена</string>
+    <string name="enter_text">Введите текст</string>
+    <string name="error">Ошибка</string>
+    <string name="reload">Перезагрузить</string>
+    <string name="success_local_db">Успешная загрузка локальных данных из БД</string>
+    <string name="choice_important_text">Пометить как важное</string>
+    <string name="save_text">Сохранить</string>
+    <string name="enter_key_word">Введите ключевое слово по поиску</string>
+    <string name="only_important">Только важные</string>
+    <string name="search_note">Поиск</string>
 </resources>
