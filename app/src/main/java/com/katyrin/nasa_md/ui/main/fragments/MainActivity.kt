@@ -16,9 +16,6 @@ import com.katyrin.nasa_md.R
 import com.katyrin.nasa_md.databinding.MainActivityBinding
 import com.katyrin.nasa_md.ui.main.fragments.adapters.DotsRecyclerViewAdapter
 
-
-private const val SETTINGS_FRAGMENT = "SETTINGS_FRAGMENT"
-private const val NOTES_FRAGMENT = "NOTES_FRAGMENT"
 private const val VIEW_PAGER_FRAGMENT = "VIEW_PAGER_FRAGMENT"
 private const val NEW_NOTE_FRAGMENT = "NEW_NOTE_FRAGMENT"
 private const val SIZE_PAGES = 10
@@ -75,18 +72,24 @@ class MainActivity : AppCompatActivity(), OnPositionListener {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
+            R.id.app_bar_main -> {
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.container, PictureOfTheDayFragment.newInstance())
+                    .commitNow()
+                setMainFabPosition()
+            }
             R.id.app_bar_notes -> {
                 supportFragmentManager.beginTransaction()
-                    .add(R.id.container, noteFragment)
-                    .addToBackStack(NOTES_FRAGMENT)
+                    .replace(R.id.container, noteFragment)
                     .commitAllowingStateLoss()
+                setMainFabPosition(R.drawable.ic_plus_fab)
             }
             R.id.app_bar_settings -> {
                 supportFragmentManager.apply {
                     beginTransaction()
-                        .add(R.id.container, SettingsFragment.newInstance())
-                        .addToBackStack(SETTINGS_FRAGMENT)
+                        .replace(R.id.container, SettingsFragment.newInstance())
                         .commitAllowingStateLoss()
+                    setMainFabPosition()
                 }
             }
             R.id.app_bar_search -> Toast.makeText(this, "Search", Toast.LENGTH_SHORT).show()
@@ -99,18 +102,33 @@ class MainActivity : AppCompatActivity(), OnPositionListener {
     }
 
     override fun onBackPressed() {
+        fabBackPress()
+        super.onBackPressed()
+    }
+
+    private fun fabBackPress() {
         val fragment = supportFragmentManager.findFragmentById(R.id.container)
-        if (fragment is OnBackStackInterface) {
+        if (fragment is NewNoteFragment) {
+            setMainFabPosition(R.drawable.ic_plus_fab)
+        } else {
             setMainFabPosition()
         }
-        super.onBackPressed()
+    }
+
+    private fun fabInitActivity() {
+        val fragment = supportFragmentManager.findFragmentById(R.id.container)
+        if (fragment is NotesFragment) {
+            setMainFabPosition(R.drawable.ic_plus_fab)
+        } else {
+            setMainFabPosition()
+        }
     }
 
     private fun setBottomBar() {
         setSupportActionBar(binding.bottomAppBar)
 
         if (isMain) {
-            setMainFabPosition()
+            fabInitActivity()
         } else {
             setNotMainFabPosition()
         }
@@ -132,18 +150,17 @@ class MainActivity : AppCompatActivity(), OnPositionListener {
                         .commitAllowingStateLoss()
                 }
             } else {
-                setMainFabPosition()
+                fabBackPress()
                 supportFragmentManager.popBackStack()
                 viewPagerFragment = null
             }
         }
     }
 
-    private fun setMainFabPosition() {
+    private fun setMainFabPosition(icon: Int = R.drawable.ic_star) {
         setFABPosition(true,
             ContextCompat.getDrawable(this, R.drawable.ic_hamburger_menu_bottom_bar),
-            BottomAppBar.FAB_ALIGNMENT_MODE_CENTER, R.drawable.ic_plus_fab,
-            R.menu.menu_bottom_bar)
+            BottomAppBar.FAB_ALIGNMENT_MODE_CENTER, icon, R.menu.menu_bottom_bar)
     }
 
     private fun setNotMainFabPosition() {
