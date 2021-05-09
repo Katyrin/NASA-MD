@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.katyrin.nasa_md.R
 import com.katyrin.nasa_md.databinding.NotesFragmentBinding
 import com.katyrin.nasa_md.ui.main.fragments.adapters.notes.ItemTouchHelperCallback
-import com.katyrin.nasa_md.ui.main.fragments.adapters.notes.NotesRecyclerView
+import com.katyrin.nasa_md.ui.main.fragments.adapters.notes.NotesRecyclerViewAdapter
 import com.katyrin.nasa_md.ui.main.model.data.Note
 import com.katyrin.nasa_md.ui.main.picture.AppState
 import com.katyrin.nasa_md.ui.main.picture.NotesViewModel
@@ -31,8 +31,8 @@ class NotesFragment : Fragment() {
     private val viewModel: NotesViewModel by lazy {
         ViewModelProvider(this).get(NotesViewModel::class.java)
     }
-    private val adapter: NotesRecyclerView by lazy {
-        NotesRecyclerView(
+    private val adapter: NotesRecyclerViewAdapter by lazy {
+        NotesRecyclerViewAdapter(
             { Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show() },
             { viewModel.deleteNoteToDB(it) },
             { itemTouchHelper.startDrag(it) }

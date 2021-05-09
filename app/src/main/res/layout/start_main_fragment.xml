@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/constraint_container"
@@ -22,9 +21,9 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/distance_between_widgets"
             app:layout_constraintBottom_toBottomOf="@+id/input_layout"
+            app:layout_constraintEnd_toStartOf="@+id/wiki_button"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/input_layout"
-            app:layout_constraintEnd_toStartOf="@+id/wiki_button">
+            app:layout_constraintTop_toTopOf="@+id/input_layout">
 
             <com.google.android.material.chip.ChipGroup
                 android:id="@+id/chip_group"
@@ -69,10 +68,11 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/input_layout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            app:shapeAppearance="@style/AppShapeAppearance"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="@string/search_wiki"
+            android:paddingTop="@dimen/padding_to_screen_edge"
+            android:paddingBottom="@dimen/distance_between_widgets"
             app:counterEnabled="true"
             app:counterMaxLength="20"
             app:endIconCheckable="true"
@@ -81,8 +81,7 @@
             app:helperText="@string/wiki_helper_text"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="parent"
-            android:paddingTop="@dimen/padding_to_screen_edge"
-            android:paddingBottom="@dimen/distance_between_widgets">
+            app:shapeAppearance="@style/AppShapeAppearance">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/input_edit_text"
@@ -105,8 +104,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:contentDescription="@string/photo_of_the_day_stub"
             android:layout_marginTop="@dimen/distance_between_widgets"
+            android:contentDescription="@string/photo_of_the_day_stub"
             app:layout_constraintEnd_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/motion_layout"
             app:srcCompat="@drawable/ic_no_photo_vector" />
@@ -117,13 +116,13 @@
         android:id="@+id/coordinator_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" >
+        app:layout_constraintTop_toBottomOf="parent">
 
         <include
             android:id="@+id/include_layout"
-            layout="@layout/bottom_sheet_layout"/>
+            layout="@layout/bottom_sheet_layout" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
@@ -133,9 +132,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

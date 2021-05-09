@@ -9,6 +9,7 @@
     <dimen name="hidden_scroll_width">400dp</dimen>
     <dimen name="description_behavior_peekHeight">140dp</dimen>
     <dimen name="note_bottom_margin">58dp</dimen>
+    <dimen name="wiki_button_bottom">10dp</dimen>
 
     <dimen name="icon_size">40dp</dimen>
     <dimen name="big_icon_size">80dp</dimen>

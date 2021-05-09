@@ -3,14 +3,15 @@ package com.katyrin.nasa_md.ui.main.fragments.adapters.notes
 import android.annotation.SuppressLint
 import android.graphics.Color
 import android.view.MotionEvent
-import androidx.recyclerview.widget.RecyclerView
+import androidx.core.content.ContextCompat
+import com.katyrin.nasa_md.R
 import com.katyrin.nasa_md.databinding.ItemImportentNoteBinding
 import com.katyrin.nasa_md.databinding.ItemNoteBinding
 import com.katyrin.nasa_md.ui.main.model.data.Note
 
 class NoteViewHolder(private val itemBinding: ItemNoteBinding,
-                     private val onStartDrag: (RecyclerView.ViewHolder) -> Unit)
-    : BaseViewHolder(itemBinding.root) {
+                     private val onStartDrag: (BaseViewHolder) -> Unit
+) : BaseViewHolder(itemBinding.root) {
 
     @SuppressLint("ClickableViewAccessibility")
     override fun bind(dataItem: Note) {
@@ -29,19 +30,19 @@ class NoteViewHolder(private val itemBinding: ItemNoteBinding,
 
     override fun onItemSelected() {
         itemView.setBackgroundColor(Color.LTGRAY)
-
     }
 
     override fun onItemClear() {
         itemView.setBackgroundColor(0)
-
     }
 }
 
 class ImportantNoteViewHolder(private val itemBinding: ItemImportentNoteBinding,
                               private val onClick: (String) -> Unit,
-                              private val onStartDrag: (RecyclerView.ViewHolder) -> Unit
+                              private val onStartDrag: (BaseViewHolder) -> Unit
 ) : BaseViewHolder(itemBinding.root) {
+
+    private val context = itemBinding.root.context
 
     @SuppressLint("ClickableViewAccessibility")
     override fun bind(dataItem: Note) {
@@ -62,15 +63,14 @@ class ImportantNoteViewHolder(private val itemBinding: ItemImportentNoteBinding,
                 false
             }
         }
+        itemView.setBackgroundColor(ContextCompat.getColor(context, R.color.background_card_view_color))
     }
 
     override fun onItemSelected() {
         itemView.setBackgroundColor(Color.LTGRAY)
-
     }
 
     override fun onItemClear() {
-        itemView.setBackgroundColor(0)
-
+        itemView.setBackgroundColor(ContextCompat.getColor(context, R.color.background_card_view_color))
     }
 }
