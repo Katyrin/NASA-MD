@@ -15,7 +15,6 @@ import com.google.android.material.bottomappbar.BottomAppBar
 import com.katyrin.nasa_md.R
 import com.katyrin.nasa_md.databinding.MainActivityBinding
 import com.katyrin.nasa_md.ui.main.fragments.adapters.DotsRecyclerViewAdapter
-import com.katyrin.nasa_md.ui.main.picture.BottomNavigationDrawerFragment
 
 
 private const val SETTINGS_FRAGMENT = "SETTINGS_FRAGMENT"

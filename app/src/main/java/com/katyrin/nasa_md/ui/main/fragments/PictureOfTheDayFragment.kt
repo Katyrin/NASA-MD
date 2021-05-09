@@ -2,12 +2,20 @@ package com.katyrin.nasa_md.ui.main.fragments
 
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.BackgroundColorSpan
+import android.text.style.BulletSpan
+import android.text.style.QuoteSpan
 import android.transition.ChangeBounds
 import android.transition.TransitionManager
+import android.util.TypedValue
 import android.view.*
 import android.view.animation.AnticipateOvershootInterpolator
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.fragment.app.Fragment
@@ -21,6 +29,7 @@ import com.katyrin.nasa_md.ui.main.picture.PictureOfTheDayData
 import com.katyrin.nasa_md.ui.main.picture.PictureOfTheDayViewModel
 import java.text.SimpleDateFormat
 import java.util.*
+
 
 class PictureOfTheDayFragment : Fragment() {
 
@@ -137,14 +146,57 @@ class PictureOfTheDayFragment : Fragment() {
         if (title.isNullOrEmpty()) {
             binding.includeLayout.bottomSheetDescriptionHeader.text = ""
         } else {
-            binding.includeLayout.bottomSheetDescriptionHeader.text = title
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                setTextSpan(title)
+            } else {
+                binding.includeLayout.bottomSheetDescriptionHeader.text = title
+            }
         }
 
         if (explanation.isNullOrEmpty()) {
             binding.includeLayout.bottomSheetDescription.text = "Статья отсутствует"
         } else {
-            binding.includeLayout.bottomSheetDescription.text = explanation
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                setDescriptionSpan(explanation)
+            } else {
+                binding.includeLayout.bottomSheetDescription.text = explanation
+            }
         }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.P)
+    private fun setTextSpan(text: String) {
+        val spannable = SpannableString(text)
+        spannable.setSpan(
+            BulletSpan(20, requireActivity().getColor(getResIdFromAttribute()), 10),
+            0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+        spannable.setSpan(
+            BackgroundColorSpan(requireActivity().getColor(getResIdFromAttribute())),
+            0, spannable.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+        binding.includeLayout.bottomSheetDescriptionHeader.text = spannable
+    }
+
+    @RequiresApi(Build.VERSION_CODES.P)
+    private fun setDescriptionSpan(text: String) {
+        val spannable = SpannableString(text)
+        spannable.setSpan(
+            QuoteSpan(requireActivity().getColor(getResIdFromAttribute()),
+                5, 20
+            ), 0, spannable.length - 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+        binding.includeLayout.bottomSheetDescription.text = spannable
+    }
+
+    private fun getResIdFromAttribute(): Int {
+        val typedValue = TypedValue()
+        requireActivity()
+            .theme.resolveAttribute(android.R.attr.colorAccent, typedValue, true)
+        val resourceId = typedValue.resourceId
+        return if (resourceId != 0)
+            resourceId
+        else typedValue.data
     }
 
     private fun Fragment.toast(string: String?) {
