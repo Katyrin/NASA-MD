@@ -1,4 +1,4 @@
-package com.katyrin.nasa_md.ui.main.picture
+package com.katyrin.nasa_md.ui.main.viewmodel
 
 import retrofit2.Call
 import retrofit2.http.GET

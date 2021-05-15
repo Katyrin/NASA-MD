@@ -1,4 +1,4 @@
-package com.katyrin.nasa_md.ui.main.picture
+package com.katyrin.nasa_md.ui.main.viewmodel
 
 sealed class PictureOfTheDayData {
     data class Success(val serverResponseData: PODServerResponseData) : PictureOfTheDayData()

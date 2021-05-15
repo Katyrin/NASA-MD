@@ -25,8 +25,8 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.chip.Chip
 import com.katyrin.nasa_md.*
 import com.katyrin.nasa_md.databinding.StartMainFragmentBinding
-import com.katyrin.nasa_md.ui.main.picture.PictureOfTheDayData
-import com.katyrin.nasa_md.ui.main.picture.PictureOfTheDayViewModel
+import com.katyrin.nasa_md.ui.main.viewmodel.PictureOfTheDayData
+import com.katyrin.nasa_md.ui.main.viewmodel.PictureOfTheDayViewModel
 import java.text.SimpleDateFormat
 import java.util.*
 
