@@ -1,4 +1,4 @@
-package com.katyrin.nasa_md.ui.main.picture
+package com.katyrin.nasa_md.ui.main.viewmodel
 
 import com.google.gson.GsonBuilder
 import okhttp3.Interceptor

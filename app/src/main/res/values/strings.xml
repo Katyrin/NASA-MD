@@ -36,4 +36,5 @@
     <string name="only_important">Только важные</string>
     <string name="search_note">Поиск</string>
     <string name="home">Home</string>
+    <string name="the_list_is_empty">The list is empty</string>
 </resources>

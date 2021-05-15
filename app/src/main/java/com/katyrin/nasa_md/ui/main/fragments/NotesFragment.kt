@@ -15,8 +15,8 @@ import com.katyrin.nasa_md.databinding.NotesFragmentBinding
 import com.katyrin.nasa_md.ui.main.fragments.adapters.notes.ItemTouchHelperCallback
 import com.katyrin.nasa_md.ui.main.fragments.adapters.notes.NotesRecyclerViewAdapter
 import com.katyrin.nasa_md.ui.main.model.data.Note
-import com.katyrin.nasa_md.ui.main.picture.AppState
-import com.katyrin.nasa_md.ui.main.picture.NotesViewModel
+import com.katyrin.nasa_md.ui.main.viewmodel.AppState
+import com.katyrin.nasa_md.ui.main.viewmodel.NotesViewModel
 
 class NotesFragment : Fragment() {
 
@@ -34,9 +34,18 @@ class NotesFragment : Fragment() {
     private val adapter: NotesRecyclerViewAdapter by lazy {
         NotesRecyclerViewAdapter(
             { Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show() },
-            { viewModel.deleteNoteToDB(it) },
+            { viewModel.deleteNoteToDB(it)
+                allNotes.remove(it)
+                checkEmptyList(allNotes) },
             { itemTouchHelper.startDrag(it) }
         )
+    }
+
+    private fun checkEmptyList(list: List<Note>) {
+        if (list.isEmpty())
+            binding.emptyText.visibility = View.VISIBLE
+        else
+            binding.emptyText.visibility = View.GONE
     }
 
     override fun onCreateView(
@@ -86,6 +95,8 @@ class NotesFragment : Fragment() {
                     }
                 }
 
+               checkEmptyList(currentList)
+
                 initRecyclerView(currentList)
             }
         }
@@ -99,7 +110,9 @@ class NotesFragment : Fragment() {
                 binding.progressBar.visibility = View.GONE
                 binding.notesRecyclerView.visibility = View.VISIBLE
                 if (appState.notes.isEmpty()) {
+                    binding.emptyText.visibility = View.VISIBLE
                     initRecyclerView(viewModel.getFakeNotes())
+                    binding.emptyText.visibility = View.GONE
                     viewModel.getFakeNotes().map {
                         viewModel.saveNoteToDB(it)
                     }
@@ -140,6 +153,7 @@ class NotesFragment : Fragment() {
     private fun addNewItem() {
         val note: Note = newNote ?: Note()
         if (note.header.isNotEmpty()) {
+            binding.emptyText.visibility = View.GONE
             adapter.appendItem(newNote!!)
             viewModel.saveNoteToDB(note)
             allNotes.add(note)

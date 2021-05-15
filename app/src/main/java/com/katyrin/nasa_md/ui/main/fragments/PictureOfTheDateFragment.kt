@@ -18,8 +18,8 @@ import androidx.transition.TransitionSet
 import coil.load
 import com.katyrin.nasa_md.R
 import com.katyrin.nasa_md.databinding.FragmentPictureOfTheDateBinding
-import com.katyrin.nasa_md.ui.main.picture.PictureOfTheDayData
-import com.katyrin.nasa_md.ui.main.picture.PictureOfTheDayViewModel
+import com.katyrin.nasa_md.ui.main.viewmodel.PictureOfTheDayData
+import com.katyrin.nasa_md.ui.main.viewmodel.PictureOfTheDayViewModel
 
 
 private const val REQUIRE_DATE = "REQUIRE_DATE"
