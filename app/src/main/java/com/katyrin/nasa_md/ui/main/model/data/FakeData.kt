@@ -4,7 +4,7 @@ val fakeData: List<Note> = listOf(
     Note(
         header = "Убраться",
         description = "Нужно успеть до 18:00 сегодня либо завтра с 13:00 до 17:00, обязательно протереть окна",
-        isImportant = false
+        isImportant = true
     ),
     Note(
         header = "Урок",

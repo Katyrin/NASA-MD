@@ -1,4 +1,4 @@
-package com.katyrin.nasa_md.ui.main.picture
+package com.katyrin.nasa_md.ui.main.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater

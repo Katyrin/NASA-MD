@@ -1,9 +1,11 @@
 package com.katyrin.nasa_md.ui.main.fragments.adapters.notes
 
+import android.graphics.Canvas
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import kotlin.math.abs
 
-class ItemTouchHelperCallback(private val adapter: NotesRecyclerView) :
+class ItemTouchHelperCallback(private val adapter: NotesRecyclerViewAdapter) :
     ItemTouchHelper.Callback() {
 
     override fun isLongPressDragEnabled(): Boolean {
@@ -31,7 +33,7 @@ class ItemTouchHelperCallback(private val adapter: NotesRecyclerView) :
         source: RecyclerView.ViewHolder,
         target: RecyclerView.ViewHolder
     ): Boolean {
-        adapter.onItemMove(source.adapterPosition, target.adapterPosition)
+        adapter.onItemMove((source as BaseViewHolder).adapterPosition, (target as BaseViewHolder).adapterPosition)
         return true
     }
 
@@ -51,5 +53,27 @@ class ItemTouchHelperCallback(private val adapter: NotesRecyclerView) :
         super.clearView(recyclerView, viewHolder)
         val itemViewHolder = viewHolder as ItemTouchHelperViewHolder
         itemViewHolder.onItemClear()
+    }
+
+    override fun onChildDraw(
+        c: Canvas,
+        recyclerView: RecyclerView,
+        viewHolder: RecyclerView.ViewHolder,
+        dX: Float,
+        dY: Float,
+        actionState: Int,
+        isCurrentlyActive: Boolean
+    ) {
+        if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
+            val width = viewHolder.itemView.width.toFloat()
+            val alpha = 1.0f - abs(dX) / width
+            viewHolder.itemView.alpha = alpha
+            viewHolder.itemView.translationX = dX
+        } else {
+            super.onChildDraw(
+                c, recyclerView, viewHolder, dX, dY,
+                actionState, isCurrentlyActive
+            )
+        }
     }
 }
