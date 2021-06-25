@@ -4,6 +4,7 @@ import android.content.Context
 import com.katyrin.nasa_md.App
 import com.katyrin.nasa_md.di.modules.HomeModule
 import com.katyrin.nasa_md.di.modules.NetworkModule
+import com.katyrin.nasa_md.di.modules.PicturesModule
 import com.katyrin.nasa_md.scheduler.DefaultSchedulers
 import dagger.BindsInstance
 import dagger.Component
@@ -14,8 +15,8 @@ import ru.terrakok.cicerone.Router
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [AndroidInjectionModule::class, NetworkModule::class, HomeModule::class])
-interface AppComponent: AndroidInjector<App> {
+@Component(modules = [AndroidInjectionModule::class, NetworkModule::class, HomeModule::class, PicturesModule::class])
+interface AppComponent : AndroidInjector<App> {
 
     @Component.Builder
     interface Builder {

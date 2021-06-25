@@ -5,8 +5,6 @@ import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -17,8 +15,9 @@ import com.katyrin.nasa_md.databinding.MainActivityBinding
 import com.katyrin.nasa_md.ui.main.fragments.*
 import com.katyrin.nasa_md.ui.main.fragments.adapters.DotsRecyclerViewAdapter
 import com.katyrin.nasa_md.view.HomeFragment
+import com.katyrin.nasa_md.view.viewpager.ViewPagerFragment
 
-class MainActivity : AppCompatActivity(), OnPositionListener {
+class MainActivity : AppCompatActivity() {
 
     private val adapter: DotsRecyclerViewAdapter by lazy { DotsRecyclerViewAdapter(SIZE_PAGES, this) }
     private lateinit var binding: MainActivityBinding
@@ -50,8 +49,6 @@ class MainActivity : AppCompatActivity(), OnPositionListener {
     private fun initRecyclerView() {
         adapter.dotPosition = savePosition
         layoutManager.orientation = LinearLayoutManager.HORIZONTAL
-        binding.dotsRecyclerView.layoutManager = layoutManager
-        binding.dotsRecyclerView.adapter = adapter
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -166,35 +163,13 @@ class MainActivity : AppCompatActivity(), OnPositionListener {
                                position: Int,
                                fabImage: Int,
                                menu: Int) {
-        val fragment = supportFragmentManager.findFragmentById(R.id.container)
         isMain = isMainScreen
-        if (fragment is HomeFragment && !isMain) {
-            binding.dotsRecyclerView.visibility = View.VISIBLE
-        } else {
-            binding.dotsRecyclerView.visibility = View.GONE
-        }
         binding.bottomAppBar.apply {
             navigationIcon = navIcon
             fabAlignmentMode = position
             replaceMenu(menu)
         }
         binding.fab.setImageDrawable(ContextCompat.getDrawable(this, fabImage))
-    }
-
-    override fun setDotsColor(position: Int) {
-        savePosition = position
-        val drawablePassive: Drawable? =
-            ContextCompat.getDrawable(this, R.drawable.swipe_indicator_passive)
-        val drawableActive: Drawable? =
-            ContextCompat.getDrawable(this, R.drawable.swipe_indicator_active)
-        for (i in 0 until SIZE_PAGES) {
-            val item = layoutManager.findViewByPosition(i) as? ImageView
-            if (position == i) {
-                item?.setImageDrawable(drawableActive)
-            } else {
-                item?.setImageDrawable(drawablePassive)
-            }
-        }
     }
 
     companion object{

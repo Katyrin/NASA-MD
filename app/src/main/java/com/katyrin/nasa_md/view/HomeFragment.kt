@@ -56,9 +56,6 @@ class HomeFragment : AbsFragment(R.layout.fragment_home), HomeView {
         binding?.includeLayout?.bottomSheetContainer?.let { setBottomSheetBehavior(it) }
         binding?.inputLayout?.setEndIconOnClickListener { openWikipediaResult() }
         setSelectionChips()
-//        binding?.root?.setOnClickListener {
-//            startAnimation()
-//        }
     }
 
     private fun setSelectionChips() {

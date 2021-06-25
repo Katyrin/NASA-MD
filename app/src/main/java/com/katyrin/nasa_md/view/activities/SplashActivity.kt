@@ -19,8 +19,8 @@ class SplashActivity : AppCompatActivity() {
 
     private fun startAnimation() {
         binding?.imageView?.startRotateImage {
-            finish()
             startActivity(Intent(this@SplashActivity, MainActivity::class.java))
+            finish()
         }
     }
 

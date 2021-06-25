@@ -33,4 +33,5 @@
     <dimen name="app_name_spacing">0.01</dimen>
     <dimen name="button_spacing">0.05</dimen>
     <dimen name="text_message_spacing">0.02</dimen>
+    <dimen name="indicator_height">48dp</dimen>
 </resources>
