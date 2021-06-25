@@ -1,8 +1,8 @@
-package com.katyrin.nasa_md.ui.main.viewmodel
+package com.katyrin.nasa_md.model.data
 
 import com.google.gson.annotations.SerializedName
 
-data class PODServerResponseData(
+data class DayPictureDTO(
     @field:SerializedName("copyright") val copyright: String?,
     @field:SerializedName("date") val date: String?,
     @field:SerializedName("explanation") val explanation: String?,

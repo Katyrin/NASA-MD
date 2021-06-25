@@ -1,4 +1,4 @@
-package com.katyrin.nasa_md.ui.main.fragments
+package com.katyrin.nasa_md.view.activities
 
 import android.content.Context
 import android.graphics.drawable.Drawable
@@ -14,18 +14,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.katyrin.nasa_md.R
 import com.katyrin.nasa_md.databinding.MainActivityBinding
+import com.katyrin.nasa_md.ui.main.fragments.*
 import com.katyrin.nasa_md.ui.main.fragments.adapters.DotsRecyclerViewAdapter
-
-private const val VIEW_PAGER_FRAGMENT = "VIEW_PAGER_FRAGMENT"
-private const val NEW_NOTE_FRAGMENT = "NEW_NOTE_FRAGMENT"
-private const val SIZE_PAGES = 10
+import com.katyrin.nasa_md.view.HomeFragment
 
 class MainActivity : AppCompatActivity(), OnPositionListener {
-
-    companion object{
-        private var isMain = true
-        private var savePosition = 0
-    }
 
     private val adapter: DotsRecyclerViewAdapter by lazy { DotsRecyclerViewAdapter(SIZE_PAGES, this) }
     private lateinit var binding: MainActivityBinding
@@ -35,7 +28,6 @@ class MainActivity : AppCompatActivity(), OnPositionListener {
     private val newNoteFragment: NewNoteFragment by lazy { NewNoteFragment.newInstance() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
         val resIdTheme = getSharedPreferences(SETTINGS_SHARED_PREFERENCE, Context.MODE_PRIVATE)
             .getInt(THEME_RES_ID, R.style.Theme_NASAMD)
         setTheme(resIdTheme)
@@ -50,7 +42,7 @@ class MainActivity : AppCompatActivity(), OnPositionListener {
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                    .replace(R.id.container, PictureOfTheDayFragment.newInstance())
+                    .replace(R.id.container, HomeFragment.newInstance())
                     .commitNow()
         }
     }
@@ -74,7 +66,7 @@ class MainActivity : AppCompatActivity(), OnPositionListener {
         when(item.itemId) {
             R.id.app_bar_main -> {
                 supportFragmentManager.beginTransaction()
-                    .replace(R.id.container, PictureOfTheDayFragment.newInstance())
+                    .replace(R.id.container, HomeFragment.newInstance())
                     .commitNow()
                 setMainFabPosition()
             }
@@ -176,7 +168,7 @@ class MainActivity : AppCompatActivity(), OnPositionListener {
                                menu: Int) {
         val fragment = supportFragmentManager.findFragmentById(R.id.container)
         isMain = isMainScreen
-        if (fragment is PictureOfTheDayFragment && !isMain) {
+        if (fragment is HomeFragment && !isMain) {
             binding.dotsRecyclerView.visibility = View.VISIBLE
         } else {
             binding.dotsRecyclerView.visibility = View.GONE
@@ -203,5 +195,13 @@ class MainActivity : AppCompatActivity(), OnPositionListener {
                 item?.setImageDrawable(drawablePassive)
             }
         }
+    }
+
+    companion object{
+        private const val VIEW_PAGER_FRAGMENT = "VIEW_PAGER_FRAGMENT"
+        private const val NEW_NOTE_FRAGMENT = "NEW_NOTE_FRAGMENT"
+        private const val SIZE_PAGES = 10
+        private var isMain = true
+        private var savePosition = 0
     }
 }

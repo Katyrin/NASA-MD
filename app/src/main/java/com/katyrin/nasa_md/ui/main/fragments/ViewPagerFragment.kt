@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.viewpager.widget.ViewPager
 import com.katyrin.nasa_md.databinding.FragmentViewPagerBinding
 import com.katyrin.nasa_md.ui.main.fragments.adapters.ViewPagerAdapter
+import com.katyrin.nasa_md.view.activities.MainActivity
 import java.text.SimpleDateFormat
 import java.util.*
 

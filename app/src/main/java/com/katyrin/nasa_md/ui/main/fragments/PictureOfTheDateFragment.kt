@@ -15,11 +15,9 @@ import androidx.transition.ChangeBounds
 import androidx.transition.ChangeImageTransform
 import androidx.transition.TransitionManager
 import androidx.transition.TransitionSet
-import coil.load
 import com.katyrin.nasa_md.R
 import com.katyrin.nasa_md.databinding.FragmentPictureOfTheDateBinding
 import com.katyrin.nasa_md.ui.main.viewmodel.PictureOfTheDayData
-import com.katyrin.nasa_md.ui.main.viewmodel.PictureOfTheDayViewModel
 
 
 private const val REQUIRE_DATE = "REQUIRE_DATE"
@@ -29,9 +27,9 @@ class PictureOfTheDateFragment : Fragment() {
     private var isExpanded = false
     private var date: String? = null
     private lateinit var binding: FragmentPictureOfTheDateBinding
-    private val viewModel: PictureOfTheDayViewModel by lazy {
-        ViewModelProvider(this).get(PictureOfTheDayViewModel::class.java)
-    }
+//    private val viewModel: PictureOfTheDayViewModel by lazy {
+//        ViewModelProvider(this).get(PictureOfTheDayViewModel::class.java)
+//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,7 +50,7 @@ class PictureOfTheDateFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel.getData(date).observe(this, { renderData(it) })
+//        viewModel.getData(date).observe(this, { renderData(it) })
     }
 
     private fun renderData(data: PictureOfTheDayData) {
@@ -84,11 +82,11 @@ class PictureOfTheDateFragment : Fragment() {
             if (separateUrl[1] != "youtube") {
                 binding.webView.isVisible = false
                 binding.imageView.isVisible = true
-                binding.imageView.load(url) {
-                    lifecycle(this@PictureOfTheDateFragment)
-                    error(R.drawable.ic_load_error_vector)
-                    placeholder(R.drawable.ic_no_photo_vector)
-                }
+//                binding.imageView.load(url) {
+//                    lifecycle(this@PictureOfTheDateFragment)
+//                    error(R.drawable.ic_load_error_vector)
+//                    placeholder(R.drawable.ic_no_photo_vector)
+//                }
 
             } else {
                 binding.apply {

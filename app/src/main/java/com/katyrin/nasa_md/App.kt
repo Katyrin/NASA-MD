@@ -1,11 +1,28 @@
-package com.katyrin.nasa_md.ui.main
+package com.katyrin.nasa_md
 
-import android.app.Application
 import androidx.room.Room
+import com.katyrin.nasa_md.di.DaggerAppComponent
+import com.katyrin.nasa_md.scheduler.DefaultSchedulers
 import com.katyrin.nasa_md.ui.main.model.room.NotesDao
 import com.katyrin.nasa_md.ui.main.model.room.NotesDataBase
+import dagger.android.AndroidInjector
+import dagger.android.DaggerApplication
+import ru.terrakok.cicerone.Cicerone
 
-class App: Application() {
+class App: DaggerApplication() {
+
+    override fun applicationInjector(): AndroidInjector<App> =
+        DaggerAppComponent
+            .builder()
+            .withContext(applicationContext)
+            .apply {
+                val cicerone = Cicerone.create()
+                withRouter(cicerone.router)
+                withNavigatorHolder(cicerone.navigatorHolder)
+            }
+            .withSchedulers(DefaultSchedulers)
+            .build()
+
     override fun onCreate() {
         super.onCreate()
         appInstance = this

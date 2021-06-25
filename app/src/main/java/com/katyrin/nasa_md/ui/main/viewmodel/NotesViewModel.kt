@@ -2,7 +2,7 @@ package com.katyrin.nasa_md.ui.main.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.katyrin.nasa_md.ui.main.App
+import com.katyrin.nasa_md.App
 import com.katyrin.nasa_md.ui.main.model.data.Note
 import com.katyrin.nasa_md.ui.main.model.data.fakeData
 import com.katyrin.nasa_md.ui.main.repository.LocalRepository
