@@ -3,13 +3,16 @@ package com.katyrin.nasa_md.presenter.home
 import com.katyrin.nasa_md.model.data.DayPictureDTO
 import com.katyrin.nasa_md.model.repository.home.HomeRepository
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.kotlin.plusAssign
 import moxy.MvpPresenter
 import javax.inject.Inject
 
-class HomePresenter : MvpPresenter<HomeView>() {
+class HomePresenter @Inject constructor(
+    private val homeRepository: HomeRepository
+): MvpPresenter<HomeView>() {
 
-    @Inject
-    lateinit var homeRepository: HomeRepository
+    private var disposable: CompositeDisposable = CompositeDisposable()
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
@@ -19,7 +22,7 @@ class HomePresenter : MvpPresenter<HomeView>() {
 
     fun getData(date: String?) {
         viewState.setLoadingState()
-        homeRepository
+        disposable += homeRepository
             .getPictureOfTheDay(date)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(::setSuccessState, ::setErrorState)
@@ -37,6 +40,11 @@ class HomePresenter : MvpPresenter<HomeView>() {
     private fun setErrorState(throwable: Throwable) {
         viewState.setNormalState()
         viewState.showError(throwable)
+    }
+
+    override fun onDestroy() {
+        disposable.dispose()
+        super.onDestroy()
     }
 
     private companion object {

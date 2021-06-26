@@ -9,7 +9,7 @@ import com.katyrin.nasa_md.R
 import com.katyrin.nasa_md.databinding.FragmentViewPagerBinding
 import com.katyrin.nasa_md.presenter.viewpager.ViewPagerPresenter
 import com.katyrin.nasa_md.presenter.viewpager.ViewPagerView
-import com.katyrin.nasa_md.ui.main.fragments.PictureOfTheDateFragment
+import com.katyrin.nasa_md.view.PictureOfTheDayFragment
 import com.katyrin.nasa_md.utils.previousDay
 import com.katyrin.nasa_md.view.abs.AbsFragment
 import moxy.ktx.moxyPresenter
@@ -17,7 +17,6 @@ import moxy.ktx.moxyPresenter
 class ViewPagerFragment : AbsFragment(R.layout.fragment_view_pager), ViewPagerView {
 
     private var binding: FragmentViewPagerBinding? = null
-    private var fragments: MutableList<Fragment>? = mutableListOf()
     private val presenter: ViewPagerPresenter by moxyPresenter { ViewPagerPresenter() }
 
     override fun onCreateView(
@@ -27,25 +26,21 @@ class ViewPagerFragment : AbsFragment(R.layout.fragment_view_pager), ViewPagerVi
         .also { binding = it }.root
 
     override fun init() {
-        initListFragment()
-        binding?.viewPager?.adapter = fragments?.let { ViewPagerAdapter(requireActivity(), it) }
+        binding?.viewPager?.adapter = ViewPagerAdapter(requireActivity(), getListFragment())
         binding?.indicator?.setViewPager(binding?.viewPager)
     }
 
-    private fun initListFragment() {
-        fragments?.clear()
-        for (i in 0..9) {
-            fragments?.add(PictureOfTheDateFragment.newInstance(i.previousDay()))
-        }
-    }
+    private fun getListFragment(): MutableList<Fragment> =
+        MutableList(VIEW_PAGER_SIZE) { PictureOfTheDayFragment.newInstance(it.previousDay()) }
 
-    override fun onDestroy() {
+    override fun onDetach() {
         binding = null
-        fragments = null
-        super.onDestroy()
+        super.onDetach()
     }
 
     companion object {
-        fun newInstance(): ViewPagerFragment = ViewPagerFragment()
+        private const val VIEW_PAGER_SIZE = 10
+
+        fun newInstance(): Fragment = ViewPagerFragment()
     }
 }

@@ -5,11 +5,16 @@ import android.app.Activity
 import android.os.Build
 import android.util.TypedValue
 import android.view.View
+import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
+import androidx.transition.ChangeBounds
+import androidx.transition.ChangeImageTransform
+import androidx.transition.TransitionManager
+import androidx.transition.TransitionSet
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.model.GlideUrl
 import com.katyrin.nasa_md.R
@@ -34,6 +39,15 @@ fun View.startRotateImage(onAnimationEnd: () -> Unit) {
             override fun onAnimationCancel(animation: Animator?) {}
             override fun onAnimationStart(animation: Animator?) {}
         })
+}
+
+fun ViewGroup.beginDelayedTransition() {
+    TransitionManager.beginDelayedTransition(
+        this,
+        TransitionSet()
+            .addTransition(ChangeBounds())
+            .addTransition(ChangeImageTransform())
+    )
 }
 
 fun Fragment.toast(string: String?) {

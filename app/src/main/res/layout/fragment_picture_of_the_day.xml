@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.main.fragments.PictureOfTheDateFragment">
+    tools:context=".view.PictureOfTheDayFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/frame_layout_container"
@@ -41,11 +41,12 @@
             app:srcCompat="@drawable/ic_no_photo_vector" />
 
         <ProgressBar
-            android:id="@+id/progressBar"
+            android:id="@+id/progress_bar"
             style="?android:attr/progressBarStyleLarge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

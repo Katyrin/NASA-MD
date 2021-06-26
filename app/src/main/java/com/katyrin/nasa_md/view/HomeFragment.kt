@@ -19,6 +19,7 @@ import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.chip.Chip
 import com.katyrin.nasa_md.R
@@ -30,16 +31,22 @@ import com.katyrin.nasa_md.utils.previousDay
 import com.katyrin.nasa_md.utils.setImageFromUri
 import com.katyrin.nasa_md.utils.toast
 import com.katyrin.nasa_md.view.abs.AbsFragment
-import moxy.ktx.moxyPresenter
+import moxy.presenter.InjectPresenter
+import moxy.presenter.ProvidePresenter
+import javax.inject.Inject
 
 
 class HomeFragment : AbsFragment(R.layout.fragment_home), HomeView {
 
+    @Inject
+    @InjectPresenter
+    lateinit var presenter: HomePresenter
+
+    @ProvidePresenter
+    fun providePresenter(): HomePresenter = presenter
+
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
     private var binding: FragmentHomeStartBinding? = null
-    private val presenter: HomePresenter by moxyPresenter {
-        HomePresenter().apply { androidInjector().inject(this) }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -141,7 +148,7 @@ class HomeFragment : AbsFragment(R.layout.fragment_home), HomeView {
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
     }
 
-     override fun startAnimation() {
+    override fun startAnimation() {
         TransitionManager.beginDelayedTransition(
             binding?.constraintContainer,
             ChangeBounds().apply {
@@ -155,9 +162,9 @@ class HomeFragment : AbsFragment(R.layout.fragment_home), HomeView {
         }
     }
 
-    override fun onDestroy() {
+    override fun onDetach() {
         binding = null
-        super.onDestroy()
+        super.onDetach()
     }
 
     companion object {
@@ -173,6 +180,6 @@ class HomeFragment : AbsFragment(R.layout.fragment_home), HomeView {
         private const val DESCRIPTION_STRIPE_WIDTH = 5
         private const val DESCRIPTION_GAP_WIDTH = 20
 
-        fun newInstance() = HomeFragment()
+        fun newInstance(): Fragment = HomeFragment()
     }
 }

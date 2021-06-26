@@ -8,21 +8,18 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.fragment.app.Fragment
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.katyrin.nasa_md.R
 import com.katyrin.nasa_md.databinding.MainActivityBinding
 import com.katyrin.nasa_md.ui.main.fragments.*
-import com.katyrin.nasa_md.ui.main.fragments.adapters.DotsRecyclerViewAdapter
 import com.katyrin.nasa_md.view.HomeFragment
 import com.katyrin.nasa_md.view.viewpager.ViewPagerFragment
 
 class MainActivity : AppCompatActivity() {
 
-    private val adapter: DotsRecyclerViewAdapter by lazy { DotsRecyclerViewAdapter(SIZE_PAGES, this) }
     private lateinit var binding: MainActivityBinding
-    private var viewPagerFragment: ViewPagerFragment? = null
-    private val layoutManager: LinearLayoutManager by lazy { LinearLayoutManager(this) }
+    private var viewPagerFragment: Fragment? = null
     private val noteFragment: NotesFragment by lazy { NotesFragment.newInstance() }
     private val newNoteFragment: NewNoteFragment by lazy { NewNoteFragment.newInstance() }
 
@@ -35,7 +32,6 @@ class MainActivity : AppCompatActivity() {
 
         binding = MainActivityBinding.inflate(layoutInflater)
 
-        initRecyclerView()
         setContentView(binding.root)
         setBottomBar()
 
@@ -44,11 +40,6 @@ class MainActivity : AppCompatActivity() {
                     .replace(R.id.container, HomeFragment.newInstance())
                     .commitNow()
         }
-    }
-
-    private fun initRecyclerView() {
-        adapter.dotPosition = savePosition
-        layoutManager.orientation = LinearLayoutManager.HORIZONTAL
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -175,8 +166,6 @@ class MainActivity : AppCompatActivity() {
     companion object{
         private const val VIEW_PAGER_FRAGMENT = "VIEW_PAGER_FRAGMENT"
         private const val NEW_NOTE_FRAGMENT = "NEW_NOTE_FRAGMENT"
-        private const val SIZE_PAGES = 10
         private var isMain = true
-        private var savePosition = 0
     }
 }
