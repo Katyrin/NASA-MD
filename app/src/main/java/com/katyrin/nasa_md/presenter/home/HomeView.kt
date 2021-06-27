@@ -5,7 +5,7 @@ import moxy.viewstate.strategy.AddToEndSingleStrategy
 import moxy.viewstate.strategy.StateStrategyType
 
 @StateStrategyType(AddToEndSingleStrategy::class)
-interface HomeView: MvpView {
+interface HomeView : MvpView {
     fun startAnimation()
     fun init()
     fun setLoadingState()

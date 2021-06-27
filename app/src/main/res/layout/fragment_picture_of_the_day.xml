@@ -17,7 +17,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <com.katyrin.nasa_md.ui.main.view.EquilateralWebView
+        <com.katyrin.nasa_md.view.customview.EquilateralWebView
             android:id="@+id/web_view"
             android:layout_width="match_parent"
             android:layout_height="@dimen/youtube_web_view_height"
@@ -28,7 +28,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_no_photo_vector" />
 
-        <com.katyrin.nasa_md.ui.main.view.EquilateralImageView
+        <com.katyrin.nasa_md.view.customview.EquilateralImageView
             android:id="@+id/image_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

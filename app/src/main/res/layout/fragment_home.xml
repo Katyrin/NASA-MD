@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".view.HomeFragment">
 
-    <com.katyrin.nasa_md.ui.main.view.SavingMotionLayout
+    <com.katyrin.nasa_md.view.customview.SavingMotionLayout
         android:id="@+id/motion_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -91,7 +91,7 @@
                 android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
-    </com.katyrin.nasa_md.ui.main.view.SavingMotionLayout>
+    </com.katyrin.nasa_md.view.customview.SavingMotionLayout>
 
     <ScrollView
         android:id="@+id/scroll_view"
@@ -101,7 +101,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/motion_layout">
 
-        <com.katyrin.nasa_md.ui.main.view.EquilateralImageView
+        <com.katyrin.nasa_md.view.customview.EquilateralImageView
             android:id="@+id/image_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -1,4 +1,4 @@
-package com.katyrin.nasa_md.model.datasorce
+package com.katyrin.nasa_md.model.datasorce.home
 
 import com.katyrin.nasa_md.model.api.NasaAPI
 import com.katyrin.nasa_md.model.data.DayPictureDTO

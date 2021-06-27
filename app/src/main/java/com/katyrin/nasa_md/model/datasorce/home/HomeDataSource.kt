@@ -1,4 +1,4 @@
-package com.katyrin.nasa_md.model.datasorce
+package com.katyrin.nasa_md.model.datasorce.home
 
 import com.katyrin.nasa_md.model.data.DayPictureDTO
 import io.reactivex.rxjava3.core.Single

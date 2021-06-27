@@ -7,7 +7,7 @@
     android:background="@color/design_default_color_on_primary"
     android:clickable="true"
     android:focusable="true"
-    tools:context=".ui.main.fragments.SettingsFragment">
+    tools:context=".view.SettingsFragment">
 
     <TextView
         android:id="@+id/settings_text_view"

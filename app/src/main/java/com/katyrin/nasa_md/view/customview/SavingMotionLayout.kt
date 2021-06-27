@@ -1,4 +1,4 @@
-package com.katyrin.nasa_md.ui.main.view
+package com.katyrin.nasa_md.view.customview
 
 import android.content.Context
 import android.os.Parcelable

@@ -1,7 +1,7 @@
 package com.katyrin.nasa_md.model.repository.home
 
 import com.katyrin.nasa_md.model.data.DayPictureDTO
-import com.katyrin.nasa_md.model.datasorce.HomeDataSource
+import com.katyrin.nasa_md.model.datasorce.home.HomeDataSource
 import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
 

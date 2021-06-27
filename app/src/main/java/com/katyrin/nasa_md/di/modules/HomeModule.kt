@@ -1,7 +1,7 @@
 package com.katyrin.nasa_md.di.modules
 
-import com.katyrin.nasa_md.model.datasorce.HomeDataSource
-import com.katyrin.nasa_md.model.datasorce.HomeDataSourceImpl
+import com.katyrin.nasa_md.model.datasorce.home.HomeDataSource
+import com.katyrin.nasa_md.model.datasorce.home.HomeDataSourceImpl
 import com.katyrin.nasa_md.model.repository.home.HomeRepository
 import com.katyrin.nasa_md.model.repository.home.HomeRepositoryImpl
 import com.katyrin.nasa_md.presenter.home.HomePresenter

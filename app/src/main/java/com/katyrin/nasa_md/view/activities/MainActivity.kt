@@ -1,22 +1,24 @@
 package com.katyrin.nasa_md.view.activities
 
-import android.content.Context
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.katyrin.nasa_md.R
 import com.katyrin.nasa_md.databinding.MainActivityBinding
-import com.katyrin.nasa_md.ui.main.fragments.*
+import com.katyrin.nasa_md.ui.main.fragments.BottomNavigationDrawerFragment
+import com.katyrin.nasa_md.ui.main.fragments.NewNoteFragment
+import com.katyrin.nasa_md.ui.main.fragments.NotesFragment
 import com.katyrin.nasa_md.view.HomeFragment
+import com.katyrin.nasa_md.view.SettingsFragment
+import com.katyrin.nasa_md.view.abs.AbsActivity
 import com.katyrin.nasa_md.view.viewpager.ViewPagerFragment
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AbsActivity(R.layout.main_activity) {
 
     private lateinit var binding: MainActivityBinding
     private var viewPagerFragment: Fragment? = null
@@ -24,10 +26,6 @@ class MainActivity : AppCompatActivity() {
     private val newNoteFragment: NewNoteFragment by lazy { NewNoteFragment.newInstance() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        val resIdTheme = getSharedPreferences(SETTINGS_SHARED_PREFERENCE, Context.MODE_PRIVATE)
-            .getInt(THEME_RES_ID, R.style.Theme_NASAMD)
-        setTheme(resIdTheme)
-
         super.onCreate(savedInstanceState)
 
         binding = MainActivityBinding.inflate(layoutInflater)
@@ -37,8 +35,8 @@ class MainActivity : AppCompatActivity() {
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                    .replace(R.id.container, HomeFragment.newInstance())
-                    .commitNow()
+                .replace(R.id.container, HomeFragment.newInstance())
+                .commitNow()
         }
     }
 
@@ -51,7 +49,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId) {
+        when (item.itemId) {
             R.id.app_bar_main -> {
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.container, HomeFragment.newInstance())
@@ -138,22 +136,28 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setMainFabPosition(icon: Int = R.drawable.ic_star) {
-        setFABPosition(true,
+        setFABPosition(
+            true,
             ContextCompat.getDrawable(this, R.drawable.ic_hamburger_menu_bottom_bar),
-            BottomAppBar.FAB_ALIGNMENT_MODE_CENTER, icon, R.menu.menu_bottom_bar)
+            BottomAppBar.FAB_ALIGNMENT_MODE_CENTER, icon, R.menu.menu_bottom_bar
+        )
     }
 
     private fun setNotMainFabPosition() {
-        setFABPosition(false, null,
+        setFABPosition(
+            false, null,
             BottomAppBar.FAB_ALIGNMENT_MODE_END, R.drawable.ic_back_fab,
-            R.menu.menu_bottom_bar_other_screen)
+            R.menu.menu_bottom_bar_other_screen
+        )
     }
 
-    private fun setFABPosition(isMainScreen: Boolean,
-                               navIcon: Drawable?,
-                               position: Int,
-                               fabImage: Int,
-                               menu: Int) {
+    private fun setFABPosition(
+        isMainScreen: Boolean,
+        navIcon: Drawable?,
+        position: Int,
+        fabImage: Int,
+        menu: Int
+    ) {
         isMain = isMainScreen
         binding.bottomAppBar.apply {
             navigationIcon = navIcon
@@ -163,7 +167,7 @@ class MainActivity : AppCompatActivity() {
         binding.fab.setImageDrawable(ContextCompat.getDrawable(this, fabImage))
     }
 
-    companion object{
+    companion object {
         private const val VIEW_PAGER_FRAGMENT = "VIEW_PAGER_FRAGMENT"
         private const val NEW_NOTE_FRAGMENT = "NEW_NOTE_FRAGMENT"
         private var isMain = true

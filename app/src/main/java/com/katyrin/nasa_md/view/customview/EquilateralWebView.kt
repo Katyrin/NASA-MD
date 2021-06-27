@@ -1,14 +1,14 @@
-package com.katyrin.nasa_md.ui.main.view
+package com.katyrin.nasa_md.view.customview
 
 import android.content.Context
 import android.util.AttributeSet
-import androidx.appcompat.widget.AppCompatImageView
+import android.webkit.WebView
 
-class EquilateralImageView @JvmOverloads constructor(
+class EquilateralWebView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
-) : AppCompatImageView(context, attrs, defStyleAttr) {
+) : WebView(context, attrs, defStyleAttr) {
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, widthMeasureSpec)

@@ -1,7 +1,8 @@
-package ru.gb.gb_popular_libs.presentation.abs
+package com.katyrin.nasa_md.view.abs
 
 import android.os.Bundle
 import androidx.annotation.LayoutRes
+import com.katyrin.nasa_md.model.datasorce.appsettings.AppSettingsManager
 import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
@@ -15,13 +16,16 @@ abstract class AbsActivity(@LayoutRes contentLayoutId: Int) : MvpAppCompatActivi
     @Inject
     lateinit var androidInjector: DispatchingAndroidInjector<Any>
 
+    @Inject
+    lateinit var appSettingsManager: AppSettingsManager
+
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
+        val resIdTheme = appSettingsManager.getTheme()
+        setTheme(resIdTheme)
         super.onCreate(savedInstanceState)
     }
 
-    override fun androidInjector(): AndroidInjector<Any> {
-        return androidInjector
-    }
+    override fun androidInjector(): AndroidInjector<Any> = androidInjector
 
 }
