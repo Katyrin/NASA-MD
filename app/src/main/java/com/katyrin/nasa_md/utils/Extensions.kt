@@ -7,6 +7,7 @@ import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
+import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
@@ -51,7 +52,7 @@ fun ViewGroup.beginDelayedTransition() {
 }
 
 fun Fragment.toast(string: String?) {
-    Toast.makeText(context, string, Toast.LENGTH_SHORT).apply {
+    Toast.makeText(context, string, Toast.LENGTH_LONG).apply {
         show()
     }
 }
@@ -81,4 +82,10 @@ fun Activity.getResIdFromAttribute(): Int {
     val resourceId = typedValue.resourceId
     return if (resourceId != 0) getColor(resourceId)
     else getColor(typedValue.data)
+}
+
+fun Activity.hideKeyboard() {
+    val imm: InputMethodManager =
+        getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+    imm.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
 }

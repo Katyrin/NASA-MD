@@ -13,6 +13,7 @@ import com.katyrin.nasa_md.databinding.MainActivityBinding
 import com.katyrin.nasa_md.ui.main.fragments.BottomNavigationDrawerFragment
 import com.katyrin.nasa_md.ui.main.fragments.NewNoteFragment
 import com.katyrin.nasa_md.ui.main.fragments.NotesFragment
+import com.katyrin.nasa_md.view.FindSatellitePhotoFragment
 import com.katyrin.nasa_md.view.HomeFragment
 import com.katyrin.nasa_md.view.SettingsFragment
 import com.katyrin.nasa_md.view.abs.AbsActivity
@@ -138,7 +139,7 @@ class MainActivity : AbsActivity(R.layout.main_activity) {
     private fun setMainFabPosition(icon: Int = R.drawable.ic_star) {
         setFABPosition(
             true,
-            ContextCompat.getDrawable(this, R.drawable.ic_hamburger_menu_bottom_bar),
+            ContextCompat.getDrawable(this, R.drawable.ic_search),
             BottomAppBar.FAB_ALIGNMENT_MODE_CENTER, icon, R.menu.menu_bottom_bar
         )
     }
@@ -165,6 +166,12 @@ class MainActivity : AbsActivity(R.layout.main_activity) {
             replaceMenu(menu)
         }
         binding.fab.setImageDrawable(ContextCompat.getDrawable(this, fabImage))
+        binding.bottomAppBar.setNavigationOnClickListener {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.container, FindSatellitePhotoFragment.newInstance())
+                .commitNow()
+            Toast.makeText(this, "set on click listener", Toast.LENGTH_SHORT).show()
+        }
     }
 
     companion object {

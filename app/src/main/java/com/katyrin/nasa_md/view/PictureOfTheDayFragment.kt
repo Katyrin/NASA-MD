@@ -10,7 +10,7 @@ import android.widget.ImageView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.katyrin.nasa_md.R
-import com.katyrin.nasa_md.databinding.FragmentPictureOfTheDayBinding
+import com.katyrin.nasa_md.databinding.FragmentContentInfoBinding
 import com.katyrin.nasa_md.presenter.pictureoftheday.PictureOfTheDayPresenter
 import com.katyrin.nasa_md.presenter.pictureoftheday.PictureOfTheDayView
 import com.katyrin.nasa_md.utils.beginDelayedTransition
@@ -23,7 +23,7 @@ import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 import javax.inject.Inject
 
-class PictureOfTheDayFragment : AbsFragment(R.layout.fragment_picture_of_the_day),
+class PictureOfTheDayFragment : AbsFragment(R.layout.fragment_content_info),
     PictureOfTheDayView {
 
     @Inject
@@ -33,14 +33,14 @@ class PictureOfTheDayFragment : AbsFragment(R.layout.fragment_picture_of_the_day
     @ProvidePresenter
     fun providePresenter(): PictureOfTheDayPresenter = presenter
 
-    private var binding: FragmentPictureOfTheDayBinding? = null
+    private var binding: FragmentContentInfoBinding? = null
     private val _imageClick = BehaviorSubject.create<Boolean>()
     private val imageClick = _imageClick.toFlowable(BackpressureStrategy.LATEST)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View = FragmentPictureOfTheDayBinding.inflate(inflater, container, false)
+    ): View = FragmentContentInfoBinding.inflate(inflater, container, false)
         .also { binding = it }.root
 
     override fun init() {
