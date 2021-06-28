@@ -53,6 +53,26 @@ class PictureOfTheDayFragment : AbsFragment(R.layout.fragment_content_info),
         binding?.imageView?.setOnClickListener {
             _imageClick.onNext(true)
         }
+        initButtons()
+    }
+
+    private fun initButtons() {
+        binding?.favoriteButton?.setOnClickListener {
+            presenter.saveSatellitePhoto()
+        }
+        binding?.unFavoriteButton?.setOnClickListener {
+            presenter.deleteSatellitePhoto()
+        }
+    }
+
+    override fun successSaveState() {
+        binding?.favoriteButton?.isVisible = false
+        binding?.unFavoriteButton?.isVisible = true
+    }
+
+    override fun successDeleteState() {
+        binding?.favoriteButton?.isVisible = true
+        binding?.unFavoriteButton?.isVisible = false
     }
 
     override fun enlargeImage() {

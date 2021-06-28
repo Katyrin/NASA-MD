@@ -1,7 +1,7 @@
 package com.katyrin.nasa_md.presenter.pictureoftheday
 
 import com.katyrin.nasa_md.model.data.DayPictureDTO
-import com.katyrin.nasa_md.model.repository.home.HomeRepository
+import com.katyrin.nasa_md.model.repository.pictureoftheday.PictureOfTheDayRepository
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.disposables.CompositeDisposable
@@ -12,11 +12,12 @@ import javax.inject.Inject
 
 
 class PictureOfTheDayPresenter @Inject constructor(
-    private val homeRepository: HomeRepository
+    private val pictureOfTheDayRepository: PictureOfTheDayRepository
 ) : MvpPresenter<PictureOfTheDayView>() {
 
     private var disposable: CompositeDisposable = CompositeDisposable()
     private var isExpanded = false
+    private var dayPictureDTO: DayPictureDTO? = null
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
@@ -25,15 +26,16 @@ class PictureOfTheDayPresenter @Inject constructor(
 
     fun getData(date: String?) {
         viewState.setLoadingState()
-        disposable += homeRepository
+        disposable += pictureOfTheDayRepository
             .getPictureOfTheDay(date)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(::checkUrl, ::setErrorState)
     }
 
     private fun checkUrl(dayPictureDTO: DayPictureDTO) {
+        this.dayPictureDTO = dayPictureDTO
         viewState.setNormalState()
-        if (dayPictureDTO.url.isNullOrEmpty()) viewState.showError(EMPTY_LINK)
+        if (dayPictureDTO.url.isEmpty()) viewState.showError(EMPTY_LINK)
         else setSuccessState(dayPictureDTO.url)
     }
 
@@ -68,8 +70,35 @@ class PictureOfTheDayPresenter @Inject constructor(
         viewState.showError(throwable.message)
     }
 
+    fun saveSatellitePhoto() {
+        dayPictureDTO?.let {
+            disposable += pictureOfTheDayRepository
+                .putDayPictureDTO(it)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(::successSave)
+        }
+    }
+
+    private fun successSave() {
+        viewState.successSaveState()
+    }
+
+    fun deleteSatellitePhoto() {
+        dayPictureDTO?.let {
+            disposable += pictureOfTheDayRepository
+                .deleteDayPictureDTO(it)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(::successDelete)
+        }
+    }
+
+    private fun successDelete() {
+        viewState.successDeleteState()
+    }
+
     override fun onDestroy() {
         disposable.dispose()
+        dayPictureDTO = null
         super.onDestroy()
     }
 

@@ -14,4 +14,6 @@ interface PictureOfTheDayView : MvpView {
     fun setNormalState()
     fun showImage(url: String)
     fun showVideo(url: String)
+    fun successSaveState()
+    fun successDeleteState()
 }
