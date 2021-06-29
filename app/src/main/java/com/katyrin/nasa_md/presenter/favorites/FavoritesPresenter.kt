@@ -42,7 +42,28 @@ class FavoritesPresenter @Inject constructor(
     }
 
     fun deleteFavorite(favoriteContentEntity: FavoriteContentEntity) {
+        disposable += favoritesRepository
+            .deleteFavoriteContent(favoriteContentEntity)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(::successUpdateList, ::errorGetFavorites)
+    }
 
+    private fun successUpdateList() {
+
+    }
+
+    fun onSaveNewList(newList: List<FavoriteContentEntity>) {
+        disposable += favoritesRepository
+            .deleteAllFavoriteContent()
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ updateList(newList) }, ::errorGetFavorites)
+    }
+
+    private fun updateList(newList: List<FavoriteContentEntity>) {
+        disposable += favoritesRepository
+            .putFavorites(newList)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(::successUpdateList, ::errorGetFavorites)
     }
 
     override fun onDestroy() {

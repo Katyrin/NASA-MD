@@ -15,6 +15,7 @@ class FavoritesAdapter(
         fun onFavoritePicked(favoriteContentEntity: FavoriteContentEntity)
         fun onStartDrag(viewHolder: BaseViewHolder)
         fun onDeleteFavorite(favoriteContentEntity: FavoriteContentEntity)
+        fun onSaveNewList(newList: List<FavoriteContentEntity>)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder =
@@ -35,17 +36,18 @@ class FavoritesAdapter(
         if (getItem(position).url.split(CHAR_DOT)[1] == NASA) IMAGE else NO_IMAGE
 
     override fun onItemMove(fromPosition: Int, toPosition: Int) {
-        currentList.removeAt(fromPosition).apply {
-            currentList.add(toPosition, this)
-        }
-        currentList.add(toPosition, getItem(fromPosition))
-        notifyItemMoved(fromPosition, toPosition)
+        val newList = currentList.toMutableList()
+        newList.removeAt(fromPosition)
+            .apply { newList.add(toPosition, this) }
+        submitList(newList)
+        delegate?.onSaveNewList(newList)
     }
 
     override fun onItemDismiss(position: Int) {
+        val newList = currentList.toMutableList()
         delegate?.onDeleteFavorite(currentList[position])
-        currentList.removeAt(position)
-        notifyItemRemoved(position)
+        newList.removeAt(position)
+        submitList(newList)
     }
 
     private companion object {

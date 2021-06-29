@@ -89,6 +89,10 @@ class FavoritesFragment : AbsFragment(R.layout.fragment_favorites), FavoritesVie
         presenter.deleteFavorite(favoriteContentEntity)
     }
 
+    override fun onSaveNewList(newList: List<FavoriteContentEntity>) {
+        presenter.onSaveNewList(newList)
+    }
+
     override fun onDetach() {
         binding = null
         super.onDetach()

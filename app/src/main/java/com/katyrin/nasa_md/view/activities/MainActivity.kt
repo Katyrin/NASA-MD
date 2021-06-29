@@ -10,8 +10,6 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.katyrin.nasa_md.R
 import com.katyrin.nasa_md.databinding.MainActivityBinding
-import com.katyrin.nasa_md.ui.main.fragments.BottomNavigationDrawerFragment
-import com.katyrin.nasa_md.ui.main.fragments.NewNoteFragment
 import com.katyrin.nasa_md.view.favorites.FavoritesFragment
 import com.katyrin.nasa_md.view.FindSatellitePhotoFragment
 import com.katyrin.nasa_md.view.HomeFragment
@@ -23,8 +21,7 @@ class MainActivity : AbsActivity(R.layout.main_activity) {
 
     private lateinit var binding: MainActivityBinding
     private var viewPagerFragment: Fragment? = null
-    private val noteFragment: Fragment by lazy { FavoritesFragment.newInstance() }
-    private val newNoteFragment: NewNoteFragment by lazy { NewNoteFragment.newInstance() }
+    private val favoritesFragment: Fragment by lazy { FavoritesFragment.newInstance() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,9 +56,8 @@ class MainActivity : AbsActivity(R.layout.main_activity) {
             }
             R.id.app_bar_notes -> {
                 supportFragmentManager.beginTransaction()
-                    .replace(R.id.container, noteFragment)
+                    .replace(R.id.container, favoritesFragment)
                     .commitAllowingStateLoss()
-                setMainFabPosition(R.drawable.ic_plus_fab)
             }
             R.id.app_bar_settings -> {
                 supportFragmentManager.apply {
@@ -72,64 +68,34 @@ class MainActivity : AbsActivity(R.layout.main_activity) {
                 }
             }
             R.id.app_bar_search -> Toast.makeText(this, "Search", Toast.LENGTH_SHORT).show()
-            android.R.id.home -> {
-                BottomNavigationDrawerFragment()
-                    .show(supportFragmentManager, "BottomNavigationDrawerFragment")
-            }
         }
         return true
     }
 
     override fun onBackPressed() {
-        fabBackPress()
+        setMainFabPosition()
         super.onBackPressed()
-    }
-
-    private fun fabBackPress() {
-        val fragment = supportFragmentManager.findFragmentById(R.id.container)
-        if (fragment is NewNoteFragment) {
-            setMainFabPosition(R.drawable.ic_plus_fab)
-        } else {
-            setMainFabPosition()
-        }
-    }
-
-    private fun fabInitActivity() {
-        val fragment = supportFragmentManager.findFragmentById(R.id.container)
-        if (fragment is FavoritesFragment) {
-            setMainFabPosition(R.drawable.ic_plus_fab)
-        } else {
-            setMainFabPosition()
-        }
     }
 
     private fun setBottomBar() {
         setSupportActionBar(binding.bottomAppBar)
 
         if (isMain) {
-            fabInitActivity()
+            setMainFabPosition()
         } else {
             setNotMainFabPosition()
         }
 
         binding.fab.setOnClickListener {
-            val fragment = supportFragmentManager.findFragmentById(R.id.container)
             if (isMain) {
                 setNotMainFabPosition()
-                if (fragment is FavoritesFragment) {
-                    supportFragmentManager.beginTransaction()
-                        .replace(R.id.container, newNoteFragment)
-                        .addToBackStack(NEW_NOTE_FRAGMENT)
-                        .commit()
-                } else {
-                    viewPagerFragment = ViewPagerFragment.newInstance()
-                    supportFragmentManager.beginTransaction()
-                        .add(R.id.container, viewPagerFragment!!)
-                        .addToBackStack(VIEW_PAGER_FRAGMENT)
-                        .commitAllowingStateLoss()
-                }
+                viewPagerFragment = ViewPagerFragment.newInstance()
+                supportFragmentManager.beginTransaction()
+                    .add(R.id.container, viewPagerFragment!!)
+                    .addToBackStack(VIEW_PAGER_FRAGMENT)
+                    .commitAllowingStateLoss()
             } else {
-                fabBackPress()
+                setMainFabPosition()
                 supportFragmentManager.popBackStack()
                 viewPagerFragment = null
             }
@@ -170,13 +136,11 @@ class MainActivity : AbsActivity(R.layout.main_activity) {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.container, FindSatellitePhotoFragment.newInstance())
                 .commitNow()
-            Toast.makeText(this, "set on click listener", Toast.LENGTH_SHORT).show()
         }
     }
 
     companion object {
         private const val VIEW_PAGER_FRAGMENT = "VIEW_PAGER_FRAGMENT"
-        private const val NEW_NOTE_FRAGMENT = "NEW_NOTE_FRAGMENT"
         private var isMain = true
     }
 }

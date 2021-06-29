@@ -1,6 +1,8 @@
 package com.katyrin.nasa_md.view.favorites.adapter
 
 import android.graphics.Color
+import androidx.core.content.ContextCompat
+import com.katyrin.nasa_md.R
 import com.katyrin.nasa_md.databinding.ItemFavoriteBinding
 import com.katyrin.nasa_md.model.data.FavoriteContentEntity
 import com.katyrin.nasa_md.utils.click
@@ -24,6 +26,11 @@ class FavoriteViewHolder(
     }
 
     override fun onItemClear() {
-        itemView.setBackgroundColor(0)
+        itemView.setBackgroundColor(
+            ContextCompat.getColor(
+                viewBinding.root.context,
+                R.color.notes_background
+            )
+        )
     }
 }

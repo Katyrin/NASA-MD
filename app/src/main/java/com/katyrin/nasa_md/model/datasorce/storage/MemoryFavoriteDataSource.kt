@@ -14,4 +14,6 @@ interface MemoryFavoriteDataSource {
     fun deleteSatellitePhotoDTO(satellitePhotoDTO: SatellitePhotoDTO): Completable
     fun putFavoriteContent(favorite: FavoriteContentEntity): Completable
     fun deleteFavoriteContent(favorite: FavoriteContentEntity): Completable
+    fun deleteAllFavoriteContent(): Completable
+    fun putFavorites(favorites: List<FavoriteContentEntity>): Completable
 }

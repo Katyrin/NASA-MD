@@ -14,11 +14,11 @@
 
     <color name="colorPrimaryMars">#ef6c00</color>
     <color name="colorPrimaryVariantMars">#b53d00</color>
-    <color name="colorOnPrimaryMars">#ff9d3f</color>
+    <color name="colorOnPrimaryMars">#ffd95a</color>
     <color name="colorSecondaryMars">#f9a825</color>
     <color name="colorSecondaryMarsAlpha40">#66f9a825</color>
     <color name="colorSecondaryVariantMars">#c17900</color>
-    <color name="colorOnSecondaryMars">#ffd95a</color>
+    <color name="colorOnSecondaryMars">#ff9d3f</color>
 
     <color name="colorPrimaryMoon">#78909c</color>
     <color name="colorPrimaryVariantMoon">#4b636e</color>

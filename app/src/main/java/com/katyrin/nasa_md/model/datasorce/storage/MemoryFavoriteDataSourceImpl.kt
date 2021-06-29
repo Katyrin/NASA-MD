@@ -54,4 +54,16 @@ class MemoryFavoriteDataSourceImpl @Inject constructor(
             .favoriteContentDao()
             .deleteFavoriteContent(favorite)
             .subscribeOn(Schedulers.io())
+
+    override fun deleteAllFavoriteContent(): Completable =
+        database
+            .favoriteContentDao()
+            .deleteAllFavoriteContent()
+            .subscribeOn(Schedulers.io())
+
+    override fun putFavorites(favorites: List<FavoriteContentEntity>): Completable =
+        database
+            .favoriteContentDao()
+            .putFavorites(favorites)
+            .subscribeOn(Schedulers.io())
 }

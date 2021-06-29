@@ -22,4 +22,7 @@ interface FavoriteContentDao {
 
     @Delete
     fun deleteFavoriteContent(favorite: FavoriteContentEntity): Completable
+
+    @Query("DELETE FROM favorite")
+    fun deleteAllFavoriteContent(): Completable
 }
