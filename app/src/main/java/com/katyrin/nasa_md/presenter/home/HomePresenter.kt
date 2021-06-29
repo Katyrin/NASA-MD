@@ -32,8 +32,8 @@ class HomePresenter @Inject constructor(
         viewState.startAnimation()
         viewState.setNormalState()
         viewState.showImage(dayPictureDTO.url)
-        val title: String = dayPictureDTO.title ?: NO_TITLE
-        val message: String = dayPictureDTO.explanation ?: NO_MESSAGE
+        val title: String = dayPictureDTO.title
+        val message: String = dayPictureDTO.explanation
         viewState.setBottomSheet(title, message)
     }
 
@@ -45,10 +45,5 @@ class HomePresenter @Inject constructor(
     override fun onDestroy() {
         disposable.dispose()
         super.onDestroy()
-    }
-
-    private companion object {
-        const val NO_TITLE = "No title"
-        const val NO_MESSAGE = "No message"
     }
 }
