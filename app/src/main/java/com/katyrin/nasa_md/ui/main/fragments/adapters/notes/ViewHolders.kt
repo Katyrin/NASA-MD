@@ -5,11 +5,11 @@ import android.graphics.Color
 import android.view.MotionEvent
 import androidx.core.content.ContextCompat
 import com.katyrin.nasa_md.R
-import com.katyrin.nasa_md.databinding.ItemImportentNoteBinding
-import com.katyrin.nasa_md.databinding.ItemNoteBinding
+import com.katyrin.nasa_md.databinding.ItemFavoriteBinding
+import com.katyrin.nasa_md.databinding.ItemFavoriteImageBinding
 import com.katyrin.nasa_md.ui.main.model.data.Note
 
-class NoteViewHolder(private val itemBinding: ItemNoteBinding,
+class NoteViewHolder(private val itemBinding: ItemFavoriteBinding,
                      private val onStartDrag: (BaseViewHolder) -> Unit
 ) : BaseViewHolder(itemBinding.root) {
 
@@ -37,7 +37,7 @@ class NoteViewHolder(private val itemBinding: ItemNoteBinding,
     }
 }
 
-class ImportantNoteViewHolder(private val itemBinding: ItemImportentNoteBinding,
+class ImportantNoteViewHolder(private val itemBinding: ItemFavoriteImageBinding,
                               private val onClick: (String) -> Unit,
                               private val onStartDrag: (BaseViewHolder) -> Unit
 ) : BaseViewHolder(itemBinding.root) {

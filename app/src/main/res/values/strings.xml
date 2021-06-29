@@ -45,4 +45,6 @@
     <string name="close">Close</string>
     <string name="favorite">Favorite</string>
     <string name="un_favorite">Un favorite</string>
+    <string name="not_important">Not important</string>
+    <string name="info">Info</string>
 </resources>

@@ -12,7 +12,7 @@ import com.katyrin.nasa_md.R
 import com.katyrin.nasa_md.databinding.MainActivityBinding
 import com.katyrin.nasa_md.ui.main.fragments.BottomNavigationDrawerFragment
 import com.katyrin.nasa_md.ui.main.fragments.NewNoteFragment
-import com.katyrin.nasa_md.ui.main.fragments.NotesFragment
+import com.katyrin.nasa_md.view.favorites.FavoritesFragment
 import com.katyrin.nasa_md.view.FindSatellitePhotoFragment
 import com.katyrin.nasa_md.view.HomeFragment
 import com.katyrin.nasa_md.view.SettingsFragment
@@ -23,7 +23,7 @@ class MainActivity : AbsActivity(R.layout.main_activity) {
 
     private lateinit var binding: MainActivityBinding
     private var viewPagerFragment: Fragment? = null
-    private val noteFragment: NotesFragment by lazy { NotesFragment.newInstance() }
+    private val noteFragment: Fragment by lazy { FavoritesFragment.newInstance() }
     private val newNoteFragment: NewNoteFragment by lazy { NewNoteFragment.newInstance() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -96,7 +96,7 @@ class MainActivity : AbsActivity(R.layout.main_activity) {
 
     private fun fabInitActivity() {
         val fragment = supportFragmentManager.findFragmentById(R.id.container)
-        if (fragment is NotesFragment) {
+        if (fragment is FavoritesFragment) {
             setMainFabPosition(R.drawable.ic_plus_fab)
         } else {
             setMainFabPosition()
@@ -116,7 +116,7 @@ class MainActivity : AbsActivity(R.layout.main_activity) {
             val fragment = supportFragmentManager.findFragmentById(R.id.container)
             if (isMain) {
                 setNotMainFabPosition()
-                if (fragment is NotesFragment) {
+                if (fragment is FavoritesFragment) {
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.container, newNoteFragment)
                         .addToBackStack(NEW_NOTE_FRAGMENT)

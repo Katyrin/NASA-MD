@@ -1,9 +1,11 @@
 package com.katyrin.nasa_md.utils
 
 import android.animation.Animator
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.os.Build
 import android.util.TypedValue
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
@@ -19,6 +21,7 @@ import androidx.transition.TransitionSet
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.model.GlideUrl
 import com.katyrin.nasa_md.R
+import com.katyrin.nasa_md.view.favorites.adapter.BaseViewHolder
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -89,3 +92,12 @@ fun Activity.hideKeyboard() {
         getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
     imm.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
 }
+
+fun View.click(click: () -> Unit) = setOnClickListener { click() }
+
+@SuppressLint("ClickableViewAccessibility")
+fun View.startDrag(onStartDrag: () -> Unit) =
+    setOnTouchListener { _, event ->
+        if (event.action == MotionEvent.ACTION_DOWN) onStartDrag()
+        false
+    }

@@ -22,7 +22,8 @@ import javax.inject.Singleton
         SettingsModule::class,
         MainModule::class,
         SatellitePhotoModule::class,
-        DataBaseModule::class
+        DataBaseModule::class,
+        FavoritesModule::class
     ]
 )
 interface AppComponent : AndroidInjector<App> {

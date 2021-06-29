@@ -3,14 +3,15 @@ package com.katyrin.nasa_md.ui.main.fragments.adapters.notes
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.katyrin.nasa_md.databinding.ItemImportentNoteBinding
-import com.katyrin.nasa_md.databinding.ItemNoteBinding
+import com.katyrin.nasa_md.databinding.ItemFavoriteBinding
+import com.katyrin.nasa_md.databinding.ItemFavoriteImageBinding
 import com.katyrin.nasa_md.ui.main.model.data.Note
+import com.katyrin.nasa_md.view.favorites.adapter.ItemTouchHelperAdapter
 
 class NotesRecyclerViewAdapter(private val onClick: (String) -> Unit,
                                private val onDeleteNote: (Note) -> Unit,
                                private val onStartDrag: (BaseViewHolder) -> Unit
-):  RecyclerView.Adapter<BaseViewHolder>(), ItemTouchHelperAdapter{
+):  RecyclerView.Adapter<BaseViewHolder>(), ItemTouchHelperAdapter {
 
     private var data: MutableList<Note> = mutableListOf()
 
@@ -23,11 +24,11 @@ class NotesRecyclerViewAdapter(private val onClick: (String) -> Unit,
         val layoutInflater = LayoutInflater.from(parent.context)
         return when (viewType) {
             TYPE_NOTE -> NoteViewHolder(
-                ItemNoteBinding.inflate(layoutInflater, parent, false),
+                ItemFavoriteBinding.inflate(layoutInflater, parent, false),
                 onStartDrag
             )
             TYPE_IMPORTANT -> ImportantNoteViewHolder(
-                ItemImportentNoteBinding.inflate(layoutInflater, parent, false),
+                ItemFavoriteImageBinding.inflate(layoutInflater, parent, false),
                 onClick,
                 onStartDrag
             )

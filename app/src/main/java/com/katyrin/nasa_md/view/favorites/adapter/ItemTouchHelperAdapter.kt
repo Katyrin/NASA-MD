@@ -1,4 +1,4 @@
-package com.katyrin.nasa_md.ui.main.fragments.adapters.notes
+package com.katyrin.nasa_md.view.favorites.adapter
 
 interface ItemTouchHelperAdapter {
     fun onItemMove(fromPosition: Int, toPosition: Int)

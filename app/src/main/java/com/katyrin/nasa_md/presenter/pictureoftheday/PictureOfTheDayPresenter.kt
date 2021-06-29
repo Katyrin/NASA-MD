@@ -41,7 +41,7 @@ class PictureOfTheDayPresenter @Inject constructor(
 
     private fun setSuccessState(url: String) {
         val separateUrl = url.split(CHAR_DOT)
-        if (separateUrl[1] != YOUTUBE) viewState.showImage(url)
+        if (separateUrl[1] == NASA) viewState.showImage(url)
         else viewState.showVideo(url)
     }
 
@@ -104,7 +104,7 @@ class PictureOfTheDayPresenter @Inject constructor(
 
     private companion object {
         const val CHAR_DOT = '.'
-        const val YOUTUBE = "youtube"
+        const val NASA = "nasa"
         const val EMPTY_LINK = "Link is empty"
         const val DEBOUNCE_TIME = 100L
         const val SKIP_ONE = 1L

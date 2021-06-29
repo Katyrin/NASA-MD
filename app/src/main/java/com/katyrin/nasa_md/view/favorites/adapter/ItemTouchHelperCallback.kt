@@ -1,39 +1,34 @@
-package com.katyrin.nasa_md.ui.main.fragments.adapters.notes
+package com.katyrin.nasa_md.view.favorites.adapter
 
 import android.graphics.Canvas
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import kotlin.math.abs
 
-class ItemTouchHelperCallback(private val adapter: NotesRecyclerViewAdapter) :
+class ItemTouchHelperCallback(private val adapter: FavoritesAdapter) :
     ItemTouchHelper.Callback() {
 
-    override fun isLongPressDragEnabled(): Boolean {
-        return true
-    }
+    override fun isLongPressDragEnabled(): Boolean = true
 
-    override fun isItemViewSwipeEnabled(): Boolean {
-        return true
-    }
+    override fun isItemViewSwipeEnabled(): Boolean = true
 
     override fun getMovementFlags(
         recyclerView: RecyclerView,
         viewHolder: RecyclerView.ViewHolder
-    ): Int {
-        val dragFlags = ItemTouchHelper.UP or ItemTouchHelper.DOWN
-        val swipeFlags = ItemTouchHelper.START or ItemTouchHelper.END
-        return makeMovementFlags(
-            dragFlags,
-            swipeFlags
-        )
-    }
+    ): Int = makeMovementFlags(
+        ItemTouchHelper.UP or ItemTouchHelper.DOWN,
+        ItemTouchHelper.START or ItemTouchHelper.END
+    )
 
     override fun onMove(
         recyclerView: RecyclerView,
         source: RecyclerView.ViewHolder,
         target: RecyclerView.ViewHolder
     ): Boolean {
-        adapter.onItemMove((source as BaseViewHolder).adapterPosition, (target as BaseViewHolder).adapterPosition)
+        adapter.onItemMove(
+            (source as BaseViewHolder).adapterPosition,
+            (target as BaseViewHolder).adapterPosition
+        )
         return true
     }
 

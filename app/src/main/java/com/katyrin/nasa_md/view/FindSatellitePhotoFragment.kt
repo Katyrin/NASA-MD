@@ -77,8 +77,9 @@ class FindSatellitePhotoFragment : AbsFragment(R.layout.fragment_find_satellite_
 
     override fun openNewFragment(satellitePhotoDTO: SatellitePhotoDTO) {
         requireActivity().supportFragmentManager.beginTransaction()
-            .replace(R.id.container, SatellitePhotoFragment.newInstance(satellitePhotoDTO))
-            .commitNow()
+            .add(R.id.container, SatellitePhotoFragment.newInstance(satellitePhotoDTO))
+            .addToBackStack(null)
+            .commit()
     }
 
     private fun subscribeEditTextViews() {

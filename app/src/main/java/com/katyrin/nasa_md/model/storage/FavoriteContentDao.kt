@@ -17,7 +17,7 @@ interface FavoriteContentDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun putFavorites(favorites: List<FavoriteContentEntity>): Completable
 
-    @Update(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun putFavoriteContent(favorite: FavoriteContentEntity): Completable
 
     @Delete
