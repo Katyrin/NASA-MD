@@ -9,9 +9,9 @@ import com.katyrin.nasa_md.R
 import com.katyrin.nasa_md.databinding.FragmentViewPagerBinding
 import com.katyrin.nasa_md.presenter.viewpager.ViewPagerPresenter
 import com.katyrin.nasa_md.presenter.viewpager.ViewPagerView
-import com.katyrin.nasa_md.view.PictureOfTheDayFragment
 import com.katyrin.nasa_md.utils.previousDay
 import com.katyrin.nasa_md.view.abs.AbsFragment
+import com.katyrin.nasa_md.view.pictureofthrday.PictureOfTheDayFragment
 import moxy.ktx.moxyPresenter
 
 class ViewPagerFragment : AbsFragment(R.layout.fragment_view_pager), ViewPagerView {

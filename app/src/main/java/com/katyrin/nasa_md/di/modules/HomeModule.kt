@@ -5,7 +5,7 @@ import com.katyrin.nasa_md.model.datasorce.home.HomeDataSourceImpl
 import com.katyrin.nasa_md.model.repository.home.HomeRepository
 import com.katyrin.nasa_md.model.repository.home.HomeRepositoryImpl
 import com.katyrin.nasa_md.presenter.home.HomePresenter
-import com.katyrin.nasa_md.view.HomeFragment
+import com.katyrin.nasa_md.view.home.HomeFragment
 import dagger.Binds
 import dagger.Module
 import dagger.android.ContributesAndroidInjector

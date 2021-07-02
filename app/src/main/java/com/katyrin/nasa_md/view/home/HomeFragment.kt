@@ -1,4 +1,4 @@
-package com.katyrin.nasa_md.view
+package com.katyrin.nasa_md.view.home
 
 import android.content.Intent
 import android.net.Uri

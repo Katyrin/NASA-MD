@@ -2,19 +2,20 @@ package com.katyrin.nasa_md.model.datasorce.home
 
 import com.katyrin.nasa_md.model.api.NasaAPI
 import com.katyrin.nasa_md.model.data.DayPictureDTO
+import com.katyrin.nasa_md.scheduler.Schedulers
 import io.reactivex.rxjava3.core.Single
-import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
 
 class HomeDataSourceImpl @Inject constructor(
-    private val nasaAPI: NasaAPI
+    private val nasaAPI: NasaAPI,
+    private val schedulers: Schedulers
 ) : HomeDataSource {
     override fun getPictureOfTheDay(date: String?): Single<DayPictureDTO> =
         if (date.isNullOrEmpty()) {
             nasaAPI.getPictureOfTheDay()
-                .subscribeOn(Schedulers.io())
+                .subscribeOn(schedulers.io())
         } else {
             nasaAPI.getPictureOfTheDayByDate(date)
-                .subscribeOn(Schedulers.io())
+                .subscribeOn(schedulers.io())
         }
 }

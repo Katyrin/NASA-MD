@@ -2,7 +2,7 @@ package com.katyrin.nasa_md.di.modules
 
 import com.katyrin.nasa_md.model.repository.pictureoftheday.PictureOfTheDayRepository
 import com.katyrin.nasa_md.model.repository.pictureoftheday.PictureOfTheDayRepositoryImpl
-import com.katyrin.nasa_md.view.PictureOfTheDayFragment
+import com.katyrin.nasa_md.view.pictureofthrday.PictureOfTheDayFragment
 import com.katyrin.nasa_md.view.viewpager.ViewPagerFragment
 import dagger.Binds
 import dagger.Module

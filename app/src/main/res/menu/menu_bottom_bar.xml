@@ -9,7 +9,7 @@
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/app_bar_notes"
+        android:id="@+id/app_bar_favorites"
         android:icon="@drawable/ic_favourite_menu"
         android:title="@string/favourite"
         app:showAsAction="ifRoom" />

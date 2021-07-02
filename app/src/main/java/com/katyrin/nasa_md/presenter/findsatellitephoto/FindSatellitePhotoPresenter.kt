@@ -1,20 +1,23 @@
 package com.katyrin.nasa_md.presenter.findsatellitephoto
 
+import com.github.terrakok.cicerone.Router
+import com.github.terrakok.cicerone.androidx.FragmentScreen
 import com.katyrin.nasa_md.model.data.Coordinate
 import com.katyrin.nasa_md.model.data.SatellitePhotoDTO
 import com.katyrin.nasa_md.model.repository.findsatellitephoto.FindSatellitePhotoRepository
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import com.katyrin.nasa_md.scheduler.Schedulers
 import io.reactivex.rxjava3.annotations.NonNull
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.kotlin.plusAssign
-import io.reactivex.rxjava3.schedulers.Schedulers
 import moxy.MvpPresenter
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class FindSatellitePhotoPresenter @Inject constructor(
-    private val findSatellitePhotoRepository: FindSatellitePhotoRepository
+    private val findSatellitePhotoRepository: FindSatellitePhotoRepository,
+    private val router: Router,
+    private val schedulers: Schedulers
 ) : MvpPresenter<FindSatellitePhotoView>() {
 
     private var disposable: CompositeDisposable = CompositeDisposable()
@@ -29,9 +32,9 @@ class FindSatellitePhotoPresenter @Inject constructor(
     fun subscribeLatLongChanged(latLongInput: @NonNull Observable<Pair<Coordinate, String>>) {
         disposable += latLongInput
             .debounce(QUARTER_SECOND, TimeUnit.MILLISECONDS)
-            .subscribeOn(Schedulers.computation())
+            .subscribeOn(schedulers.computation())
             .distinctUntilChanged()
-            .observeOn(AndroidSchedulers.mainThread())
+            .observeOn(schedulers.main())
             .subscribe(::successGetLatLong)
     }
 
@@ -63,7 +66,7 @@ class FindSatellitePhotoPresenter @Inject constructor(
     private fun requestSatellitePhoto(lat: Float, long: Float) {
         disposable += findSatellitePhotoRepository
             .requestSatellitePhoto(lat, long)
-            .observeOn(AndroidSchedulers.mainThread())
+            .observeOn(schedulers.main())
             .subscribe(::setSuccessState, ::setErrorState)
     }
 
@@ -75,6 +78,10 @@ class FindSatellitePhotoPresenter @Inject constructor(
     private fun setErrorState(throwable: Throwable) {
         viewState.showNormalState()
         viewState.showRequestError(throwable.message)
+    }
+
+    fun navigateToScreen(screen: FragmentScreen) {
+        router.navigateTo(screen)
     }
 
     override fun onDestroy() {

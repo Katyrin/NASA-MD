@@ -75,10 +75,7 @@ class FavoritesFragment : AbsFragment(R.layout.fragment_favorites), FavoritesVie
     }
 
     override fun onFavoritePicked(favoriteContentEntity: FavoriteContentEntity) {
-        requireActivity().supportFragmentManager.beginTransaction()
-            .add(R.id.container, FavoriteContentFragment.newInstance(favoriteContentEntity))
-            .addToBackStack(null)
-            .commit()
+        presenter.navigateToScreen(FavoriteContentScreen(favoriteContentEntity))
     }
 
     override fun onStartDrag(viewHolder: BaseViewHolder) {

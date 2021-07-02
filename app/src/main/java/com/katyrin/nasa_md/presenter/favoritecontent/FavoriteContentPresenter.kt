@@ -2,15 +2,16 @@ package com.katyrin.nasa_md.presenter.favoritecontent
 
 import com.katyrin.nasa_md.model.data.FavoriteContentEntity
 import com.katyrin.nasa_md.model.repository.favoritecontent.FavoriteContentRepository
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import com.katyrin.nasa_md.scheduler.Schedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.kotlin.plusAssign
 import moxy.MvpPresenter
 import javax.inject.Inject
 
 class FavoriteContentPresenter @Inject constructor(
-    private val favoriteContentRepository: FavoriteContentRepository
-): MvpPresenter<FavoriteContentView>() {
+    private val favoriteContentRepository: FavoriteContentRepository,
+    private val schedulers: Schedulers
+) : MvpPresenter<FavoriteContentView>() {
 
     private var disposable: CompositeDisposable = CompositeDisposable()
 
@@ -28,7 +29,7 @@ class FavoriteContentPresenter @Inject constructor(
     fun saveFavoriteContent(favoriteContentEntity: FavoriteContentEntity) {
         disposable += favoriteContentRepository
             .putFavoriteContent(favoriteContentEntity)
-            .observeOn(AndroidSchedulers.mainThread())
+            .observeOn(schedulers.main())
             .subscribe(::successSave)
     }
 
@@ -39,7 +40,7 @@ class FavoriteContentPresenter @Inject constructor(
     fun deleteFavoriteContent(favoriteContentEntity: FavoriteContentEntity) {
         disposable += favoriteContentRepository
             .deleteFavoriteContent(favoriteContentEntity)
-            .observeOn(AndroidSchedulers.mainThread())
+            .observeOn(schedulers.main())
             .subscribe(::successDelete)
     }
 

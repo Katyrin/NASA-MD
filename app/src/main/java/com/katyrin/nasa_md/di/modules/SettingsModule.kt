@@ -4,7 +4,7 @@ import com.katyrin.nasa_md.model.datasorce.appsettings.AppSettingsManager
 import com.katyrin.nasa_md.model.datasorce.appsettings.AppSettingsManagerImpl
 import com.katyrin.nasa_md.model.repository.appsettings.AppSettingsRepository
 import com.katyrin.nasa_md.model.repository.appsettings.AppSettingsRepositoryImpl
-import com.katyrin.nasa_md.view.SettingsFragment
+import com.katyrin.nasa_md.view.settings.SettingsFragment
 import dagger.Binds
 import dagger.Module
 import dagger.android.ContributesAndroidInjector

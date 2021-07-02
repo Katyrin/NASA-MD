@@ -6,8 +6,8 @@ import com.katyrin.nasa_md.model.repository.findsatellitephoto.FindSatellitePhot
 import com.katyrin.nasa_md.model.repository.findsatellitephoto.FindSatellitePhotoRepositoryImpl
 import com.katyrin.nasa_md.model.repository.satellitephoto.SatellitePhotoRepository
 import com.katyrin.nasa_md.model.repository.satellitephoto.SatellitePhotoRepositoryImpl
-import com.katyrin.nasa_md.view.FindSatellitePhotoFragment
-import com.katyrin.nasa_md.view.SatellitePhotoFragment
+import com.katyrin.nasa_md.view.findsatellitephoto.FindSatellitePhotoFragment
+import com.katyrin.nasa_md.view.satellitephoto.SatellitePhotoFragment
 import dagger.Binds
 import dagger.Module
 import dagger.android.ContributesAndroidInjector

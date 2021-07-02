@@ -2,7 +2,7 @@ package com.katyrin.nasa_md.presenter.settings
 
 import com.katyrin.nasa_md.model.data.Theme
 import com.katyrin.nasa_md.model.repository.appsettings.AppSettingsRepository
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import com.katyrin.nasa_md.scheduler.Schedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.kotlin.plusAssign
@@ -10,7 +10,8 @@ import moxy.MvpPresenter
 import javax.inject.Inject
 
 class SettingsPresenter @Inject constructor(
-    private val appSettingsRepository: AppSettingsRepository
+    private val appSettingsRepository: AppSettingsRepository,
+    private val schedulers: Schedulers
 ) : MvpPresenter<SettingsView>() {
 
     private var disposable: CompositeDisposable = CompositeDisposable()
@@ -25,7 +26,7 @@ class SettingsPresenter @Inject constructor(
         disposable +=
             setTheme
                 .distinctUntilChanged()
-                .observeOn(AndroidSchedulers.mainThread())
+                .observeOn(schedulers.main())
                 .subscribe(::successSetTheme, ::errorSetTheme)
     }
 

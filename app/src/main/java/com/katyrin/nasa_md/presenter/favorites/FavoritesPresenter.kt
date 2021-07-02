@@ -1,15 +1,19 @@
 package com.katyrin.nasa_md.presenter.favorites
 
+import com.github.terrakok.cicerone.Router
+import com.github.terrakok.cicerone.androidx.FragmentScreen
 import com.katyrin.nasa_md.model.data.FavoriteContentEntity
 import com.katyrin.nasa_md.model.repository.favorites.FavoritesRepository
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import com.katyrin.nasa_md.scheduler.Schedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.kotlin.plusAssign
 import moxy.MvpPresenter
 import javax.inject.Inject
 
 class FavoritesPresenter @Inject constructor(
-    private val favoritesRepository: FavoritesRepository
+    private val favoritesRepository: FavoritesRepository,
+    private val router: Router,
+    private val schedulers: Schedulers
 ) : MvpPresenter<FavoritesView>() {
 
     private var disposable: CompositeDisposable = CompositeDisposable()
@@ -24,7 +28,7 @@ class FavoritesPresenter @Inject constructor(
         viewState.setLoadingState()
         disposable += favoritesRepository
             .getFavorites()
-            .observeOn(AndroidSchedulers.mainThread())
+            .observeOn(schedulers.main())
             .subscribe(::successGetFavorites, ::errorGetFavorites)
     }
 
@@ -44,7 +48,7 @@ class FavoritesPresenter @Inject constructor(
     fun deleteFavorite(favoriteContentEntity: FavoriteContentEntity) {
         disposable += favoritesRepository
             .deleteFavoriteContent(favoriteContentEntity)
-            .observeOn(AndroidSchedulers.mainThread())
+            .observeOn(schedulers.main())
             .subscribe(::successUpdateList, ::errorGetFavorites)
     }
 
@@ -54,16 +58,13 @@ class FavoritesPresenter @Inject constructor(
 
     fun onSaveNewList(newList: List<FavoriteContentEntity>) {
         disposable += favoritesRepository
-            .deleteAllFavoriteContent()
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ updateList(newList) }, ::errorGetFavorites)
+            .putFavorites(newList)
+            .observeOn(schedulers.main())
+            .subscribe(::successUpdateList, ::errorGetFavorites)
     }
 
-    private fun updateList(newList: List<FavoriteContentEntity>) {
-        disposable += favoritesRepository
-            .putFavorites(newList)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(::successUpdateList, ::errorGetFavorites)
+    fun navigateToScreen(screen: FragmentScreen) {
+        router.navigateTo(screen)
     }
 
     override fun onDestroy() {

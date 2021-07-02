@@ -1,4 +1,4 @@
-package com.katyrin.nasa_md.view
+package com.katyrin.nasa_md.view.settings
 
 import android.os.Bundle
 import android.view.LayoutInflater

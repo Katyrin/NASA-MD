@@ -2,7 +2,7 @@ package com.katyrin.nasa_md.presenter.pictureoftheday
 
 import com.katyrin.nasa_md.model.data.DayPictureDTO
 import com.katyrin.nasa_md.model.repository.pictureoftheday.PictureOfTheDayRepository
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import com.katyrin.nasa_md.scheduler.Schedulers
 import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.kotlin.plusAssign
@@ -12,7 +12,8 @@ import javax.inject.Inject
 
 
 class PictureOfTheDayPresenter @Inject constructor(
-    private val pictureOfTheDayRepository: PictureOfTheDayRepository
+    private val pictureOfTheDayRepository: PictureOfTheDayRepository,
+    private val schedulers: Schedulers
 ) : MvpPresenter<PictureOfTheDayView>() {
 
     private var disposable: CompositeDisposable = CompositeDisposable()
@@ -28,7 +29,7 @@ class PictureOfTheDayPresenter @Inject constructor(
         viewState.setLoadingState()
         disposable += pictureOfTheDayRepository
             .getPictureOfTheDay(date)
-            .observeOn(AndroidSchedulers.mainThread())
+            .observeOn(schedulers.main())
             .subscribe(::checkUrl, ::setErrorState)
     }
 
@@ -53,7 +54,7 @@ class PictureOfTheDayPresenter @Inject constructor(
     fun subscribeDoubleImageClick(imageClick: Flowable<Boolean>) {
         disposable += imageClick
             .debounce(DEBOUNCE_TIME, TimeUnit.MILLISECONDS)
-            .observeOn(AndroidSchedulers.mainThread())
+            .observeOn(schedulers.main())
             .timeInterval(TimeUnit.MILLISECONDS)
             .skip(SKIP_ONE)
             .filter { interval -> interval.time() < FILTER_TIME }
@@ -74,7 +75,7 @@ class PictureOfTheDayPresenter @Inject constructor(
         dayPictureDTO?.let {
             disposable += pictureOfTheDayRepository
                 .putDayPictureDTO(it)
-                .observeOn(AndroidSchedulers.mainThread())
+                .observeOn(schedulers.main())
                 .subscribe(::successSave)
         }
     }
@@ -87,7 +88,7 @@ class PictureOfTheDayPresenter @Inject constructor(
         dayPictureDTO?.let {
             disposable += pictureOfTheDayRepository
                 .deleteDayPictureDTO(it)
-                .observeOn(AndroidSchedulers.mainThread())
+                .observeOn(schedulers.main())
                 .subscribe(::successDelete)
         }
     }

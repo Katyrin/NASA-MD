@@ -1,4 +1,4 @@
-package com.katyrin.nasa_md.view
+package com.katyrin.nasa_md.view.pictureofthrday
 
 import android.annotation.SuppressLint
 import android.os.Bundle

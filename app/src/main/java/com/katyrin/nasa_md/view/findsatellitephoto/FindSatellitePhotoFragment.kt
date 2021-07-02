@@ -1,4 +1,4 @@
-package com.katyrin.nasa_md.view
+package com.katyrin.nasa_md.view.findsatellitephoto
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -16,6 +16,7 @@ import com.katyrin.nasa_md.presenter.findsatellitephoto.FindSatellitePhotoView
 import com.katyrin.nasa_md.utils.hideKeyboard
 import com.katyrin.nasa_md.utils.toast
 import com.katyrin.nasa_md.view.abs.AbsFragment
+import com.katyrin.nasa_md.view.satellitephoto.SatellitePhotoScreen
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 import javax.inject.Inject
@@ -76,10 +77,7 @@ class FindSatellitePhotoFragment : AbsFragment(R.layout.fragment_find_satellite_
     }
 
     override fun openNewFragment(satellitePhotoDTO: SatellitePhotoDTO) {
-        requireActivity().supportFragmentManager.beginTransaction()
-            .add(R.id.container, SatellitePhotoFragment.newInstance(satellitePhotoDTO))
-            .addToBackStack(null)
-            .commit()
+        presenter.navigateToScreen(SatellitePhotoScreen(satellitePhotoDTO))
     }
 
     private fun subscribeEditTextViews() {

@@ -75,7 +75,7 @@ dependencies {
     implementation "com.github.moxy-community:moxy-ktx:2.2.2"
     implementation "com.github.moxy-community:moxy-androidx:2.2.2"
 
-    implementation 'ru.terrakok.cicerone:cicerone:5.1.1'
+    implementation 'com.github.terrakok:cicerone:7.0'
 
     implementation 'io.reactivex.rxjava3:rxjava:3.0.3'
     implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'

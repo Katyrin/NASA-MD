@@ -1,10 +1,10 @@
 package com.katyrin.nasa_md
 
+import com.github.terrakok.cicerone.Cicerone
 import com.katyrin.nasa_md.di.DaggerAppComponent
 import com.katyrin.nasa_md.scheduler.DefaultSchedulers
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
-import ru.terrakok.cicerone.Cicerone
 
 class App : DaggerApplication() {
 
@@ -15,7 +15,7 @@ class App : DaggerApplication() {
             .apply {
                 val cicerone = Cicerone.create()
                 withRouter(cicerone.router)
-                withNavigatorHolder(cicerone.navigatorHolder)
+                withNavigatorHolder(cicerone.getNavigatorHolder())
             }
             .withSchedulers(DefaultSchedulers)
             .build()

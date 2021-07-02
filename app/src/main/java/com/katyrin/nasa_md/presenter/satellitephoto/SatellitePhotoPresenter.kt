@@ -2,14 +2,15 @@ package com.katyrin.nasa_md.presenter.satellitephoto
 
 import com.katyrin.nasa_md.model.data.SatellitePhotoDTO
 import com.katyrin.nasa_md.model.repository.satellitephoto.SatellitePhotoRepository
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import com.katyrin.nasa_md.scheduler.Schedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.kotlin.plusAssign
 import moxy.MvpPresenter
 import javax.inject.Inject
 
 class SatellitePhotoPresenter @Inject constructor(
-    private val satellitePhotoRepository: SatellitePhotoRepository
+    private val satellitePhotoRepository: SatellitePhotoRepository,
+    private val schedulers: Schedulers
 ) : MvpPresenter<SatellitePhotoView>() {
 
     private var disposable: CompositeDisposable = CompositeDisposable()
@@ -22,7 +23,7 @@ class SatellitePhotoPresenter @Inject constructor(
     fun saveSatellitePhoto(satellitePhotoDTO: SatellitePhotoDTO) {
         disposable += satellitePhotoRepository
             .putSatellitePhotoDTO(satellitePhotoDTO)
-            .observeOn(AndroidSchedulers.mainThread())
+            .observeOn(schedulers.main())
             .subscribe(::successSave)
     }
 
@@ -33,7 +34,7 @@ class SatellitePhotoPresenter @Inject constructor(
     fun deleteSatellitePhoto(satellitePhotoDTO: SatellitePhotoDTO) {
         disposable += satellitePhotoRepository
             .deleteSatellitePhotoDTO(satellitePhotoDTO)
-            .observeOn(AndroidSchedulers.mainThread())
+            .observeOn(schedulers.main())
             .subscribe(::successDelete)
     }
 

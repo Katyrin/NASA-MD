@@ -6,35 +6,52 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
+import com.github.terrakok.cicerone.NavigatorHolder
+import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.katyrin.nasa_md.R
 import com.katyrin.nasa_md.databinding.MainActivityBinding
-import com.katyrin.nasa_md.view.favorites.FavoritesFragment
-import com.katyrin.nasa_md.view.FindSatellitePhotoFragment
-import com.katyrin.nasa_md.view.HomeFragment
-import com.katyrin.nasa_md.view.SettingsFragment
+import com.katyrin.nasa_md.presenter.main.MainPresenter
+import com.katyrin.nasa_md.presenter.main.MainView
 import com.katyrin.nasa_md.view.abs.AbsActivity
-import com.katyrin.nasa_md.view.viewpager.ViewPagerFragment
+import com.katyrin.nasa_md.view.favorites.FavoritesScreen
+import com.katyrin.nasa_md.view.findsatellitephoto.FindSatellitePhotoScreen
+import com.katyrin.nasa_md.view.home.HomeScreen
+import com.katyrin.nasa_md.view.settings.SettingsScreen
+import com.katyrin.nasa_md.view.viewpager.ViewPagerScreen
+import moxy.presenter.InjectPresenter
+import moxy.presenter.ProvidePresenter
+import javax.inject.Inject
 
-class MainActivity : AbsActivity(R.layout.main_activity) {
+class MainActivity : AbsActivity(R.layout.main_activity), MainView {
 
-    private lateinit var binding: MainActivityBinding
-    private var viewPagerFragment: Fragment? = null
-    private val favoritesFragment: Fragment by lazy { FavoritesFragment.newInstance() }
+    @Inject
+    @InjectPresenter
+    lateinit var presenter: MainPresenter
+
+    @ProvidePresenter
+    fun providePresenter(): MainPresenter = presenter
+
+    @Inject
+    lateinit var navigatorHolder: NavigatorHolder
+
+    private val navigator = AppNavigator(activity = this, R.id.container)
+    private var binding: MainActivityBinding? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = MainActivityBinding.inflate(layoutInflater)
-
-        setContentView(binding.root)
+        setContentView(binding?.root)
         setBottomBar()
+    }
 
-        if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.container, HomeFragment.newInstance())
-                .commitNow()
+    override fun init() {
+        initBottomAppBar()
+    }
+
+    private fun initBottomAppBar() {
+        binding?.bottomAppBar?.setNavigationOnClickListener {
+            presenter.replaceScreen(FindSatellitePhotoScreen)
         }
     }
 
@@ -48,25 +65,9 @@ class MainActivity : AbsActivity(R.layout.main_activity) {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.app_bar_main -> {
-                supportFragmentManager.beginTransaction()
-                    .replace(R.id.container, HomeFragment.newInstance())
-                    .commitNow()
-                setMainFabPosition()
-            }
-            R.id.app_bar_notes -> {
-                supportFragmentManager.beginTransaction()
-                    .replace(R.id.container, favoritesFragment)
-                    .commitAllowingStateLoss()
-            }
-            R.id.app_bar_settings -> {
-                supportFragmentManager.apply {
-                    beginTransaction()
-                        .replace(R.id.container, SettingsFragment.newInstance())
-                        .commitAllowingStateLoss()
-                    setMainFabPosition()
-                }
-            }
+            R.id.app_bar_main -> presenter.replaceScreen(HomeScreen)
+            R.id.app_bar_favorites -> presenter.replaceScreen(FavoritesScreen)
+            R.id.app_bar_settings -> presenter.replaceScreen(SettingsScreen)
             R.id.app_bar_search -> Toast.makeText(this, "Search", Toast.LENGTH_SHORT).show()
         }
         return true
@@ -78,69 +79,71 @@ class MainActivity : AbsActivity(R.layout.main_activity) {
     }
 
     private fun setBottomBar() {
-        setSupportActionBar(binding.bottomAppBar)
+        setSupportActionBar(binding?.bottomAppBar)
 
-        if (isMain) {
-            setMainFabPosition()
-        } else {
-            setNotMainFabPosition()
-        }
+        if (isMain) setMainFabPosition()
+        else setNotMainFabPosition()
 
-        binding.fab.setOnClickListener {
+        setFabClickListener()
+    }
+
+    private fun setFabClickListener() {
+        binding?.fab?.setOnClickListener {
             if (isMain) {
                 setNotMainFabPosition()
-                viewPagerFragment = ViewPagerFragment.newInstance()
-                supportFragmentManager.beginTransaction()
-                    .add(R.id.container, viewPagerFragment!!)
-                    .addToBackStack(VIEW_PAGER_FRAGMENT)
-                    .commitAllowingStateLoss()
+                presenter.navigateToScreen(ViewPagerScreen)
             } else {
                 setMainFabPosition()
-                supportFragmentManager.popBackStack()
-                viewPagerFragment = null
+                presenter.backPreviousScreen()
             }
         }
     }
 
-    private fun setMainFabPosition(icon: Int = R.drawable.ic_star) {
-        setFABPosition(
-            true,
+    private fun setMainFabPosition() {
+        setFAB(
             ContextCompat.getDrawable(this, R.drawable.ic_search),
-            BottomAppBar.FAB_ALIGNMENT_MODE_CENTER, icon, R.menu.menu_bottom_bar
+            BottomAppBar.FAB_ALIGNMENT_MODE_CENTER,
+            R.drawable.ic_star,
+            R.menu.menu_bottom_bar
         )
+        isMain = true
     }
 
     private fun setNotMainFabPosition() {
-        setFABPosition(
-            false, null,
-            BottomAppBar.FAB_ALIGNMENT_MODE_END, R.drawable.ic_back_fab,
+        setFAB(
+            null,
+            BottomAppBar.FAB_ALIGNMENT_MODE_END,
+            R.drawable.ic_back_fab,
             R.menu.menu_bottom_bar_other_screen
         )
+        isMain = false
     }
 
-    private fun setFABPosition(
-        isMainScreen: Boolean,
-        navIcon: Drawable?,
-        position: Int,
-        fabImage: Int,
-        menu: Int
-    ) {
-        isMain = isMainScreen
-        binding.bottomAppBar.apply {
+    private fun setFAB(navIcon: Drawable?, position: Int, fabImage: Int, menu: Int) {
+        binding?.bottomAppBar?.apply {
             navigationIcon = navIcon
             fabAlignmentMode = position
             replaceMenu(menu)
         }
-        binding.fab.setImageDrawable(ContextCompat.getDrawable(this, fabImage))
-        binding.bottomAppBar.setNavigationOnClickListener {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.container, FindSatellitePhotoFragment.newInstance())
-                .commitNow()
-        }
+        binding?.fab?.setImageDrawable(ContextCompat.getDrawable(this, fabImage))
+    }
+
+    override fun onResumeFragments() {
+        super.onResumeFragments()
+        navigatorHolder.setNavigator(navigator)
+    }
+
+    override fun onPause() {
+        navigatorHolder.removeNavigator()
+        super.onPause()
+    }
+
+    override fun onDestroy() {
+        binding = null
+        super.onDestroy()
     }
 
     companion object {
-        private const val VIEW_PAGER_FRAGMENT = "VIEW_PAGER_FRAGMENT"
         private var isMain = true
     }
 }
