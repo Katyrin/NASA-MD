@@ -14,13 +14,13 @@ interface PicturesModule {
 
     @Binds
     @Singleton
-    fun pictureOfTheDayRepository(
+    fun bindPictureOfTheDayRepository(
         pictureOfTheDayRepositoryImpl: PictureOfTheDayRepositoryImpl
     ): PictureOfTheDayRepository
 
     @ContributesAndroidInjector
-    fun viewPagerFragment(): ViewPagerFragment
+    fun bindViewPagerFragment(): ViewPagerFragment
 
     @ContributesAndroidInjector
-    fun pictureOfTheDayFragment(): PictureOfTheDayFragment
+    fun bindPictureOfTheDayFragment(): PictureOfTheDayFragment
 }

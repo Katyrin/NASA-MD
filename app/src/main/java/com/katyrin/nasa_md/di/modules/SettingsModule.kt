@@ -15,12 +15,14 @@ interface SettingsModule {
 
     @Binds
     @Singleton
-    fun appSettingsManager(appSettingsManagerImpl: AppSettingsManagerImpl): AppSettingsManager
+    fun bindAppSettingsManager(appSettingsManagerImpl: AppSettingsManagerImpl): AppSettingsManager
 
     @Binds
     @Singleton
-    fun appSettingsRepository(appSettingsRepositoryImpl: AppSettingsRepositoryImpl): AppSettingsRepository
+    fun bindAppSettingsRepository(
+        appSettingsRepositoryImpl: AppSettingsRepositoryImpl
+    ): AppSettingsRepository
 
     @ContributesAndroidInjector
-    fun settingsFragment(): SettingsFragment
+    fun bindSettingsFragment(): SettingsFragment
 }

@@ -18,13 +18,13 @@ interface DataBaseModule {
 
         @Singleton
         @Provides
-        fun database(context: Context): FavoriteContentDataBase =
+        fun provideDatabase(context: Context): FavoriteContentDataBase =
             Room.databaseBuilder(context, FavoriteContentDataBase::class.java, DB_NAME).build()
     }
 
     @Binds
     @Singleton
-    fun memoryFavoriteDataSource(
+    fun bindMemoryFavoriteDataSource(
         memoryFavoriteDataSourceImpl: MemoryFavoriteDataSourceImpl
     ): MemoryFavoriteDataSource
 }

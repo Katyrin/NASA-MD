@@ -18,25 +18,25 @@ interface SatellitePhotoModule {
 
     @Binds
     @Singleton
-    fun findSatellitePhotoDataSource(
+    fun bindFindSatellitePhotoDataSource(
         findSatellitePhotoDataSourceImpl: FindSatellitePhotoDataSourceImpl
     ): FindSatellitePhotoDataSource
 
     @Binds
     @Singleton
-    fun findSatellitePhotoRepository(
+    fun bindFindSatellitePhotoRepository(
         findSatellitePhotoRepositoryImpl: FindSatellitePhotoRepositoryImpl
     ): FindSatellitePhotoRepository
 
     @Binds
     @Singleton
-    fun satellitePhotoRepository(
+    fun bindSatellitePhotoRepository(
         satellitePhotoRepositoryImpl: SatellitePhotoRepositoryImpl
     ): SatellitePhotoRepository
 
     @ContributesAndroidInjector
-    fun findSatellitePhotoFragment(): FindSatellitePhotoFragment
+    fun bindFindSatellitePhotoFragment(): FindSatellitePhotoFragment
 
     @ContributesAndroidInjector
-    fun satellitePhotoFragment(): SatellitePhotoFragment
+    fun bindSatellitePhotoFragment(): SatellitePhotoFragment
 }

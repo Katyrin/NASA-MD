@@ -16,11 +16,11 @@ interface FavoritesModule {
 
     @Binds
     @Singleton
-    fun favoritesRepository(favoritesRepositoryImpl: FavoritesRepositoryImpl): FavoritesRepository
+    fun bindFavoritesRepository(favoritesRepositoryImpl: FavoritesRepositoryImpl): FavoritesRepository
 
     @Binds
     @Singleton
-    fun favoriteContentRepository(
+    fun bindFavoriteContentRepository(
         favoriteContentRepositoryImpl: FavoriteContentRepositoryImpl
     ): FavoriteContentRepository
 

@@ -18,7 +18,7 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun apiPost(gson: Gson, client: OkHttpClient): NasaAPI = Retrofit.Builder()
+    fun provideApiPost(gson: Gson, client: OkHttpClient): NasaAPI = Retrofit.Builder()
         .baseUrl(BASE_URL)
         .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
         .addConverterFactory(GsonConverterFactory.create(gson))
@@ -27,11 +27,11 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun gson(): Gson = GsonBuilder().setLenient().create()
+    fun provideGson(): Gson = GsonBuilder().setLenient().create()
 
     @Provides
     @Singleton
-    fun clientPost(): OkHttpClient =
+    fun provideClient(): OkHttpClient =
         OkHttpClient.Builder().apply {
             addInterceptor(::apiKeyInterceptor)
             addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))

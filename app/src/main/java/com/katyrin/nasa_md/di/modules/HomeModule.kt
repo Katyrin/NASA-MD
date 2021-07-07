@@ -16,11 +16,11 @@ interface HomeModule {
 
     @Singleton
     @Binds
-    fun homeDataSource(homeDataSourceImpl: HomeDataSourceImpl): HomeDataSource
+    fun bindHomeDataSource(homeDataSourceImpl: HomeDataSourceImpl): HomeDataSource
 
     @Singleton
     @Binds
-    fun homeRepository(homeRepositoryImpl: HomeRepositoryImpl): HomeRepository
+    fun bindHomeRepository(homeRepositoryImpl: HomeRepositoryImpl): HomeRepository
 
     @ContributesAndroidInjector
     fun bindHomePresenter(): HomePresenter
