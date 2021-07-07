@@ -77,16 +77,16 @@ class HomeFragment : AbsFragment(R.layout.fragment_home), HomeView {
         }
     }
 
-    override fun setLoadingState() {
+    override fun showLoadingState() {
         binding?.progressBar?.isVisible = true
         binding?.imageView?.isVisible = false
     }
 
-    override fun showError(throwable: Throwable) {
-        toast(throwable.message)
+    override fun showError(message: String?) {
+        toast(message)
     }
 
-    override fun setNormalState() {
+    override fun showNormalState() {
         binding?.progressBar?.isVisible = false
         binding?.imageView?.isVisible = true
     }

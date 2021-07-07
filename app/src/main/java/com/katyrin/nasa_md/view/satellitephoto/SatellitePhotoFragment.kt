@@ -13,6 +13,7 @@ import com.katyrin.nasa_md.databinding.FragmentContentInfoBinding
 import com.katyrin.nasa_md.model.data.SatellitePhotoDTO
 import com.katyrin.nasa_md.presenter.satellitephoto.SatellitePhotoPresenter
 import com.katyrin.nasa_md.presenter.satellitephoto.SatellitePhotoView
+import com.katyrin.nasa_md.utils.toast
 import com.katyrin.nasa_md.view.abs.AbsFragment
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
@@ -49,6 +50,10 @@ class SatellitePhotoFragment : AbsFragment(R.layout.fragment_content_info), Sate
     override fun successDeleteState() {
         binding?.favoriteButton?.isVisible = true
         binding?.unFavoriteButton?.isVisible = false
+    }
+
+    override fun showError(message: String?) {
+        toast(message)
     }
 
     private fun initViews() {

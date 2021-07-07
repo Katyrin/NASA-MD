@@ -93,13 +93,13 @@ class PictureOfTheDayFragment : AbsFragment(R.layout.fragment_content_info),
         toast(message)
     }
 
-    override fun setLoadingState() {
+    override fun showLoadingState() {
         binding?.progressBar?.isVisible = true
         binding?.webView?.isVisible = false
         binding?.imageView?.isVisible = false
     }
 
-    override fun setNormalState() {
+    override fun showNormalState() {
         binding?.progressBar?.isVisible = false
     }
 

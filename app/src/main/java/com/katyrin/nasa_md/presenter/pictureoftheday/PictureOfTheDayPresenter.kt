@@ -26,7 +26,7 @@ class PictureOfTheDayPresenter @Inject constructor(
     }
 
     fun getData(date: String?) {
-        viewState.setLoadingState()
+        viewState.showLoadingState()
         disposable += pictureOfTheDayRepository
             .getPictureOfTheDay(date)
             .observeOn(schedulers.main())
@@ -35,7 +35,7 @@ class PictureOfTheDayPresenter @Inject constructor(
 
     private fun checkUrl(dayPictureDTO: DayPictureDTO) {
         this.dayPictureDTO = dayPictureDTO
-        viewState.setNormalState()
+        viewState.showNormalState()
         if (dayPictureDTO.url.isEmpty()) viewState.showError(EMPTY_LINK)
         else setSuccessState(dayPictureDTO.url)
     }
@@ -47,7 +47,7 @@ class PictureOfTheDayPresenter @Inject constructor(
     }
 
     private fun setErrorState(throwable: Throwable) {
-        viewState.setNormalState()
+        viewState.showNormalState()
         viewState.showError(throwable.message)
     }
 
@@ -58,7 +58,7 @@ class PictureOfTheDayPresenter @Inject constructor(
             .timeInterval(TimeUnit.MILLISECONDS)
             .skip(SKIP_ONE)
             .filter { interval -> interval.time() < FILTER_TIME }
-            .subscribe({ successImageClick() }, ::errorImageClick)
+            .subscribe({ successImageClick() }, ::error)
     }
 
     private fun successImageClick() {
@@ -67,7 +67,7 @@ class PictureOfTheDayPresenter @Inject constructor(
         else viewState.reduceImage()
     }
 
-    private fun errorImageClick(throwable: Throwable) {
+    private fun error(throwable: Throwable) {
         viewState.showError(throwable.message)
     }
 
@@ -76,7 +76,7 @@ class PictureOfTheDayPresenter @Inject constructor(
             disposable += pictureOfTheDayRepository
                 .putDayPictureDTO(it)
                 .observeOn(schedulers.main())
-                .subscribe(::successSave)
+                .subscribe(::successSave, ::error)
         }
     }
 
@@ -89,7 +89,7 @@ class PictureOfTheDayPresenter @Inject constructor(
             disposable += pictureOfTheDayRepository
                 .deleteDayPictureDTO(it)
                 .observeOn(schedulers.main())
-                .subscribe(::successDelete)
+                .subscribe(::successDelete, ::error)
         }
     }
 

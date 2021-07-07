@@ -30,18 +30,22 @@ class FavoriteContentPresenter @Inject constructor(
         disposable += favoriteContentRepository
             .putFavoriteContent(favoriteContentEntity)
             .observeOn(schedulers.main())
-            .subscribe(::successSave)
+            .subscribe(::successSave, ::error)
     }
 
     private fun successSave() {
         viewState.successSaveState()
     }
 
+    private fun error(throwable: Throwable) {
+        viewState.showError(throwable.message)
+    }
+
     fun deleteFavoriteContent(favoriteContentEntity: FavoriteContentEntity) {
         disposable += favoriteContentRepository
             .deleteFavoriteContent(favoriteContentEntity)
             .observeOn(schedulers.main())
-            .subscribe(::successDelete)
+            .subscribe(::successDelete, ::error)
     }
 
     private fun successDelete() {

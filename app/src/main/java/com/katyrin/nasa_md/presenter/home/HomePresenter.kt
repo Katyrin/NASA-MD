@@ -22,7 +22,7 @@ class HomePresenter @Inject constructor(
     }
 
     fun getData(date: String?) {
-        viewState.setLoadingState()
+        viewState.showLoadingState()
         disposable += homeRepository
             .getPictureOfTheDay(date)
             .observeOn(schedulers.main())
@@ -31,7 +31,7 @@ class HomePresenter @Inject constructor(
 
     private fun setSuccessState(dayPictureDTO: DayPictureDTO) {
         viewState.startAnimation()
-        viewState.setNormalState()
+        viewState.showNormalState()
         viewState.showImage(dayPictureDTO.url)
         val title: String = dayPictureDTO.title
         val message: String = dayPictureDTO.explanation
@@ -39,8 +39,8 @@ class HomePresenter @Inject constructor(
     }
 
     private fun setErrorState(throwable: Throwable) {
-        viewState.setNormalState()
-        viewState.showError(throwable)
+        viewState.showNormalState()
+        viewState.showError(throwable.message)
     }
 
     override fun onDestroy() {

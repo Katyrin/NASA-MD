@@ -39,7 +39,6 @@ class FavoritesAdapter(
         val newList = currentList.toMutableList()
         newList.removeAt(fromPosition)
             .apply { newList.add(toPosition, this) }
-        submitList(newList)
         delegate?.onSaveNewList(newList)
     }
 
@@ -47,7 +46,6 @@ class FavoritesAdapter(
         val newList = currentList.toMutableList()
         delegate?.onDeleteFavorite(currentList[position])
         newList.removeAt(position)
-        submitList(newList)
     }
 
     private companion object {

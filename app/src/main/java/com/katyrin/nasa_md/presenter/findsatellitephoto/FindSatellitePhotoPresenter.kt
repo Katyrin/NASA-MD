@@ -35,7 +35,7 @@ class FindSatellitePhotoPresenter @Inject constructor(
             .subscribeOn(schedulers.computation())
             .distinctUntilChanged()
             .observeOn(schedulers.main())
-            .subscribe(::successGetLatLong)
+            .subscribe(::successGetLatLong, ::setErrorState)
     }
 
     private fun successGetLatLong(latLongInput: Pair<Coordinate, String>) {
@@ -58,7 +58,7 @@ class FindSatellitePhotoPresenter @Inject constructor(
 
     fun getSatellitePhoto(lat: Float, long: Float) {
         if (latIsValid && longIsValid) {
-            viewState.showLoading()
+            viewState.showLoadingState()
             requestSatellitePhoto(lat, long)
         }
     }
@@ -77,7 +77,7 @@ class FindSatellitePhotoPresenter @Inject constructor(
 
     private fun setErrorState(throwable: Throwable) {
         viewState.showNormalState()
-        viewState.showRequestError(throwable.message)
+        viewState.showError(throwable.message)
     }
 
     fun navigateToScreen(screen: FragmentScreen) {

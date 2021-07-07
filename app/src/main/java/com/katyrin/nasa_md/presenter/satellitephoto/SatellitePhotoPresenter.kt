@@ -24,18 +24,22 @@ class SatellitePhotoPresenter @Inject constructor(
         disposable += satellitePhotoRepository
             .putSatellitePhotoDTO(satellitePhotoDTO)
             .observeOn(schedulers.main())
-            .subscribe(::successSave)
+            .subscribe(::successSave, ::error)
     }
 
     private fun successSave() {
         viewState.successSaveState()
     }
 
+    private fun error(throwable: Throwable) {
+        viewState.showError(throwable.message)
+    }
+
     fun deleteSatellitePhoto(satellitePhotoDTO: SatellitePhotoDTO) {
         disposable += satellitePhotoRepository
             .deleteSatellitePhotoDTO(satellitePhotoDTO)
             .observeOn(schedulers.main())
-            .subscribe(::successDelete)
+            .subscribe(::successDelete, ::error)
     }
 
     private fun successDelete() {

@@ -14,6 +14,7 @@ import com.katyrin.nasa_md.model.data.FavoriteContentEntity
 import com.katyrin.nasa_md.presenter.favoritecontent.FavoriteContentPresenter
 import com.katyrin.nasa_md.presenter.favoritecontent.FavoriteContentView
 import com.katyrin.nasa_md.utils.setImageFromUri
+import com.katyrin.nasa_md.utils.toast
 import com.katyrin.nasa_md.view.abs.AbsFragment
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
@@ -74,6 +75,10 @@ class FavoriteContentFragment : AbsFragment(R.layout.fragment_content_info), Fav
                 loadUrl(url)
             }
         }
+    }
+
+    override fun showError(message: String?) {
+        toast(message)
     }
 
     private fun initViews() {

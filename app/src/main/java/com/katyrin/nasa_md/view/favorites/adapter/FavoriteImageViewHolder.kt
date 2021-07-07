@@ -19,10 +19,7 @@ class FavoriteImageViewHolder(
             dragHandleImageView.startDrag { delegate?.onStartDrag(this@FavoriteImageViewHolder) }
             root.click { delegate?.onFavoritePicked(dataItem) }
             itemView.setBackgroundColor(
-                ContextCompat.getColor(
-                    viewBinding.root.context,
-                    R.color.background_card_view_color
-                )
+                ContextCompat.getColor(viewBinding.root.context, R.color.background_card_view_color)
             )
         }
 

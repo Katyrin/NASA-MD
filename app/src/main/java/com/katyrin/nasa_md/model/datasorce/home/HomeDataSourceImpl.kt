@@ -11,11 +11,11 @@ class HomeDataSourceImpl @Inject constructor(
     private val schedulers: Schedulers
 ) : HomeDataSource {
     override fun getPictureOfTheDay(date: String?): Single<DayPictureDTO> =
-        if (date.isNullOrEmpty()) {
-            nasaAPI.getPictureOfTheDay()
-                .subscribeOn(schedulers.io())
-        } else {
-            nasaAPI.getPictureOfTheDayByDate(date)
-                .subscribeOn(schedulers.io())
-        }
+        Single
+            .defer { getCorrectPOTD(date) }
+            .subscribeOn(schedulers.io())
+
+    private fun getCorrectPOTD(date: String?): Single<DayPictureDTO> =
+        if (date.isNullOrEmpty()) nasaAPI.getPictureOfTheDay()
+        else nasaAPI.getPictureOfTheDayByDate(date)
 }

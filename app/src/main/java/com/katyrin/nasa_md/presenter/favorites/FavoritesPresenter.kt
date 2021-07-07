@@ -21,46 +21,42 @@ class FavoritesPresenter @Inject constructor(
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
         viewState.init()
+        viewState.showLoadingState()
         getFavorites()
     }
 
     private fun getFavorites() {
-        viewState.setLoadingState()
         disposable += favoritesRepository
             .getFavorites()
             .observeOn(schedulers.main())
-            .subscribe(::successGetFavorites, ::errorGetFavorites)
+            .subscribe(::successGetFavorites, ::setErrorState)
     }
 
     private fun successGetFavorites(listFavorites: List<FavoriteContentEntity>) {
-        viewState.setNormalState()
+        viewState.showNormalState()
         if (listFavorites.isEmpty())
             viewState.showEmptyList()
         else
             viewState.showFavoritesList(listFavorites)
     }
 
-    private fun errorGetFavorites(throwable: Throwable) {
-        viewState.setNormalState()
-        viewState.showErrorMessage(throwable.message)
+    private fun setErrorState(throwable: Throwable) {
+        viewState.showNormalState()
+        viewState.showError(throwable.message)
     }
 
     fun deleteFavorite(favoriteContentEntity: FavoriteContentEntity) {
         disposable += favoritesRepository
             .deleteFavoriteContent(favoriteContentEntity)
             .observeOn(schedulers.main())
-            .subscribe(::successUpdateList, ::errorGetFavorites)
-    }
-
-    private fun successUpdateList() {
-
+            .subscribe(::getFavorites, ::setErrorState)
     }
 
     fun onSaveNewList(newList: List<FavoriteContentEntity>) {
         disposable += favoritesRepository
             .putFavorites(newList)
             .observeOn(schedulers.main())
-            .subscribe(::successUpdateList, ::errorGetFavorites)
+            .subscribe(::getFavorites, ::setErrorState)
     }
 
     fun navigateToScreen(screen: FragmentScreen) {

@@ -58,7 +58,7 @@ class FindSatellitePhotoFragment : AbsFragment(R.layout.fragment_find_satellite_
         binding?.searchButton?.isEnabled = true
     }
 
-    override fun showLoading() {
+    override fun showLoadingState() {
         binding?.progressBar?.isVisible = true
         binding?.latitudeLayout?.isVisible = false
         binding?.longitudeLayout?.isVisible = false
@@ -72,7 +72,7 @@ class FindSatellitePhotoFragment : AbsFragment(R.layout.fragment_find_satellite_
         binding?.searchButton?.isVisible = true
     }
 
-    override fun showRequestError(message: String?) {
+    override fun showError(message: String?) {
         toast(message)
     }
 

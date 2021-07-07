@@ -41,19 +41,20 @@ class FavoritesFragment : AbsFragment(R.layout.fragment_favorites), FavoritesVie
         .also { binding = it }.root
 
     override fun init() {
-        val adapter = FavoritesAdapter(this)
-        binding?.favoritesRecyclerView?.adapter = adapter
-        itemTouchHelper = ItemTouchHelper(ItemTouchHelperCallback(adapter))
-        itemTouchHelper?.attachToRecyclerView(binding?.favoritesRecyclerView)
+        FavoritesAdapter(this).also { adapter ->
+            binding?.favoritesRecyclerView?.adapter = adapter
+            itemTouchHelper = ItemTouchHelper(ItemTouchHelperCallback(adapter))
+            itemTouchHelper?.attachToRecyclerView(binding?.favoritesRecyclerView)
+        }
     }
 
-    override fun setLoadingState() {
+    override fun showLoadingState() {
         binding?.favoritesRecyclerView?.isVisible = false
         binding?.emptyText?.isVisible = false
         binding?.progressBar?.isVisible = true
     }
 
-    override fun setNormalState() {
+    override fun showNormalState() {
         binding?.favoritesRecyclerView?.isVisible = true
         binding?.emptyText?.isVisible = true
         binding?.progressBar?.isVisible = false
@@ -70,7 +71,7 @@ class FavoritesFragment : AbsFragment(R.layout.fragment_favorites), FavoritesVie
         (binding?.favoritesRecyclerView?.adapter as FavoritesAdapter).submitList(listFavorites)
     }
 
-    override fun showErrorMessage(message: String?) {
+    override fun showError(message: String?) {
         toast(message)
     }
 
@@ -92,6 +93,7 @@ class FavoritesFragment : AbsFragment(R.layout.fragment_favorites), FavoritesVie
 
     override fun onDetach() {
         binding = null
+        itemTouchHelper = null
         super.onDetach()
     }
 
