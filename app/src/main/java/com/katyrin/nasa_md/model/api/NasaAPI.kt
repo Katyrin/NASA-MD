@@ -1,6 +1,5 @@
 package com.katyrin.nasa_md.model.api
 
-import com.katyrin.nasa_md.BuildConfig
 import com.katyrin.nasa_md.model.data.DayPictureDTO
 import com.katyrin.nasa_md.model.data.SatellitePhotoDTO
 import io.reactivex.rxjava3.core.Single
@@ -9,23 +8,31 @@ import retrofit2.http.Query
 
 interface NasaAPI {
 
-    @GET("planetary/apod")
-    fun getPictureOfTheDay(
-        @Query("api_key") apiKey: String = BuildConfig.NASA_API_KEY
-    ): Single<DayPictureDTO>
+    @GET(APOD)
+    fun getPictureOfTheDay(): Single<DayPictureDTO>
 
-    @GET("planetary/apod")
+    @GET(APOD)
     fun getPictureOfTheDayByDate(
-        @Query("date") date: String,
-        @Query("api_key") apiKey: String = BuildConfig.NASA_API_KEY,
-        @Query("thumbs") thumbs: String = "true"
+        @Query(DATE) date: String,
+        @Query(THUMBS) thumbs: String = TRUE
     ): Single<DayPictureDTO>
 
-    @GET("planetary/earth/assets")
+    @GET(SATELLITE_PHOTO)
     fun getSatellitePhotoByLatLong(
-        @Query("lat") lat: Float,
-        @Query("lon") long: Float,
-        @Query("dim") dim: Float = 0.15f,
-        @Query("api_key") apiKey: String = BuildConfig.NASA_API_KEY
+        @Query(LAT) lat: Float,
+        @Query(LON) long: Float,
+        @Query(DIM) dim: Float = DIM_VALUE
     ): Single<SatellitePhotoDTO>
+
+    private companion object {
+        const val APOD = "planetary/apod"
+        const val SATELLITE_PHOTO = "planetary/earth/assets"
+        const val DATE = "date"
+        const val THUMBS = "thumbs"
+        const val TRUE = "true"
+        const val LAT = "lat"
+        const val LON = "lon"
+        const val DIM = "dim"
+        const val DIM_VALUE = 0.15f
+    }
 }

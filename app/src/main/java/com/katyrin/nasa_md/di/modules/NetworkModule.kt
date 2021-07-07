@@ -2,10 +2,11 @@ package com.katyrin.nasa_md.di.modules
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.katyrin.nasa_md.BuildConfig
 import com.katyrin.nasa_md.model.api.NasaAPI
 import dagger.Module
 import dagger.Provides
-import okhttp3.OkHttpClient
+import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
@@ -14,10 +15,6 @@ import javax.inject.Singleton
 
 @Module
 class NetworkModule {
-
-    private companion object {
-        const val BASE_URL = "https://api.nasa.gov/"
-    }
 
     @Provides
     @Singleton
@@ -36,6 +33,26 @@ class NetworkModule {
     @Singleton
     fun clientPost(): OkHttpClient =
         OkHttpClient.Builder().apply {
+            addInterceptor(::apiKeyInterceptor)
             addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
         }.build()
+
+    private fun apiKeyInterceptor(chain: Interceptor.Chain): Response = chain.run {
+        proceed(
+            request()
+                .newBuilder()
+                .url(
+                    request().url
+                        .newBuilder()
+                        .addQueryParameter(API_KEY, BuildConfig.NASA_API_KEY)
+                        .build()
+                )
+                .build()
+        )
+    }
+
+    private companion object {
+        const val BASE_URL = "https://api.nasa.gov/"
+        const val API_KEY = "api_key"
+    }
 }
