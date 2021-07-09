@@ -8,31 +8,24 @@ import retrofit2.http.Query
 
 interface NasaAPI {
 
-    @GET(APOD)
+    @GET("planetary/apod")
     fun getPictureOfTheDay(): Single<DayPictureDTO>
 
-    @GET(APOD)
+    @GET("planetary/apod")
     fun getPictureOfTheDayByDate(
-        @Query(DATE) date: String,
-        @Query(THUMBS) thumbs: String = TRUE
+        @Query("date") date: String,
+        @Query("thumbs") thumbs: String = TRUE
     ): Single<DayPictureDTO>
 
-    @GET(SATELLITE_PHOTO)
+    @GET("planetary/earth/assets")
     fun getSatellitePhotoByLatLong(
-        @Query(LAT) lat: Float,
-        @Query(LON) long: Float,
-        @Query(DIM) dim: Float = DIM_VALUE
+        @Query("lat") lat: Float,
+        @Query("lon") long: Float,
+        @Query("dim") dim: Float = DIM_VALUE
     ): Single<SatellitePhotoDTO>
 
     private companion object {
-        const val APOD = "planetary/apod"
-        const val SATELLITE_PHOTO = "planetary/earth/assets"
-        const val DATE = "date"
-        const val THUMBS = "thumbs"
         const val TRUE = "true"
-        const val LAT = "lat"
-        const val LON = "lon"
-        const val DIM = "dim"
         const val DIM_VALUE = 0.15f
     }
 }

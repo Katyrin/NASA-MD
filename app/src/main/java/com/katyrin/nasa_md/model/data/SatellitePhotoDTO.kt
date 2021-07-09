@@ -8,7 +8,7 @@ import kotlinx.parcelize.Parcelize
 data class SatellitePhotoDTO(
     val date: String = "",
     val id: String = "",
-    @field:SerializedName("service_version")
+    @SerializedName("service_version")
     val serviceVersion: String = "",
     val url: String = ""
 ) : Parcelable
