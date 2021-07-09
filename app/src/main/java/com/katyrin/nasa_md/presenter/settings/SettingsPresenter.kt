@@ -18,24 +18,42 @@ class SettingsPresenter @Inject constructor(
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
-        viewState.selectChipByTheme(appSettingsRepository.getTheme())
+        getTheme()
         viewState.setChipsClickListener()
     }
 
-    fun subscribeSetTheme(setTheme: Observable<Theme>) {
-        disposable +=
-            setTheme
-                .distinctUntilChanged()
-                .observeOn(schedulers.main())
-                .subscribe(::successSetTheme, ::errorSetTheme)
+    private fun getTheme() {
+        disposable += appSettingsRepository
+            .getTheme()
+            .observeOn(schedulers.main())
+            .subscribe(::setTheme, ::error)
     }
 
-    private fun successSetTheme(theme: Theme) {
-        appSettingsRepository.saveTheme(theme)
+    private fun setTheme(themeId: Int) {
+        viewState.selectChipByTheme(themeId)
+    }
+
+    fun subscribeSetTheme(setTheme: Observable<Theme>) {
+        disposable += setTheme
+            .distinctUntilChanged()
+            .flatMap(::saveTheme)
+            .observeOn(schedulers.main())
+            .subscribe(
+                { successSetTheme() },
+                ::error
+            )
+    }
+
+    private fun saveTheme(theme: Theme): Observable<Unit> =
+        appSettingsRepository
+            .saveTheme(theme)
+            .andThen(Observable.just(Unit))
+
+    private fun successSetTheme() {
         viewState.recreateActivity()
     }
 
-    private fun errorSetTheme(throwable: Throwable) {
+    private fun error(throwable: Throwable) {
         viewState.showError(throwable.message)
     }
 

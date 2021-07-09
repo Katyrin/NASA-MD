@@ -85,7 +85,7 @@ class FindSatellitePhotoPresenter @Inject constructor(
     }
 
     override fun onDestroy() {
-        disposable
+        disposable.dispose()
         super.onDestroy()
     }
 

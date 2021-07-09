@@ -55,9 +55,11 @@ fun ViewGroup.beginDelayedTransition() {
 }
 
 fun Fragment.toast(string: String?) {
-    Toast.makeText(context, string, Toast.LENGTH_LONG).apply {
-        show()
-    }
+    Toast.makeText(context, string, Toast.LENGTH_LONG).apply { show() }
+}
+
+fun Activity.toast(string: String?) {
+    Toast.makeText(this, string, Toast.LENGTH_LONG).apply { show() }
 }
 
 fun Int.previousDay(): String {
