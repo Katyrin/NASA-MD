@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/design_default_color_on_primary"
+    android:background="?colorOnPrimary"
     android:clickable="true"
     android:focusable="true"
-    tools:context=".ui.main.fragments.SettingsFragment">
+    tools:context=".view.settings.SettingsFragment">
 
     <TextView
         android:id="@+id/settings_text_view"

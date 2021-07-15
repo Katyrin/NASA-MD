@@ -4,16 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.main.fragments.MainActivity">
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/dots_recycler_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center|top"
-        android:layout_marginTop="@dimen/double_padding_to_screen_edge"
-        android:elevation="2dp"
-        android:orientation="horizontal" />
+    android:background="?colorOnPrimary"
+    tools:context=".view.activities.MainActivity">
 
     <FrameLayout
         android:id="@+id/container"
@@ -39,4 +31,5 @@
         app:layout_anchor="@id/bottom_app_bar"
         app:srcCompat="@drawable/ic_plus_fab"
         app:tint="@color/white" />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

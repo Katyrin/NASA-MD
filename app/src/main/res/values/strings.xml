@@ -37,4 +37,14 @@
     <string name="search_note">Поиск</string>
     <string name="home">Home</string>
     <string name="the_list_is_empty">The list is empty</string>
+    <string name="enter_latitude">Enter latitude</string>
+    <string name="enter_longitude">Enter longitude</string>
+    <string name="find_satellite_photo">Find satellite photo</string>
+    <string name="invalid_latitude">Latitude must be >4 characters</string>
+    <string name="invalid_longitude">Longitude must be >4 characters</string>
+    <string name="close">Close</string>
+    <string name="favorite">Favorite</string>
+    <string name="un_favorite">Un favorite</string>
+    <string name="not_important">Not important</string>
+    <string name="info">Info</string>
 </resources>

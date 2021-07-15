@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="margin_top_search">96dp</dimen>
+    <dimen name="margin_max">32dp</dimen>
+    <dimen name="margin_bottom_search">64dp</dimen>
+
     <dimen name="double_padding_to_screen_edge">16dp</dimen>
     <dimen name="padding_to_screen_edge">8dp</dimen>
     <dimen name="distance_between_widgets">4dp</dimen>
@@ -33,4 +37,5 @@
     <dimen name="app_name_spacing">0.01</dimen>
     <dimen name="button_spacing">0.05</dimen>
     <dimen name="text_message_spacing">0.02</dimen>
+    <dimen name="indicator_height">48dp</dimen>
 </resources>
