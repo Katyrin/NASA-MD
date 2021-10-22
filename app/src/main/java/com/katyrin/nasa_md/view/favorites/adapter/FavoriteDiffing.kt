@@ -21,6 +21,4 @@ object FavoriteDiffing : DiffUtil.ItemCallback<FavoriteContentEntity>() {
 
     override fun getChangePayload(oldItem: FavoriteContentEntity, newItem: FavoriteContentEntity) =
         payload
-
 }
-
